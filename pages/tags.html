@@ -1,0 +1,10 @@
+---
+layout: page
+permalink: /tags/
+title: Tags
+---
+<div id="archives">
+  {% for tag in site.tags %}
+    <a class="post-tag" style="background-color: {{ tag.color }}" href="{{ tag.url }}">{{ tag.name }}</a>
+  {% endfor %}
+</div>

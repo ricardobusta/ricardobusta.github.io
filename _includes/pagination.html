@@ -1,0 +1,27 @@
+<ul class="pagination">
+    {% if paginator.previous_page %}
+    <li>
+      <a class="pg-other" href="{{ paginator.previous_page_path }}">&larr; prev</a>
+    </li>
+    {% endif %}
+  
+    {% for i in (1..paginator.total_pages) %}
+      {% if i == paginator.page %}
+        {% assign pgclass = "pg-current" %}
+      {% else %}
+        {% assign pgclass = "pg-other" %}
+      {% endif %}
+      {% if i == 1 %}
+        {% assign pgurl = url %}
+      {% else %}
+        {% assign pgurl = url | append: "/page" | append: i %}
+      {% endif %}
+      <li><a class="{{ pgclass }}" href="{{ pgurl }}">{{ i }}</a></li>
+    {% endfor %}
+  
+    {% if paginator.next_page %}
+    <li>
+      <a class="pg-other" href="{{ paginator.next_page_path }}">next &rarr;</a>
+    </li>
+    {% endif %}
+  </ul>

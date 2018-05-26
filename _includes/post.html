@@ -1,0 +1,38 @@
+{{ post.content }}
+
+<p class="post-meta" style="text-align: right; color: rgb(152,152,152);">
+    <time datetime="{{ post.date | date_to_xmlschema }}" itemprop="datePublished">
+        {{ post.date | date: "%d" }} de {% assign m = post.date | date: "%-m" %} {% case m %} {% when '1' %}Janeiro {% when '2' %}Fevereiro
+        {% when '3' %}Março {% when '4' %}Abril {% when '5' %}Maio {% when '6' %}Junho {% when '7' %}Julho {% when '8' %}Agosto
+        {% when '9' %}Setembro {% when '10' %}Outubro {% when '11' %}Novembro {% when '12' %}Dezembro {% endcase %} de {{
+        post.date | date: "%Y" }} {% if post.time %} , às {{ post.time }} {% endif %}
+    </time>{% if page.author %} •
+    <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">{{ post.author }}</span>
+    </span>{% endif %} •
+    <label for="our-popup-{{ forloop.index }}">
+        <i class="fa fa-share"></i> Link / Compartilhar</label>
+</p>
+<div>
+    Tags: {% for tag in post.tags %}
+    <span class="post-tag">{{ tag }}</span>
+    {% endfor %}
+</div>
+<!-- <div id="disqus_thread"></div>
+<script>
+    var disqus_config = function () {
+        this.page.title = "{{ post.title }}";
+        this.page.url = "busta.com.br";  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = "{{ post.date | append: post.url }}"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+
+    (function () { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = 'https://bustablog.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the
+    <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+</noscript> -->

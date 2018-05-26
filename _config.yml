@@ -1,0 +1,38 @@
+# Welcome to Jekyll!
+#
+# This config file is meant for settings that affect your whole blog, values
+# which you are expected to set up once and rarely need to edit after that.
+# For technical reasons, this file is *NOT* reloaded automatically when you use
+# 'jekyll serve'. If you change this file, please restart the server process.
+
+# Site settings
+title: Busta's Dev Blog
+description: Programação, Arte e Aleatoriedade # write a nice description for your blog
+baseurl: '' # the subpath of your site, e.g. /blog
+url: 'http://www.busta.com.br' # the base hostname & protocol for your site http://www.example.com
+img: 'http://www.busta.com.br/blog-images'
+# google_analytics: 'UA-XXXXXX-X'
+#twitter_username: 'ricardobusta'
+#timezone: America/Fortaleza
+
+# Build settings
+markdown: kramdown
+permalink: '/post/:year/:month/:day/:title/'
+excerpt_separator: <!--more-->
+gems: 
+    - jekyll-paginate
+    - jemoji
+paginate: 5
+
+collections:
+  tags:
+    name: Name
+    output: true
+defaults:
+- scope:
+    path: ''
+    type: tags
+  values:
+    permalink: "/tags/:name/"
+    color: "#f00"
+    layout: page
