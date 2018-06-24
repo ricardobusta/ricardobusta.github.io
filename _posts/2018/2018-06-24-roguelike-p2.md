@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Roguelike - Parte 2 - Pixel Perfection
-time: '15:45'
+time: '20:32'
 tags: [GameDev, Roguelike]
 ---
 
