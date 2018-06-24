@@ -136,6 +136,22 @@ Com a primeira técnica eu garanto um tamanho ao longo da maior dimensão da tel
 
 Com a segunda técnica, eu garanto uma área mínima de jogo na menor dimensão, e deixando o jogo livre para expandir o quanto for necessário na maior dimensão.
 
+<video width="640" height="480" controls>
+  <source src="{{ site.img }}/2018/rogue/p2/v01.mp4" type="video/mp4">
+Your browser does not support the video tag.
+</video>
+
+No video acima vemos a "rotação retrô" com a primeira técnica. Fica bem maneiro, né?
+
+<video width="640" height="480" controls>
+  <source src="{{ site.img }}/2018/rogue/p2/v02.mp4" type="video/mp4">
+Your browser does not support the video tag.
+</video>
+
+E aqui vemos a rotação esquisitona. Isso tá acontecendo porque os texels são compostos por vários pixels, e quando você rotaciona, cada pixel que compõe ele se move independentemente. :( 
+
+É importante notar que essa solução é ideal para o tipo de jogo que eu desejo projetar, considerando todas as decisões de design que eu devo ter citado no texto acima.
+
 # Conclusão
 
 Após testar tudo, eu percebi que minha implementação de pixel perfect acabou ficando melhor que a do Cardinal Quest 2, que eu estava usando como parâmetro de qualidade! XD
