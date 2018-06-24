@@ -33,6 +33,6 @@ Isso reacendeu minha vontade de criar meu próprio Roguelike. E como o Cardinal 
 
 De lá pra cá vim fazendo anotações na minha pasta de GDDs do Google Drive para não perder as ideias que iam surgindo de como esse jogo poderia ser. E agora, com a Unity 2017.4 tendo ~quase~ todas as features necessárias para o andamento desse projeto, resolvi dar continuidade.
 
-E como eu disse ~quase~, uma das features que me faltou foi a de Pixel perfectness. Isso eu vou explicar em mais detalhes no próximo post do blog [(Roguelike Parte 2)]()!
+E como eu disse ~quase~, uma das features que me faltou foi a de Pixel perfection. Isso eu vou explicar em mais detalhes no próximo post do blog [(Roguelike Parte 2)](http://busta.com.br/post/2018/06/24/roguelike-p1/)!
 
 PS: O Dev Blog do desenvolvedor do Cardinal Quest 2 é excelente também! Recomendo quem curtir acompanhar o andamento das coisas a dar uma olhada: <http://wootfu.com/category/cardinal-quest/>

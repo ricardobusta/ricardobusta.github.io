@@ -17,9 +17,10 @@ img: 'http://www.busta.com.br/blog-images'
 
 # Build settings
 markdown: kramdown
+highlighter: rouge
 permalink: '/post/:year/:month/:day/:title/'
 excerpt_separator: <!--more-->
-gems: 
+plugins: 
     - jekyll-paginate
     - jemoji
 paginate: 5

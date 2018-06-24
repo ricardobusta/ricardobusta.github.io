@@ -26,7 +26,7 @@ GEM
     execjs (2.7.0)
     faraday (0.15.2)
       multipart-post (>= 1.2, < 3)
-    ffi (1.9.23-x64-mingw32)
+    ffi (1.9.25-x64-mingw32)
     forwardable-extended (2.6.0)
     gemoji (3.0.0)
     github-pages (185)
@@ -143,8 +143,6 @@ GEM
     jekyll-sitemap (1.2.0)
       jekyll (~> 3.3)
     jekyll-swiss (0.4.0)
-    jekyll-tagging (1.1.0)
-      nuggets
     jekyll-theme-architect (0.1.1)
       jekyll (~> 3.5)
       jekyll-seo-tag (~> 2.0)
@@ -210,7 +208,6 @@ GEM
     multipart-post (2.0.0)
     nokogiri (1.8.2-x64-mingw32)
       mini_portile2 (~> 2.3.0)
-    nuggets (1.5.0)
     octokit (4.9.0)
       sawyer (~> 0.8.0, >= 0.5.3)
     pathutil (0.16.1)
@@ -249,7 +246,6 @@ DEPENDENCIES
   github-pages
   jekyll
   jekyll-paginate
-  jekyll-tagging
   jemoji
 
 BUNDLED WITH
