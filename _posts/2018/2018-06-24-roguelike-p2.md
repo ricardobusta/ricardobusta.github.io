@@ -164,3 +164,31 @@ Sei que é um corner case extremo que nunca vai acontecer, mas no CQ2 você perd
 
 Bom, é isso! Espero ter ajudado alguém que tenha passado pelo mesmo problema que eu.
 Se alguém tiver percebido algum equivoco ou tiver uma sugestão melhor de como contornar esse problema, pode entrar em contato comigo! :D 
+
+EDIT (21:54):
+
+Tive uma ideia pra resolver o problema de telas com tamanho impar (isso tava me incomodando no editor):
+
+```c#
+var rect = camera.pixelRect;
+
+rect.width = GetEvenPart(screenWidth);
+rect.height = GetEvenPart(screenHeight);
+
+camera.pixelRect = rect;
+
+var scale = Mathf.Floor(Mathf.Min(rect.width, rect.height) / Size);
+camera.orthographicSize = rect.height / (2.0f*scale);
+```
+
+```c#
+private static int GetEvenPart(int value) {
+  if (value % 2 == 0) {
+    return value;
+  }
+
+  return value - 1;
+}
+```
+
+O unico side effect é que vai ficar uma linha preta se a resolução for impar. \*shrug\*
