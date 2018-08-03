@@ -9,8 +9,8 @@
 title: Busta's Dev Blog
 description: Programação, Arte e Aleatoriedade # write a nice description for your blog
 baseurl: '' # the subpath of your site, e.g. /blog
-url: 'http://www.busta.com.br' # the base hostname & protocol for your site http://www.example.com
-img: 'http://www.busta.com.br/blog-images'
+url: 'https://busta.com.br' # the base hostname & protocol for your site http://www.example.com
+img: 'https://busta.com.br/blog-images'
 # google_analytics: 'UA-XXXXXX-X'
 #twitter_username: 'ricardobusta'
 #timezone: America/Fortaleza
