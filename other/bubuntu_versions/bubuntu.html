@@ -1,0 +1,209 @@
+<!-- Bubuntu Version Generator by Ricardo Bustamante! ricardobqueiroz@gmail.com -->
+
+<html>
+	<head>
+		<title>Bubuntu Versions</title>
+		<style>
+			#outerdiv{
+				width: 100%;
+				height: 100%;
+				vertical-align: center;
+				position: relative;
+			}
+			#centerdiv{
+				left: 10%;
+				right: 10%;
+				top: 10%;
+				bottom: 10%;
+				position: absolute;
+				text-align: center;
+			}
+			#version_name{
+				font-size: 30px;
+			}
+			#my_input{
+				width: 50%;
+			}
+			table {
+			    border-collapse: collapse;
+			    width: 50%;
+			}
+			table, td, th {
+			    border: 1px solid black;
+			    vertical-align: top;
+			}
+		</style>
+		<script>
+			alphabet = "ABCDEFGHIJLMNOPQRSTUVXZ";
+		
+			animalName = new Array();
+			animalName["A"] = ["fArara","fAnaconda","fAbelha","f&Aacute;guia","mAlce","fAnta","fAndorinha","mAnt&iacute;lope","fAranha","mAvestruz"];
+			animalName["B"] = ["mBabu&iacute;no","fBorboleta","mBulldog","fBarata","mBoi","fBaleia","mBis&atilde;o","mBurro"];
+			animalName["C"] = ["mCavalo","mCamelo","mCachorro","fCadela","mC&aacute;gado","mCalango","mCarrapato","mCaramujo","mCanguru","mCaracol","mCaranguejo","fCobra","mCoelho","mCoiote"];
+			animalName["D"] = ["mDromed&aacute;rio","fDoninha","mDiabo-da-tasm&acirc;nia","mDrag&atilde;o"];
+			animalName["E"] = ["fEquidina","f&Eacute;gua","mEsquilo","fEnguia","mElefante"];
+			animalName["F"] = ["fFoca","mFais&atilde;o"];
+			animalName["G"] = ["mGato","fGata","mGuepardo"];
+			animalName["H"] = ["mHipop&oacute;tamo","mHamster","fHiena"];
+			animalName["I"] = ["fIguana","mIaque"];
+			animalName["J"] = ["mJabuti","mJumento","mJaguar","mJavali"];
+			animalName["L"] = ["fLesma","fLebre","mLe&atilde;o","mLeopardo"];
+			animalName["M"] = ["mMacaco","fMinhoca","fMedusa"];
+			animalName["N"] = ["fNaja","mNarval"];
+			animalName["O"] = ["mOrnitorrinco","fOvelha","mOuri&ccedil;o","fOstra"];
+			animalName["P"] = ["mPapagaio","mPeru","fPerua","mPorco","fPorca","mPanda","fPata","mPato"];
+			animalName["Q"] = ["mQuati"];
+			animalName["R"] = ["mRato","fRaposa","mRinoceronte"];
+			animalName["S"] = ["mSapo","mSuricate","fSiriema"];
+			animalName["T"] = ["fTartaruga","mTigre","fTigresa","mTrit&atilde;o"];
+			animalName["U"] = ["mUrubu","mUrso","fUrsa"];
+			animalName["V"] = ["mVeado","fVaca","fV&iacute;bora"];
+			animalName["X"] = ["mXimango","mXex&eacute;u"];
+			animalName["Z"] = ["fZebra","mZang&atilde;o"];
+			
+			adjectiveName = new Array();
+			adjectiveName["m"] = new Array();
+			adjectiveName["f"] = new Array();
+
+			maleAdjectiveList = [
+				"Arruaceiro","Arrombado","Agitado","Arretado","Bab&atilde;o","Bolado","Babaca",
+				"Bei&ccedil;udo","Burro","Best&atilde;o","Bobalh&atilde;o","Cagado","Coitado",
+				"Chapado","Coisado","Doid&atilde;o","Derrubado","Esdr&uacute;xulo","Exc&eacute;ntrico",
+				"Fardado","Ferrado","F%#@!&o","Fofoqueiro","Fuleiro","Fuleragi","Gaiato","Hipocondriaco",
+				"Ing&ecirc;nuo","Judiado","Lesado","Maluco","Manco","Noiado","Nojento","Ousado",
+				"Pirangueiro","Querido","Quengado","Queixudo","Ro&iacute;do","Raparigueiro","Seboso",
+				"Tarado","Tapado","Ut&oacute;pico","Ultrapassado","Valente","Viado","Virtuoso",
+				"X&ecirc;roso","Zaroio","Maroto","Xexelento","Zangado","Pan&ccedil;udo","Glamuroso",
+				"Paran&oacute;ico","Tetudo","Suado","Chupador","Avexado","Doidinho","Dorminhoco",
+				"Violento","Sarado","Hipertenso","Rasteiro","Raivoso","Galático","Joiado"
+			];
+			femaleAdjectiveList = [
+				"Arruaceira","Arrombada","Agitada","Arretada","Aloca","Babona","Bolada","Babaca",
+				"Bei&ccedil;uda","Burra","Bestona","Bobalhona","Baranga","Cagada","Coitada",
+				"Chapada","Coisada","Doidona","Derrubada","Esdr&uacute;xula","Exc&eacute;ntrica",
+				"Fardada","Ferrada","F%#@!&a","Fofoqueira","Fuleira","Gaiata","Hipocondriaca",
+				"Ing&ecirc;nua","Judiada","Lesada","Maluca","Manca","Noiada","Nojenta","Ousada",
+				"Pirangueira","Querida","Quengada","Queixuda","Ro&iacute;da","Raparigueira",
+				"Sebosa","Tarada","Tapada","Ut&oacute;pica","Ultrapassada","Valente","Viada",
+				"Virtuosa","X&ecirc;rosa","Zaroia","Mimosa","Marota","Xexelenta","Zangada","Pan&ccedil;uda",
+				"Glamurosa","Suada","Paran&oacute;ica","Avexada","Doidinha","Dorminhoca","Violenta",
+				"Sarada","Hipertensa","Rasteira","Raivosa","Galática","Joiada"
+			];
+			unisexAdjectiveList = [
+				"Anormal","Fuleragi","Espilicute","Excepcional","Dormente","Capenga","Paia","Patife",
+				"Xeidicoisa","Vol&aacute;til","Paranormal","Tribuf&uacute;","Boboca","Viril"
+			];
+			
+			function genRandom(min,max){
+				return Math.floor((Math.random() * max) + min);
+			}
+			
+			function capitalize(text){
+				return text.charAt(0).toUpperCase() + text.slice(1).toLowerCase(); 
+			}
+
+			function initEverything(){
+				fillAdjectives();
+				setDBCount();
+				generateName();
+			}
+
+			function fillAdjectives(){
+				for(i=0;i<alphabet.length;i++){
+					adjectiveName["m"][alphabet.charAt(i)] = new Array();
+					adjectiveName["f"][alphabet.charAt(i)] = new Array();
+				}
+				for(i=0;i<maleAdjectiveList.length;i++){
+					adjectiveName["m"][maleAdjectiveList[i].charAt(0)].push(maleAdjectiveList[i]);
+				}
+				for(i=0;i<femaleAdjectiveList.length;i++){
+					adjectiveName["f"][femaleAdjectiveList[i].charAt(0)].push(femaleAdjectiveList[i]);
+				}
+				for(i=0;i<unisexAdjectiveList.length;i++){
+					adjectiveName["m"][unisexAdjectiveList[i].charAt(0)].push(unisexAdjectiveList[i]);
+					adjectiveName["f"][unisexAdjectiveList[i].charAt(0)].push(unisexAdjectiveList[i]);
+				}
+			}
+
+			function setDBCount(){
+				animal_count = 0;
+				for(i=0;i<alphabet.length;i++){
+					sel_char = alphabet.charAt(i);
+					animal_list = animalName[sel_char];
+					animal_count += animal_list.length;				
+				}
+				document.getElementById("animal_num").innerHTML=animal_count.toString();
+				document.getElementById("male_num").innerHTML=maleAdjectiveList.length.toString();
+				document.getElementById("female_num").innerHTML=femaleAdjectiveList.length.toString();
+				document.getElementById("unisex_num").innerHTML=unisexAdjectiveList.length.toString();
+			}
+
+			function generateName(){
+				// Select Character
+				selected_char = alphabet.charAt(genRandom(0,alphabet.length));
+				// Select Animal
+				selected_animal = animalName[selected_char][genRandom(0,animalName[selected_char].length)];
+				// Get Animal Sex
+				animal_sex = selected_animal.charAt(0);
+				selected_animal = selected_animal.slice(1);
+				// Get Animal+Sex Adjective
+				selected_adjective = adjectiveName[animal_sex][selected_char][genRandom(0,adjectiveName[animal_sex][selected_char].length)];
+				document.getElementById("version_name").innerHTML=selected_animal+" "+selected_adjective;
+			}
+			
+			names_visible = false;
+			function showNames(){
+				if(names_visible){
+					names_visible = false;
+					document.getElementById("show_content").innerHTML="";
+				}else{
+					names_visible = true;
+					text = "";
+					
+					text += "<table><tr><th>Letra</th><th>Animal</th><th>Masculino</th><th>Feminino</th></tr>"
+					
+					// Animal
+					for(i=0;i<alphabet.length;i++){
+						text += "<tr><td>"+alphabet.charAt(i)+"</td>";
+						text += "<td>";
+						animal_list = animalName[alphabet.charAt(i)];
+						for(j=0;j<animal_list.length;j++){
+							text += animal_list[j].slice(1)+" ("+animal_list[j].charAt(0)+")"+"</br>";
+						}
+						text += "</td>";
+						text += "<td>";
+						male_adj_list = adjectiveName["m"][alphabet.charAt(i)];
+						for(j=0;j<male_adj_list.length;j++){
+							text += male_adj_list[j]+"</br>";
+						}
+						text += "</td>";
+						text += "<td>";
+						fem_adj_list = adjectiveName["f"][alphabet.charAt(i)];
+						for(j=0;j<fem_adj_list.length;j++){
+							text += fem_adj_list[j]+"</br>";
+						}
+						text += "</td>";
+						text += "</tr>";
+					}
+					
+					text += "</table>"
+					
+					document.getElementById("show_content").innerHTML=text;
+				}
+			}
+		</script>
+	</head>
+	<body onload="initEverything()">
+		<div id="outerdiv">
+			<div id="centerdiv">
+				<img style="height=150px;" src="bubuntu.png" />
+				<p><span id="version_name">Nome</span></p>
+				<p><input type="button" value="Gerar Vers&atilde;o" id="my_input" onclick="generateName()"/></p>
+				<p>O "banco de dados" possui <span id="animal_num"></span> animais, <span id="male_num"></span> adjetivos masculinos, <span id="female_num"></span> adjetivos femininos e <span id="unisex_num"></span> adjetivos unissex.</p>
+				<p><img src="exclamation.png" />Colabore dando ideias para mais nomes clicando <a href="http://goo.gl/forms/he4Mc0qKJW">AQUI</a>!</p>
+				<p>Para listar todos, clique <a href="javascript:showNames()">AQUI</a>!</p>
+				<center id="show_content"></center>
+			</div>
+		</div>
+	</body>
+</html>
