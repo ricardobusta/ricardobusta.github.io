@@ -1,49 +1,52 @@
-<html>
-<header>
-    <title>busta games</title>
-</header>
+---
+layout: default
+---
 
-<body>
-    busta games
-    <hr>
-    Hermit Crib
-    Global Game Jam
-    Jan 2019
-    <hr>
-    Ro'Cat Science!
-    Ludum Dare
-    Apr 2018
-    <hr>
-    Transmission Arena
-    Global Game Jam
-    Jan 2018
-    <hr>
-    Fatty Bird in the Evil Aspargus Land
-    Ludum Dare Compo
-    Dec 2017
-    <hr>
-    Nightclub and Stuff
-    Ludum Dare
-    Jul 2017
-    <hr>
-    Le Petit Shooter
-    Ludum Dare
-    Apr 2017
-    <hr>
-    Lunar Tide
-    Global Game Jam
-    Jan 2017
-    <hr>
-    Vetor
-    InovAPPS 2015
-    Dec 2016
-    <hr>
-    Belzebabe
-    Global Game Jam
-    Jan 2016
-    <hr>
-    Light Switch
-    Ludum Dare
-    Dec 2014
-</body>
-</html>
+{% include pagination.html %}
+
+{% for post in paginator.posts %}
+
+<article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <div class="main-content" itemprop="articleBody">
+    <a name="blog{{ forloop.index }}"></a>
+    <header class="post-header">
+      <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">
+        <h1 class="post-title" itemprop="name headline">{{ post.title }}</h1>
+      </a>
+    </header>
+
+    {% include post.html context=post %}
+    <!--{{ post.excerpt }}
+      {% if post.excerpt != post.content %}
+        <a class="read-more" href="{{ site.baseurl }}{{ post.url }}">&#8618; Continuar Lendo...</a>
+      {% endif %}-->
+
+    
+    <span>
+      <input type="checkbox" id="our-popup-{{ forloop.index }}" class="smoosh" />
+      <!-- invisible; when checked, the popup opens -->
+      <label for="our-popup-{{ forloop.index }}" class="overlay"></label>
+
+      <!-- the popup starts here -->
+      <div class="overlay-dialogue">
+        <h3>Compartilhar "{{ post.title }}"</h3>
+        <!-- Target -->
+        <input id="foo{{ forloop.index }}" value="{{ site.url }}{{ post.url }}" type="url">
+        <!-- Trigger -->
+        <button class="share-btn" data-clipboard-target="#foo{{ forloop.index }}">COPIAR LINK</button>
+        <p style="text-align: center;">Compartilhe:
+          <a href="https://www.facebook.com/sharer/sharer.php?u={{ site.url }}{{ post.url }}" target="_blank">Facebook</a> •
+          <a href="https://twitter.com/share?url={{ site.url }}{{ post.url }}&amp;text={{ post.title }}" target="_blank">Twitter</a>
+          <p style="text-align: center;">
+            <label for="our-popup-{{ forloop.index }}">cancelar</label>
+          </p>
+      </div>
+    </span>
+  </div>
+</article>
+
+<div class="post-separator"></div>
+
+{% endfor %}
+
+{% include pagination.html %}
