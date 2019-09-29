@@ -1,7 +1,16 @@
 {
     "folders": [
         {
-            "path": "."
+            "path": ".",
+            "name": "Page"
+        },
+        {
+            "path": "_games",
+            "name": "Games"
+        },
+        {
+            "path": "_posts",
+            "name": "Blog Posts"
         }
     ],
     "settings": {
