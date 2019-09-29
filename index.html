@@ -3,8 +3,7 @@ layout: default
 title: Home
 ---
 
-<h1>Hello World!</h1>
-
-{% for item in site.data.games %}
-<p>{{ item.name }}</p>
+{% assign ordered_sections = site.sections | sort: "priority" %}
+{% for section in ordered_sections %}
+{% include section.html title=section.title content=section.content %}
 {% endfor %}
