@@ -4,3 +4,7 @@ title: Home
 ---
 
 <h1>Hello World!</h1>
+
+{% for item in site.data.games %}
+<p>{{ item.name }}</p>
+{% endfor %}
