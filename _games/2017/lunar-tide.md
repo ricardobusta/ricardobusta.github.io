@@ -1,7 +1,7 @@
 ---
-name: "Hermit Crib"
+title: "Lunar Tide"
 event: "Global Game Jam"
-date: "Jan 2019"
+date: "Jan 2017"
 img: ""
 ---
 Lorem ipsum

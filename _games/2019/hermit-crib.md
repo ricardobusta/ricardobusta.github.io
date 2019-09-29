@@ -1,7 +1,7 @@
 ---
-name: "Transmission Arena"
+title: "Hermit Crib"
 event: "Global Game Jam"
-date: "Jan 2018"
+date: "Jan 2019"
 img: ""
 ---
 Lorem ipsum

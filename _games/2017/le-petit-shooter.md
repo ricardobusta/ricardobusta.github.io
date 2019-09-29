@@ -1,7 +1,7 @@
 ---
-name: "Ro'Cat Science!"
+title: "Le Petit Shooter"
 event: "Ludum Dare"
-date: "Apr 2018"
+date: "2017-04-01"
 img: ""
 ---
 Lorem ipsum

@@ -1,5 +1,5 @@
 ---
-name: "Soon"
+title: "Soon"
 event: "Ludum Dare"
 date: "Oct 2019"
 img: ""

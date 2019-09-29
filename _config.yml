@@ -1,3 +1,17 @@
+# Site Settings
+title: Busta's Dev Blog
+url: https://busta.dev
+
+# Build Settings
+permalink: "/blog/:year/:month/:day/:title/"
+
 collections:
   games:
+    output: true
   sections:
+defaults:
+- scope:
+    path: ''
+    type: games
+  values:
+    permalink: "/:collection/:year/:name/"

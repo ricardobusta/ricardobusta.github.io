@@ -1,7 +1,7 @@
 ---
-name: "Le Petit Shooter"
+title: "Nightclub and Stuff"
 event: "Ludum Dare"
-date: "Apr 2017"
+date: "Jul 2017"
 img: ""
 ---
 Lorem ipsum

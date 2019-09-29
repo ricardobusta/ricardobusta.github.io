@@ -2,5 +2,6 @@
 title: Blog
 priority: 30
 ---
-
-Blog posts
+{% for post in site.posts %}
+{% include blogEntry.html title=post.title excerpt=post.excerpt %}
+{% endfor %}
