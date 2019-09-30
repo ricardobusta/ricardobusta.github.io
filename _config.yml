@@ -4,7 +4,9 @@ url: https://busta.dev
 
 # Build Settings
 permalink: "/blog/:year/:month/:day/:title/"
+highlighter: rouge
 
+# Collection Settings
 collections:
   games:
     output: true
@@ -15,3 +17,10 @@ defaults:
     type: games
   values:
     permalink: "/:collection/:year/:name/"
+
+# Plugin Settings
+plugins:
+  - jekyll-paginate
+  - jemoji
+
+paginate: 5
