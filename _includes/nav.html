@@ -1,7 +1,25 @@
 <nav>
-    <a href="#home">Home</a>
-    <a href="#about">About</a>
-    <a href="#games">Games</a>
-    <a href="#blog">Blog</a>
-    <a href="#contact">Contact</a>
+    <button href="home" class="nav-button home-button">Home</button>
+    {% assign ordered_sections = site.sections | sort: "priority" %}
+    {% for section in ordered_sections %}
+    <button href="{{ section.title | downcase}}" class="nav-button section-button">{{ section.title }}</button>
+    {% endfor %}
 </nav>
+<script type="text/javascript">
+    document.querySelectorAll('.home-button').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            document.querySelector('header').scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+    });
+    document.querySelectorAll('.section-button').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            document.querySelector('#'.concat(this.getAttribute('href'))).scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+    });
+</script>

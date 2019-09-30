@@ -2,8 +2,6 @@
 title: Games
 priority: 20
 ---
-This is my games section
-
 {% for game in site.games reversed %}
-{% include gameEntry.html title=game.title event=game.event %}
+{% include gameEntry.html title=game.title event=game.event date=game.date img=game.img %}
 {% endfor %}
