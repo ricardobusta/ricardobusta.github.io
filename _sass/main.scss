@@ -8,7 +8,7 @@ $title-height: 10rem;
 $nav-height: 3rem;
 
 body{
-    color: $dark-color;
+    color: black;
     background-color: $light-color;
 }
 
@@ -26,6 +26,8 @@ nav{
 header{
     text-align: center;
     vertical-align: middle;
+    background-color: $dark-color;
+    color: $light-color;
     line-height: $title-height;
     height: $title-height;
 }
@@ -35,14 +37,59 @@ footer{
     vertical-align: middle;
     line-height: $title-height;
     height: $title-height;
+    background-color: $dark-color;
+    color: $light-color;
+}
+
+section *{
+    margin: 0px;
+    padding: 0px;
+}
+
+section{
+    padding: 1rem;
+}
+
+.highlighted-box{
+    background-color: white;
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
+    padding: 0.5rem;
 }
 
 .game-entry{
     display: inline-block;
-    border: 1px black solid;
+    width: 15rem;
+    height: 10rem;
+    margin: 1rem;
 }
 
 .blog-entry{
     display: inline-block;
-    border: 1px black solid;
+    width: 15rem;
+    height: 10rem;
+    margin: 1rem;
+}
+
+.description{
+    text-overflow: ellipsis;
+}
+
+#about{
+    background-color: $light-color;
+}
+
+#blog{
+    background-color: #dddddd;
+}
+
+#contact{
+    background-color: blue;
+}
+
+#games{
+    background-color: white;
+}
+
+#lectures{
+    background-color: #dddddd;
 }
