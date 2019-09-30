@@ -11,13 +11,22 @@ sass:
 collections:
   games:
     output: true
+  lectures:
+    output: true
   sections:
+    output: false
 defaults:
 - scope:
     path: ''
     type: games
   values:
-    permalink: "/:collection/:year/:name/"
+    permalink: "/:collection/:name/"
+defaults:
+- scope:
+    path: ''
+    type: lectures
+  values:
+    permalink: "/:collection/:year/:month/:day/:name/"
 
 # Plugin Settings
 plugins:
