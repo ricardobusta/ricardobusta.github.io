@@ -4,7 +4,8 @@ url: https://busta.dev
 
 # Build Settings
 permalink: "/blog/:year/:month/:day/:title/"
-highlighter: rouge
+sass:
+  style: compressed
 
 # Collection Settings
 collections:
@@ -24,3 +25,4 @@ plugins:
   - jemoji
 
 paginate: 5
+highlighter: rouge
