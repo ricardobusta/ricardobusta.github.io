@@ -5,8 +5,8 @@
             "name": "Page"
         },
         {
-            "path": "_games",
-            "name": "Games"
+            "path": "_projects",
+            "name": "Projects"
         },
         {
             "path": "_posts",
