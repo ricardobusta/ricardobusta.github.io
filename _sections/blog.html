@@ -2,6 +2,8 @@
 title: Blog
 priority: 30
 ---
-{% for post in site.posts %}
-{% include blogEntry.html title=post.title excerpt=post.excerpt url=post.url %}
-{% endfor %}
+<div class="uk-child-width-1-2 uk-child-width-1-4@s uk-grid-match" uk-grid>
+    {% for post in site.posts %}
+    {% include blogEntry.html title=post.title excerpt=post.excerpt url=post.url %}
+    {% endfor %}
+</div>

@@ -1,9 +1,12 @@
 <a href="{{ include.url }}">
-    <img src="{{ include.img }}" class="project-entry project-image">
-    </img>
-    <div class="project-entry highlight-box">
-        <h3>{{ include.title }}</h3>
-        <p>{{ include.event }}</p>
-        <p>{{ include.date }}</p>
+    <div class="uk-child-width-1-2@s uk-light" uk-grid>
+        <div>
+            <div class="uk-background-cover uk-height-medium uk-panel uk-flex uk-flex-center uk-flex-middle"
+                style="background-image: url({{ include.img }}); background-color: black;">
+                <h3>{{ include.title }}</h3>
+                <p>{{ include.event }}</p>
+                <p>{{ include.date }}</p>
+            </div>
+        </div>
     </div>
 </a>

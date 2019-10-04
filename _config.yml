@@ -5,6 +5,7 @@ url: https://busta.dev
 # Build Settings
 permalink: "/blog/:year/:month/:day/:title/"
 sass:
+  sass_dir: "_sass"
   style: compressed
 
 # Collection Settings
