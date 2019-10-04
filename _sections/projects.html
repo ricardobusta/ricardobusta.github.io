@@ -1,0 +1,7 @@
+---
+title: Projects
+priority: 20
+---
+{% for project in site.projects reversed %}
+{% include projectEntry.html title=project.title event=project.event date=project.date img=project.img url=project.url%}
+{% endfor %}

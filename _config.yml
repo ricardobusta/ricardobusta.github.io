@@ -9,16 +9,14 @@ sass:
 
 # Collection Settings
 collections:
-  games:
-    output: true
-  lectures:
+  projects:
     output: true
   sections:
     output: false
 defaults:
 - scope:
     path: ''
-    type: games
+    type: projects
   values:
     permalink: "/:collection/:name/"
 defaults:

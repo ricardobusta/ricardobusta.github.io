@@ -23,9 +23,16 @@ nav{
     vertical-align: middle;
 }
 
+nav button{
+    background-color: transparent;
+    border: 0px;
+    color: white;
+}
+
 header{
     text-align: center;
     vertical-align: middle;
+    font-size: 3rem;
     background-color: $dark-color;
     color: $light-color;
     line-height: $title-height;
@@ -50,13 +57,27 @@ section{
     padding: 1rem;
 }
 
+.h-center{
+    align-content: center;
+    text-align: center;
+}
+
+.project-image{
+    box-sizing: border-box;
+    background-repeat: no-repeat;
+    -webkit-background-size: 100% 100%;
+    -moz-background-size: 100% 100%;
+    -o-background-size: 100% 100%;
+    background-size: 100% 100%;
+}
+
 .highlighted-box{
     background-color: white;
     box-shadow: 0 2px 4px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
     padding: 0.5rem;
 }
 
-.game-entry{
+.project-entry{
     display: inline-block;
     width: 15rem;
     height: 10rem;
@@ -74,6 +95,12 @@ section{
     text-overflow: ellipsis;
 }
 
+#profile-pic{
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+}
+
 #about{
     background-color: $light-color;
 }
@@ -86,7 +113,7 @@ section{
     background-color: blue;
 }
 
-#games{
+#projects{
     background-color: white;
 }
 
