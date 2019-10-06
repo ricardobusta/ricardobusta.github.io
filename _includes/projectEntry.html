@@ -1,14 +1,12 @@
-<div class="uk-card uk-height-medium uk-transition-toggle uk-cover-container" style="background-color: black">
-    <!--<div class="uk-background-cover uk-height-medium uk-panel uk-flex uk-flex-center uk-flex-middle"
-        style="background-image: url(assets/projects/{{ include.img }});"></div>-->
-    <div class="uk-background-cover uk-height-medium uk-panel uk-flex uk-flex-center uk-flex-middle uk-transition-scale-up uk-transition-opaque"
-    style="background-image: url(assets/projects/{{ include.img }});"></div>
-    <!--<img src="assets/projects/{{ include.img }}" class="uk-transition-scale-up uk-transition-opaque uk-position-cover"
-        alt="" uk-cover>-->
+<div class="uk-card uk-height-medium uk-transition-toggle uk-cover-container uk-background-cover"
+    style="background-color: black; background-image: url(assets/projects/{{ include.data.img | replace: '%', 'img' }});">
+    <div class="uk-background-cover uk-height-medium uk-panel uk-flex uk-flex-center uk-flex-middle uk-transition-scale-up"
+        style="background-image: url(assets/projects/{{ include.data.img | replace: '%', 'ss' }});"></div>
     <div class="uk-overlay uk-overlay-primary uk-position-bottom uk-transition-slide-bottom">
         <dl class="">
-            <dt>{{ include.title }}</dt>
-            <dd>{{ include.content }}</dd>
+            <dt>{{ include.data.title }}</dt>
+            <dd>{{ include.data.event }}</dd>
+            <dd>{{ include.data.date }}</dd>
         </dl>
     </div>
 </div>

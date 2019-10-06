@@ -4,14 +4,6 @@
             "path": ".",
             "name": "Page"
         },
-        {
-            "path": "_projects",
-            "name": "Projects"
-        },
-        {
-            "path": "_posts",
-            "name": "Blog Posts"
-        }
     ],
     "settings": {
         "files.eol": "\n",

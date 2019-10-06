@@ -2,6 +2,6 @@
 title: "Lunar Tide"
 event: "Global Game Jam"
 date: "Jan 2017"
-img: ""
+img: "lunar-tide-%.jpg"
 ---
 Lorem ipsum

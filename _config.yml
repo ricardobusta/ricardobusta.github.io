@@ -12,10 +12,8 @@ sass:
 collections:
   projects:
     output: true
-    sort_by: date
   sections:
     output: false
-    sort_by: priority
 defaults:
 - scope:
     path: ''

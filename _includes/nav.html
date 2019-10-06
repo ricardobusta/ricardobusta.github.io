@@ -1,36 +1,11 @@
 <div uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky">
     <nav class="uk-navbar-container" uk-navbar>
         <ul class="uk-navbar-nav uk-navbar-center">
-            <li class="uk-active"><a href="#">Home</a></li>
+            <li class="uk-active"><a href="#" uk-scroll>Home</a></li>
             {% assign ordered_sections = site.sections | sort: "priority" %}
             {% for section in ordered_sections %}
-            <li class="uk-active"><a href="#{{ section.title }}">{{ section.title }}</a></li>
+            <li class="uk-active"><a href="#{{ section.title }}" uk-scroll>{{ section.title }}</a></li>
             {% endfor %}
         </ul>
     </nav>
 </div>
-<!--<nav>
-    <button href="home" class="nav-button home-button">Home</button>
-    {% assign ordered_sections = site.sections | sort: "priority" %}
-    {% for section in ordered_sections %}
-    <button href="{{ section.title | downcase}}" class="nav-button section-button">{{ section.title }}</button>
-    {% endfor %}
-</nav>-->
-<script type="text/javascript">
-    document.querySelectorAll('.home-button').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            document.querySelector('header').scrollIntoView({
-                behavior: 'smooth'
-            });
-        });
-    });
-    document.querySelectorAll('.section-button').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            document.querySelector('#'.concat(this.getAttribute('href'))).scrollIntoView({
-                behavior: 'smooth'
-            });
-        });
-    });
-</script>

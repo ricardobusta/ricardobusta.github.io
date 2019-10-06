@@ -2,6 +2,6 @@
 title: "Belzebabe"
 event: "Global Game Jam"
 date: "Jan 2016"
-img: ""
+img: "belzebabe-%.png"
 ---
 Lorem ipsum
