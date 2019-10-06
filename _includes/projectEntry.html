@@ -1,8 +1,13 @@
 <a href="{{ include.url }}">
-    <div class="uk-background-cover uk-height-medium uk-panel uk-flex uk-flex-center uk-flex-middle"
+    <div class="uk-background-cover uk-height-medium uk-panel uk-transition-toggle"
         style="background-image: url({{ include.img }}); background-color: black;">
-        <h3>{{ include.title }}</h3>
-        <p>{{ include.event }}</p>
-        <p>{{ include.date }}</p>
+
+
+        <div class="uk-overlay uk-overlay-primary uk-position-bottom uk-transition-fade">
+            <h3>{{ include.title }}</h3>
+            <!--<p>{{ include.event }}</p>
+            <p>{{ include.date }}</p>-->
+        </div>
+
     </div>
 </a>
