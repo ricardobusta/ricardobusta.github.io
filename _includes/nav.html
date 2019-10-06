@@ -3,7 +3,7 @@
         <ul class="uk-navbar-nav uk-navbar-center">
             <li class="uk-active"><a href="#" uk-scroll>Home</a></li>
             {% assign ordered_sections = site.sections | sort: "priority" %}
-            {% for section in ordered_sections %}
+            {% for section in ordered_sections offset:1 %}
             <li class="uk-active"><a href="#{{ section.title }}" uk-scroll>{{ section.title }}</a></li>
             {% endfor %}
         </ul>

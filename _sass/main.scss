@@ -1,2 +1,15 @@
+// 1. Your custom variables and variable overwrites.
+$main-color: #0B486B;
+$global-primary-background: $main-color;
+$global-link-color: $main-color;
+$global-link-hover-color: $main-color;
+
+// 2. Import default variables and available mixins.
+@import "uikit/variables-theme.scss";
+@import "uikit/mixins-theme.scss";
+
+// 3. Your custom mixin overwrites.
+@mixin hook-card() { color: #000; }
+
 @import "uikit/uikit";
 @import "monokai";
