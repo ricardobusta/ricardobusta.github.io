@@ -1,8 +1,10 @@
-<div class="uk-inline-clip uk-height-medium uk-panel uk-transition-toggle" style="background-color: black">
-    <img src="{{ include.img }}" class="uk-transition-scale-up uk-transition-opaque uk-position-top-right" alt="">
+<div class="uk-card uk-height-medium uk-transition-toggle uk-cover-container" style="background-color: black">
+    <img src="assets/projects/{{ include.img }}" class="uk-transition-scale-up uk-transition-opaque uk-position-cover"
+        alt="" uk-cover>
     <div class="uk-overlay uk-overlay-primary uk-position-bottom uk-transition-slide-bottom">
-        <h3>{{ include.title }}</h3>
-        <!--<p>{{ include.event }}</p>
-            <p>{{ include.date }}</p>-->
+        <dl class="">
+            <dt>{{ include.title }}</dt>
+            <dd>{{ include.content }}</dd>
+        </dl>
     </div>
 </div>

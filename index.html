@@ -3,7 +3,6 @@ layout: default
 title: Home
 ---
 
-{% assign ordered_sections = site.sections | sort: "priority" %}
-{% for section in ordered_sections %}
+{% for section in site.sections %}
 {% include section.html title=section.title content=section.content %}
 {% endfor %}

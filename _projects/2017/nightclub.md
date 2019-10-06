@@ -2,6 +2,6 @@
 title: "Nightclub and Stuff"
 event: "Ludum Dare"
 date: "Jul 2017"
-img: ""
+img: "nightclub-and-stuff.png"
 ---
 Lorem ipsum
