@@ -1,9 +1,17 @@
-<div class="uk-animation-toggle" tabindex="0">
-    <div class="uk-card uk-card-default uk-card-body uk-animation-fade">
-        <a href="{{ include.url }}">
-            <h3>{{ include.title }}</h3>
-        </a>
-        <p>{{ include.date }}</p>
-        <p class="description">{{ include.excerpt }}</p>
+<div class="uk-card uk-card-default uk-width-1-2@m">
+    <div class="uk-card-header">
+        <div class="uk-grid-small uk-flex-middle" uk-grid>
+            <div class="uk-width-expand">
+                <h3 class="uk-card-title uk-margin-remove-bottom">{{ include.title }}</h3>
+                <p class="uk-text-meta uk-margin-remove-top"><time
+                        datetime="{{ include.date }}">{{ include.date }}</time></p>
+            </div>
+        </div>
+    </div>
+    <div class="uk-card-body">
+        <p>{{ include.excerpt }}</p>
+    </div>
+    <div class="uk-card-footer">
+        <a href="#" class="uk-button uk-button-text">Read more</a>
     </div>
 </div>
