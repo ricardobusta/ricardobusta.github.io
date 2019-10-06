@@ -2,6 +2,7 @@
 layout: default
 title: Home
 ---
+{% include nav.html %}
 {% assign ordered_sections = site.sections | sort: "priority" %}
 {% for section in ordered_sections %}
 {% include section.html title=section.title content=section.content %}

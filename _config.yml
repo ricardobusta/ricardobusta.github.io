@@ -26,6 +26,11 @@ defaults:
     type: lectures
   values:
     permalink: "/:collection/:year/:month/:day/:name/"
+- scope:
+    path: ''
+    type: posts
+  values:
+    layout: post
 
 # Plugin Settings
 plugins:

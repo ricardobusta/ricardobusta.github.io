@@ -12,12 +12,11 @@ layout: compress
         <link rel="stylesheet" href="/assets/css/style.css">
         <script src="/assets/js/uikit/uikit.min.js"></script>
         <script src="/assets/js/uikit/uikit-icons.min.js"></script>
-        <title>{{ page.title }}</title>
+        <title>{{ page.title }} - {{ site.title }}</title>
     </head>
 
     <body>
         {% include header.html %}
-        {% include nav.html %}
         {{ content }}
         {% include footer.html %}
     </body>

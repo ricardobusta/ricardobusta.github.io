@@ -1,35 +1,35 @@
 ---
-layout: post
 title: Trabalho de RV - Stand de Patos
 time: '04:09'
 tags: [Trabalho da faculdade, Blender, Game Dev, Irrlicht]
 ---
 
-Durante a cadeira de RV tivemos que desenvolver uma aplicação que utilizasse alguma característica de realidade virtual. Optamos usar o HMD (Head Mounted Display) que estava disponível no laboratório.
+During the Virtual Reality discipline, we had to develop an application that used some VR techniques. We opted to use the HMD (Head Mounted Display) that was lying around in the lab, a VR1280 from _Virtual Realities_.
 
-![]({{ site.img }}/2012/vr_hmd.jpg)
+![](/assets/blog/2012/vr/vr_hmd.jpg)
 
-_hmd do laboratório_
+<p class="uk-text-center">lab's hmd on Vanessa's face</p>
 
-Além disso, também testamos a enorme TV 3D. Foi complicado fazer a imagem estereoscópica para ela, pois a forma que o input era recebido era meio estranho... Precisava de um gradeado de pixeis (imagina tabuleiro de xadrez), onde os pixeis brancos eram da imagem do olho esquerdo, e os pixeis pretos a imagem do olho direito.
+We also tested a huge 3D television, one of the first ones. It was quite hard creating stereo images for it, as it's input came from a single source, and you had to create a checkerboard pattern using stencil buffer in order to send both images at the same time. Even pixels for one eye, odd pixels for the other one.
 
-Decidimos implementar uma simulação de stand de tiro, onde ficariam passando patinhos, e o usuário teria que atirar com uma espingarda de rolha para derrubá-los.
+For the application itself, we decided to create a duck shooting range, where the little ducks would be passing around while you shoot them with a cork rifle.
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/97flMaFMQFs?list=FLmA3YSOTE177Aq0poS0mqiQ" frameborder="0" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/97flMaFMQFs?list=FLmA3YSOTE177Aq0poS0mqiQ" frameborder="0" allowfullscreen class="uk-align-center"></iframe>
 
-A maior parte da programação foi feita pelo Cesar Costa, na engine Irrlicht. O planejamento e a modelagem 3D ficou por conta de mim e da Vanessa. Foi aí que eu tive que aprender a mexer no blender. E o making of foi assim:
+The majority of programming was done by Cecilia Costa, with Irrlicht engine, while Vanessa and I did the architecture planning, 3D modelling and texturing.
 
-![]({{ site.img }}/2012/vr_stand_0.jpg)
+![](/assets/blog/2012/vr/vr_stand_0.jpg)
 
-![]({{ site.img }}/2012/vr_stand_1.jpg)
+![](/assets/blog/2012/vr/vr_stand_1.jpg)
 
-![]({{ site.img }}/2012/vr_stand_2.jpg)
+![](/assets/blog/2012/vr/vr_stand_2.jpg)
 
-![]({{ site.img }}/2012/vr_stand_3.jpg)
+![](/assets/blog/2012/vr/vr_stand_3.jpg)
 
-![]({{ site.img }}/2012/vr_stand_4.jpg)
+![](/assets/blog/2012/vr/vr_stand_4.jpg)
 
-![]({{ site.img }}/2012/vr_stand_5.jpg)
+![](/assets/blog/2012/vr/vr_stand_5.jpg)
 
-Alguns segredos que aprendemos é que é muito ruim de mirar com a cabeça. E que espalhar easter eggs deixou o trabalho bem mais interessante (tipo atirar no rádio pra fazer a música parar e outras interações com o cenário).
+We learned about a lot of stuff. First, that Irrlicht is sort of hard for beginners. We also learned about outputting stereo images. And, that aiming with your head is a hard task.
 
+There are some few easter eggs on the game: Shooting at the ratio makes the music stop, and some objects are interactive.
