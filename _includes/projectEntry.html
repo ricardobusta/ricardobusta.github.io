@@ -1,13 +1,8 @@
-<a href="{{ include.url }}">
-    <div class="uk-background-cover uk-height-medium uk-panel uk-transition-toggle"
-        style="background-image: url({{ include.img }}); background-color: black;">
-
-
-        <div class="uk-overlay uk-overlay-primary uk-position-bottom uk-transition-fade">
-            <h3>{{ include.title }}</h3>
-            <!--<p>{{ include.event }}</p>
+<div class="uk-inline-clip uk-height-medium uk-panel uk-transition-toggle" style="background-color: black">
+    <img src="{{ include.img }}" class="uk-transition-scale-up uk-transition-opaque uk-position-top-right" alt="">
+    <div class="uk-overlay uk-overlay-primary uk-position-bottom uk-transition-slide-bottom">
+        <h3>{{ include.title }}</h3>
+        <!--<p>{{ include.event }}</p>
             <p>{{ include.date }}</p>-->
-        </div>
-
     </div>
-</a>
+</div>
