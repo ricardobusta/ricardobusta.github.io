@@ -5,6 +5,14 @@ layout: compress
 <html lang="en">
 
     <head>
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-146839159-1"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag() { dataLayer.push(arguments); }
+            gtag('js', new Date());
+
+            gtag('config', 'UA-146839159-1');
+        </script>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link href="/favicon.ico?" rel="icon" type="image/x-icon">
@@ -16,9 +24,9 @@ layout: compress
     </head>
 
     <body>
-        {% include header.html %}
+
         {{ content }}
-        {% include footer.html %}
+
     </body>
 
 </html>
