@@ -2,6 +2,7 @@
     <nav class="uk-navbar-container" uk-navbar>
         <ul class="uk-navbar-nav uk-navbar-center">
             <li class="uk-active"><a href="#">Home</a></li>
+            {% assign ordered_sections = site.sections | sort: "priority" %}
             {% for section in ordered_sections %}
             <li class="uk-active"><a href="#{{ section.title }}">{{ section.title }}</a></li>
             {% endfor %}
