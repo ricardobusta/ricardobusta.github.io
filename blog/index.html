@@ -9,5 +9,6 @@ title: Blog
         {% include blog-entry.html post=post %}
         {% endfor %}
     </div>
-    {% include pagination.html %}
+    <p class="uk-text-center">{% include pagination.html %}</p>
+    <a href="{{ site.url }}">Back</a>
 </div>
