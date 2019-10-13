@@ -1,5 +1,4 @@
 ---
-layout: post
 title: Roguelike - Parte 1 - The Beginning
 time: '15:45'
 tags: [GameDev, Roguelike]

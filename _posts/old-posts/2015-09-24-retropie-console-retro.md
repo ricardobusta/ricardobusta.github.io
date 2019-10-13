@@ -1,5 +1,4 @@
 ---
-layout: post
 title: Retropie - Transformando a Raspberry em um console retrô
 time: '20:07'
 tags: [DIY, Games, Hacker]

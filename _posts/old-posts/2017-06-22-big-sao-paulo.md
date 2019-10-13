@@ -1,5 +1,4 @@
 ---
-layout: post
 title: BIG 2017 São Paulo
 time: '02:54'
 tags: [Evento, Games, Game Dev, Viagem]

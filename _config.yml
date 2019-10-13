@@ -14,18 +14,19 @@ collections:
     output: false
   sections:
     output: false
+  posts:
+    output: true
 defaults:
 - scope:
-    path: ''
-    type: projects
+    path: ""
+    type: "projects"
   values:
     permalink: "/:collection/:name/"
-defaults:
 - scope:
-    path: ''
-    type: posts
+    path: ""
+    type: "posts"
   values:
-    layout: post
+    layout: "post"
 
 # Plugin Settings
 plugins:

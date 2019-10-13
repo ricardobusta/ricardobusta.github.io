@@ -1,5 +1,4 @@
 ---
-layout: post
 title: Pixel Booster - Release!
 time: '23:00'
 tags: [Pixel Booster, Soft Dev, Game Dev]

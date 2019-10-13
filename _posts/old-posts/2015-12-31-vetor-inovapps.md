@@ -1,5 +1,4 @@
 ---
-layout: post
 title: Vetor - Projeto INOVApps 2015
 time: '12:09'
 tags: [Game Dev, Unity3D, Concurso]

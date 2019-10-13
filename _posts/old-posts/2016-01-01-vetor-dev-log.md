@@ -1,5 +1,4 @@
 ---
-layout: post
 title: Vetor - Dev Log
 time: '15:08'
 tags: [Game Dev, Unity3D]

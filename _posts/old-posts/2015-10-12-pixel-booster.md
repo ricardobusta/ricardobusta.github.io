@@ -1,5 +1,4 @@
 ---
-layout: post
 title: Pixel Booster
 time: '02:20'
 tags: [Pixel Booster, Soft Dev, Game Dev]

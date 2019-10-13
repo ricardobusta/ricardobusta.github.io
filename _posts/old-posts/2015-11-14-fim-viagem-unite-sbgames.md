@@ -1,5 +1,4 @@
 ---
-layout: post
 title: Unite e SBGames 2015 - O Evento!
 time: '18:05'
 tags: [Evento, Viagem, Unity3D]

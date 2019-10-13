@@ -1,5 +1,4 @@
 ---
-layout: post
 title: Controles de Arcade de Madeira
 time: '21:40'
 tags: [DIY, Crafts, Games]

@@ -1,5 +1,4 @@
 ---
-layout: post
 title: DIY - Case de LEGO para Raspberry PI
 time: '10:47'
 tags: [DIY, Games, Crafts]

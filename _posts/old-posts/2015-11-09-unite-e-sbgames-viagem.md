@@ -1,5 +1,4 @@
 ---
-layout: post
 title: Unite e SBGames 2015 - A viagem!
 time: '02:01'
 tag: [Viagem]

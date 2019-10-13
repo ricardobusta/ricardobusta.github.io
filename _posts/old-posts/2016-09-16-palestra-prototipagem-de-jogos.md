@@ -1,5 +1,4 @@
 ---
-layout: post
 title: Palestra - Prototipagem de Jogos Eletrônicos
 time: '19:41'
 tags: [Palestra, Game Dev]

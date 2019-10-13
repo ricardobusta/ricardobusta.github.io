@@ -1,5 +1,4 @@
 ---
-layout: default
 ---
 
 Finally brought my blog back! :+1: :smile: And now it should be in english.
