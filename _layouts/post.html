@@ -1,12 +1,10 @@
 ---
-layout: default
+layout: common
 ---
 {% assign post = site.posts | where: 'title', page.title | first %}
-<div class="uk-container">
-    <div class="uk-card blog-post">
-        {{ post.title }}
-        {{ post.date }}
-        {{ content }}
-        <a onclick="window.history.back()">Back</a>
-    </div>
+<div class="uk-card blog-post">
+    {{ post.title }}
+    {{ post.date }}
+    {{ content }}
+    <a onclick="window.history.back()">Back</a>
 </div>
