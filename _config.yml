@@ -11,7 +11,7 @@ sass:
 # Collection Settings
 collections:
   projects:
-    output: true
+    output: false
   sections:
     output: false
 defaults:
@@ -23,11 +23,6 @@ defaults:
 defaults:
 - scope:
     path: ''
-    type: lectures
-  values:
-    permalink: "/:collection/:year/:month/:day/:name/"
-- scope:
-    path: ''
     type: posts
   values:
     layout: post
@@ -37,5 +32,6 @@ plugins:
   - jekyll-paginate
   - jemoji
 
-paginate: 5
+paginate: 6
+paginate_path: "/blog/page:num/"
 highlighter: rouge

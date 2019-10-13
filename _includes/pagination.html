@@ -1,0 +1,19 @@
+<ul class="uk-pagination uk-flex-center" uk-margin>
+    {% if paginator.previous_page %}
+    <li><a href="{{ paginator.previous_page_path }}"><span uk-pagination-previous></span></a></li>
+    {% endif %}
+
+    {% for page in (1..paginator.total_pages) %}
+    {% if page == paginator.page %}
+    <li class="uk-active">{{ page }}</li>
+    {% elsif page == 1 %}
+    <li><a href="{{ paginator.previous_page_path | relative_url }}">{{ page }}</a></li>
+    {% else %}
+    <li><a href="{{ site.paginate_path | relative_url | replace: ':num', page }}">{{ page }}</a></li>
+    {% endif %}
+    {% endfor %}
+
+    {% if paginator.next_page %}
+    <li><a href="{{ paginator.next_page_path | relative_url }}"><span uk-pagination-next></span></a></li>
+    {% endif %}
+</ul>
