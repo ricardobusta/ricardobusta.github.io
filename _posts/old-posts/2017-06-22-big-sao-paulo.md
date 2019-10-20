@@ -4,9 +4,9 @@ time: '02:54'
 tags: [Evento, Games, Game Dev, Viagem]
 ---
 
-Pessoal, estaremos amanhã (23/06) viajando para São Paulo SP para participar do BIG Festival, que acontecerá na semana que vem!
-Iremos ver os jogos independentes sendo expostos por lá, e tentaremos mostrar o nosso "Le Petit Shooter" também.
-Seria um favor enorme quem puder curtir as nossas redes sociais, e dar feedback sobre nosso site!
+We will be travelling tomorrow (23 june 2017) to São Paulo to participate into Big Festival, which will happen next week!
+There will be plenty of indie games being showcased there, and we will attempt to show our "Le Petit Shooter" to some people as well.
+It would be an enormous favour if you guys could like our social networks and give feedback!
 Links:
 
 Facebook: <https://www.facebook.com/yesdev.games/>
@@ -21,4 +21,4 @@ Youtube: <https://www.youtube.com/channel/UCWWHrVRbkTaTK-KPl2s0_AQ>
 
 Site: <http://yesdev.games>
 
-Precisamos de 100 inscritos no YouTube para poder criar uma URL personalizada para o nosso canal! Ajude-nos inscrevendo-se você também! Mandaremos trailers de nossos jogos e outras coisas interessantes!
+We need 100 subscribers on YouTube in order to create a custom URL for our channel! Help us by subscribing too. We will send trailers and other interesting updates.

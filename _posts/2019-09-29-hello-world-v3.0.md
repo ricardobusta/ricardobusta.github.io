@@ -1,7 +1,7 @@
 ---
 ---
 
-Finally brought my blog back! :+1: :smile: And now it should be in english.
+Finally brought my blog back! And now it should be in english.
 Also, made the entire site from scratch instead of using some pre-made template. This way I could organize and tune it the way I intended to use it from the beginning.
 I used Jekyll because it is the default technology used by github pages, and it looks nice enough.
 

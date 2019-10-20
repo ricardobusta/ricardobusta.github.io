@@ -4,4 +4,5 @@ time: ''
 tags: [TODO, Game Jam, Game Dev, Unity3D]
 ---
 
-Esse ano nós participamos da Global Game Jam!
+This year we participated into the Global Game Jam!
+TODO TEXT
