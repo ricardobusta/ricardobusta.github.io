@@ -1,4 +1,5 @@
 ---
+permalink: /:path/:basename
 ---
 ## Terms & Conditions
 

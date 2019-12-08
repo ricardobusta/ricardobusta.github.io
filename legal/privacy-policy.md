@@ -1,4 +1,5 @@
 ---
+permalink: /:path/:basename
 ---
 ## Privacy Policy
 Busta Games built this app as a Free app. This SERVICE is provided by Busta Games at no cost and is intended for use as is.
