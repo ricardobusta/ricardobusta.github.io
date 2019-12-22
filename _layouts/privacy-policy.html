@@ -1,0 +1,11 @@
+---
+layout: legal
+---
+
+{% assign data = site.legal-pp | where: 'title', page.title | first %}
+
+{% capture md_content %}
+{% include legal/privacy-policy-en-us.md company_name=data.company_name app_name=data.app_name license_type=data.license_type user_information=data.user_information contact=data.contact%}
+{% endcapture %}
+
+{{ md_content | markdownify }}

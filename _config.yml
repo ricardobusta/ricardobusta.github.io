@@ -16,6 +16,11 @@ collections:
     output: false
   posts:
     output: true
+  legal-pp:
+    output: true
+  legal-tac:
+    output: true
+
 defaults:
 - scope:
     path: ""
@@ -27,6 +32,22 @@ defaults:
     type: "posts"
   values:
     layout: "post"
+- scope:
+    path: ""
+    type: "legal-pp"
+  values:
+    permalink: "/legal/privacy-policy/:title/"
+    contact: contact@busta.dev
+    company_name: Busta Games
+    layout: privacy-policy
+- scope:
+    path: ""
+    type: "legal-tac"
+  values:
+    permalink: "/legal/terms-and-conditions/:title/"
+    contact: contact@busta.dev
+    company_name: Busta Games
+    layout: terms-and-conditions
 
 # Plugin Settings
 plugins:
