@@ -4,55 +4,45 @@ time: '20:32'
 tags: [GameDev, Roguelike]
 ---
 
-Aqui começarei a falar de aspectos mais técnicos e decisões de design do jogo. Caso não tenha visto, na parte 1 explico como nasceu a ideia do projeto: 
+This will be the first technical post about my game. On part 1 I talk about my motivations to create this project:
 
 [(Roguelike - Part 1)](https://busta.dev/blog/2018/06/24/roguelike-p1/)
 
 # Pixel Perfect
 
-Um problema que tive logo de cara quando comecei a fazer o projeto foi montar a cena de testes. Eu ia começar o desenvolvimento pela movimentação do personagem, mas logo de cara me deparei com um problema bem óbvio. A renderização estava zoadissima. 
+The first problem I had when I started making the test scene. I started the development with the character movement, but I noticed a pretty obvious problem:
 
-![]({{ site.img }}/2018/rogue/p2/01.png)
+![](/assets/blog/2018/rogue/01.png)
 
-Por que isso acontece? Porque A minha cena tem um número de **pixels** (que como estão medidos em espaço de textura irei me referenciar a eles como "**texels**" daqui pra frente) que precisam ser desenhados em uma tela que tem um número diferente de **pixels**. Se meu número de **pixels** não for um múltiplo do meu número de texels nas duas direções (*x* e *y*), só duas coisas podem acontecer, dependendo da escolha da técnica de amostragem:
+My screen has a certain amount of "**pixels**" (**texels**) that must be rendered in a screen with a different amount of **pixels**. If the number is not a multiple of the other one, in both directions, there will be an offset. 
 
-1) Point Filter: A cor do pixel será a cor do texel mais próximo de sua coordenada. Se minha cena tem 2 texels, e minha tela tem 3 pixels, o pixel do meio terá de ser colorido com a cor do pixel da esquerda ou o pixel da direita. O resultado disso é que alguns texels vão ser vistos com tamanhos diferentes na hora que forem renderizados.
+If you turn on the filtering, the intermediary pixel will be filled with a blended color of the two texels. That's not desired in a pixel art game.
 
-2) Interpolação (Bilinear, Trilinear etc): Dada a mesma situação de 2 texels e 3 pixels, o algoritmo irá usar uma combinação das duas cores dos pixels da esquerda e da direita para gerar uma terceira cor que será usada para pintar o pixel do meio. De todos os casos, esse é o pior para o nosso jogo de pixel art, pois isso vai borrar toda a imagem!
+If you leave the filter off, it means the extra pixel will be filled with any neighbour texel, making some of them bigger or smaller than the others. 
 
-Então a única saída é garantir que cada texel seja desenhado na tela com o mesmo número de pixels (1x1, 2x2, 3x3 etc).
+The only way to ensure pixel perfection is, then, ensure each texel is represented by a fixed amount of pixels (1x1, 2x2, 3x3 etc).
 
-Depois de quebrar muito a cabeça, e ver várias soluções feitas pelas pessoas nas internets, resolvi conversar com meu amigo Felipe Lira. Ele é um dos caras que eu conheço que manja mais de Unity e de Computação Gráfica em geral (Valeu Felipe!) e me ajudou a ter um insight de como resolver o problema.
+# First Idea
 
-# Primeira Técnica
+Initially I would have a camera that renders the scene into a fixed size texture, setting it as it's target. This way, I have control over the "screen size", even if it's a virtual one.
 
-A ideia inicialmente era ter uma câmera que iria renderizar a cena em uma textura com tamanho fixo usando a técnica Render to Texture, onde em vez da câmera jogar a imagem direto no buffer que vai para o video, ele vai para uma região de memória separada (Uma Textura! :v).
+Using the CommandBuffer, then, I can render a quad and set the previously rendered texture to it. All I needed to do was to mess either with the vertex position or the UV to position the texture inside the camera quad.
 
-Dessa forma, eu consegui mapear 1 pixel do meu jogo para 1 pixel dessa textura.
+For the calculations, I did some considerations:
 
-A segunda parte dessa técnica envolve usar o CommandBuffer. O CommandBuffer basicamente é uma estrutura que me permite passar uma sequência de comandos para uma câmera da Unity. O que meu CommandBuffer estava fazendo era renderizando um quad, que é uma malha poligonal contendo quatro vértices, formando um quadrado. E nesse quadrado, o que estava sendo desenhado era a textura que veio do passo anterior.
+1. My game would be playable both in landscape and portrait mode. For that to work, my texture would have to be a square.
+2. As the device screen is usually not a square, a portion of the texture must be cropped off. The other option would be add a bleeding area, but for my game that does not sound ideal.
+3. Considering number 2, I had to do something to ensure a minimal playable area would be visible within any aspect ratio.
 
-Então tudo que precisava ser feito era algumas contas que iriam determinar as posições dos vértices do retângulo contendo a cena, para que os texels ficassem alinhados com a câmera.
+The following images illustrate what I am talking about. Note: Depending if you are seeing the pictures on the computer or the cellphone, some patterns might show up due to the browser scaling them. <https://en.wikipedia.org/wiki/Moir%C3%A9_pattern>.
 
-Para determinar a conta, eu tive de tomar algumas decisões:
+![](/assets/blog/2018/rogue/02.png)
 
-1. Meu jogo será jogável tanto em landscape mode como em portrait mode. Para que isso seja possível, minha textura tinha de ser quadrada.
-2. Como a tela do device normalmente não é quadrada, ou uma parte da janela ficaria com tarjas pretas ao longo da maior dimensão, ou uma parte da minha cena teria de ser cortada fora, ficando para fora da janela (bleeding). Eu optei pela segunda opção.
-3. Como uma parte da área de jogo seria cortada fora, eu teria que garantir que pelo menos uma porção mínima da minha área de jogo seria visível em qualquer *aspect ratio*. Spoiler: Foi isso que me fez desistir dessa técnica.
+![](/assets/blog/2018/rogue/03.png)
 
-As imagens a seguir são para ilustrar o que estou falando sobre as margens. É importante notar que dependendo do dispositivo que você estiver olhando meu blog, a imagem pode ser redimensionada, e vai impossibilitar de ver o pixel perfect funcionando (Provavelmente vão formar padrões. <https://pt.wikipedia.org/wiki/Padr%C3%A3o_moir%C3%A9>).
+This script was executed every time the device resolution changed:
 
-![]({{ site.img }}/2018/rogue/p2/02.png)
-
-Uma margem pode ser adicionada nas duas direções, mas toda a textura é visível.
-
-![]({{ site.img }}/2018/rogue/p2/03.png)
-
-A textura original está cortada, perdendo informação nas duas direções.
-
-Esse era o trecho do protótipo do algoritmo que era executado sempre que a resolução ou orientação da tela mudasse:
-
-```c#
+```csharp
 // Start()
 mesh = new Mesh();
 mesh.SetVertices(vertex);
@@ -65,7 +55,7 @@ commands.DrawMesh(mesh, Matrix4x4.identity, PixelMaterial, 0);
 camera.AddCommandBuffer(CameraEvent.AfterEverything, commands);
 ```
 
-```c#
+```csharp
 // When resolution changes
 camera.orthographicSize = Mathf.Ceil(screenHeight / 2.0f);
 
@@ -81,94 +71,91 @@ vertex[3] = new Vector3(0, 1, 0) * scale - offset;
 mesh.SetVertices(vertex);
 ```
 
-E pronto! Isso simplesmente funcionava. Mas como eu citei no ponto #3, isso limitava minha área de jogo, já que eu tinha um tamanho máximo, e boa parte disso seria cortado.
+The downside of this technique is that I would have a limited game area, and a portion of it would be cropped out. This gava me a second idea, which would not require scaling the texture when rotating the device, and would not require cropping a huge portion of the rendered texture.
 
-Eu precisava garantir um mínimo de visualização, e não queria ter de me preocupar com o máximo (estou de olho em vocês, devices com aspect ratios bizarros.). Ficar redimensionando a textura me parecia uma péssima ideia.
+# Second Idea
 
-# Segunda Técnica
-
-Olhando para a implementação anterior, dá para ver um trecho interessante:
-```c#
+After checing the previous implementation, I noticed this:
+```csharp
 camera.orthographicSize = Mathf.Ceil(screenHeight / 2.0f);
 ```
 
-Isso foi feito para que eu pudesse setar a posição dos vértices em coordenadas de pixels da câmera, e simplificar minhas contas (em vez de ter de trabalhar com floats quebradissimos, poderia trabalhar no domínio dos inteiros).
+This was done to set the vertex positions in camera's pixels coordinates, and make my calculations easier (instead of using broken numbers, I could use "integers").
 
-Mas aí eu percebi que era exatamente isso que eu precisava. Se eu conseguia mudar a noção de *Pixels Per Unit* da câmera, já seria uma solução relativamente boa para o meu problema, e a implementação ficaria bem mais simples!
+Then I noticed that was exactly what I needed. If I could keep the Camera *Pixel Per Unit* notion, that would be a good enough solution to my problem, and implementation would become a lot easier!
 
-Então, depois de alguns testes, cheguei ao seguinte resultado:
+Then, after some testing, I came with the following result:
 
-```c#
+```csharp
 var scale = Mathf.Floor(Mathf.Min(Screen.width, Screen.height) / Size);
 cam.orthographicSize = Screen.height / (2.0f*scale);
 ```
 
-E pronto! Veja que eu optei por usar Mathf.Min, o que me fez usar o menor lado da tela como base para meus cálculos, enquanto eu vou ignorar o maior lado da tela, e deixar caber o que couber.
+Using the min value, I could use the smallest screen side as the base of my calculations, ignoring the biggest size and allowing whanever could fit in.
 
-Como o jogo terá fog, mostrar mais áreas do jogo não trará muita vantagem ao jogador, e não prejudicará jogadores que com a técnica anterior teriam seu campo de visão reduzido.
+As the game haves a fog to cover the view, showing extra areas of the game will not give players with bigger screens any advantage.
 
 # Trade off
 
-O que eu ganhei e o que eu perdi ao trocar uma técnica pela outra?
+What changed when I decided to go with the second solution?
 
-Vantagens:
+Pros:
 * Agora posso extender a câmera em uma direção infinitamente, já que não tenho mais uma textura de tamanho fixo me limitando.
 * Só preciso de uma câmera para essa técnica! Com a primeira técnica eu não conseguia reaproveitar a câmera usada para o Render to Texture para jogar imagens no display também.
 * Mais simples de implementar. O Código foi de várias linhas, e várias estruturas internas sendo criadas para poucas linhas!
 * Não preciso criar assets de textura, shader e material por fora
 * Suporta bem devices quadrados! 
 
-Desvantagens:
+Cons:
 * Preciso movimentar o objeto em posições inteiras para não perder o pixel perfect.
 * Rotacionar um objeto não causará aquele efeito retrô de rotação.
 * Em resoluções ímpares, um artefato estranho aparece, já que não é possível dividir a resolução por 2. Uma saída para isso sera modificar o viewport pra ignorar o pixel ímpar, mas isso é um corner case que provavelmente nunca vai acontecer.
 
-# Resultados
+# Results
 
-E o resultado disso tudo é esse:
+And the result of all this is:
 
-![]({{ site.img }}/2018/rogue/p2/04.png)
+![](/assets/blog/2018/rogue/04.png)
 
-Com a primeira técnica eu garanto um tamanho ao longo da maior dimensão da tela, e perco área de jogo na menor dimensão da tela.
+With the first technique I ensure the size alongside the biggest screen size, and lose some game area on the smallest side.
 
-![]({{ site.img }}/2018/rogue/p2/05.png)
+![](/assets/blog/2018/rogue/05.png)
 
-Com a segunda técnica, eu garanto uma área mínima de jogo na menor dimensão, e deixando o jogo livre para expandir o quanto for necessário na maior dimensão.
+With the second technique, I ensure a minimum game area in the smallest dimension, and let the game expand whanever it needs in the biggest dimension.
 
 <video width="640" height="480" controls>
-  <source src="{{ site.img }}/2018/rogue/p2/v01.mp4" type="video/mp4">
+  <source src="/assets/blog/2018/rogue/v01.mp4" type="video/mp4">
 Your browser does not support the video tag.
 </video>
 
-No video acima vemos a "rotação retrô" com a primeira técnica. Fica bem maneiro, né?
+In the above video, we can see the "retro rotation" obtained with the first technique. Cool, huh?
 
 <video width="640" height="480" controls>
-  <source src="{{ site.img }}/2018/rogue/p2/v02.mp4" type="video/mp4">
+  <source src="/assets/blog/2018/rogue/v02.mp4" type="video/mp4">
 Your browser does not support the video tag.
 </video>
 
-E aqui vemos a rotação esquisitona. Isso tá acontecendo porque os texels são compostos por vários pixels, e quando você rotaciona, cada pixel que compõe ele se move independentemente. :( 
+And here we see the weird rotation. This is happening because texels are represented by many pixels, and each pixel moves independently. :sad:
 
-É importante notar que essa solução é ideal para o tipo de jogo que eu desejo projetar, considerando todas as decisões de design que eu devo ter citado no texto acima.
+But considering how the game will be played out, those design decisions make this the ideal solution for now.
 
 # Conclusão
 
-Após testar tudo, eu percebi que minha implementação de pixel perfect acabou ficando melhor que a do Cardinal Quest 2, que eu estava usando como parâmetro de qualidade! XD
+After testing everything, I noticed that my pixel perfect solution is better than the benchmark (CQ2 solution).
 
-Eu peguei um emulador para executar o jogo simulando devices arbitrários, e percebi que o CQ2 não se comporta muito bem com devices quadrados e com algumas resoluções específicas, comendo quase toda a área de jogo e fazendo a interface ficar maluca.
+Using an Android emulator, I simulated arbitrary device aspect ratios and almost all of them made the game interface break weirdly.
 
-![]({{ site.img }}/2018/rogue/p2/06.png)
+![](/assets/blog/2018/rogue/06.png)
 
-Sei que é um corner case extremo que nunca vai acontecer, mas no CQ2 você perde quase toda sua área de jogo quando está na resolução 800x800. XD
+It's an extreme corner case, but it's nice to know that my solution covers even those cases.
 
-Bom, é isso! Espero ter ajudado alguém que tenha passado pelo mesmo problema que eu.
-Se alguém tiver percebido algum equivoco ou tiver uma sugestão melhor de como contornar esse problema, pode entrar em contato comigo! :D 
+That's it! I hope anyone having the same issues might find a little help by reading my post.
 
-EDIT (21:54):
+EDIT 1:
 
-Tive uma ideia pra resolver o problema de telas com tamanho impar (isso tava me incomodando no editor):
+Made a solution for the cases where the size of the editor area is an odd number, avoiding some issues:
 
-```c#
+```csharp
 var rect = camera.pixelRect;
 
 rect.width = GetEvenPart(screenWidth);
@@ -180,7 +167,7 @@ var scale = Mathf.Floor(Mathf.Min(rect.width, rect.height) / Size);
 camera.orthographicSize = rect.height / (2.0f*scale);
 ```
 
-```c#
+```csharp
 private static int GetEvenPart(int value) {
   if (value % 2 == 0) {
     return value;
@@ -190,4 +177,4 @@ private static int GetEvenPart(int value) {
 }
 ```
 
-O unico side effect é que vai ficar uma linha preta se a resolução for impar. \*shrug\*
+The only downside is that a blank line will be on the even sided portions of the screen. :shrug:
