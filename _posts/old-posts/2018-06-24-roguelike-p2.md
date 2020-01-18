@@ -135,11 +135,11 @@ In the above video, we can see the "retro rotation" obtained with the first tech
 Your browser does not support the video tag.
 </video>
 
-And here we see the weird rotation. This is happening because texels are represented by many pixels, and each pixel moves independently. :sad:
+And here we see the weird rotation. This is happening because texels are represented by many pixels, and each pixel moves independently. 😞 
 
 But considering how the game will be played out, those design decisions make this the ideal solution for now.
 
-# Conclusão
+# Conclusion
 
 After testing everything, I noticed that my pixel perfect solution is better than the benchmark (CQ2 solution).
 
@@ -177,4 +177,4 @@ private static int GetEvenPart(int value) {
 }
 ```
 
-The only downside is that a blank line will be on the even sided portions of the screen. :shrug:
+The only downside is that a blank line will be on the even sided portions of the screen. 🤷‍♂️

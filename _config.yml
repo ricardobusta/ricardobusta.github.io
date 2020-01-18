@@ -52,7 +52,6 @@ defaults:
 # Plugin Settings
 plugins:
   - jekyll-paginate
-  - jemoji
 
 paginate: 6
 paginate_path: "/blog/page:num/"

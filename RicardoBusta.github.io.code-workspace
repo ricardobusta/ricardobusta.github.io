@@ -15,10 +15,11 @@
         "editor.tabSize": 4,
         "editor.tabCompletion": "on",
         "editor.insertSpaces": true,
+        "editor.quickSuggestions.comments": true,
         "html.suggest.html5": true,
         "html.autoClosingTags": false,
         "html.validate.scripts": true,
         "html.validate.styles": true,
-        "html.format.indentInnerHtml": true
+        "html.format.indentInnerHtml": true,
     },
 }

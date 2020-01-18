@@ -1,0 +1,14 @@
+---
+layout: common
+title: Roguelike Fog
+---
+<table>
+    {% for i in (0..10) %}
+    <tr>
+        {% for j in (0..10) %}
+        {% assign index = 11 | times: i | plus: j %}
+        <td>{{ index }}</td>
+        {% endfor %}
+    </tr>
+    {% endfor %}
+</table>
