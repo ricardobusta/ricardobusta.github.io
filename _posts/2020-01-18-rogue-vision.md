@@ -151,6 +151,11 @@ And the result is as follows:
 
 ![](/assets/blog/2020/rogue/raycasting_result.png)
 
+I created an interactive version of that algorithm. You can check it here:
+*add interactive version*
+
 Check the previous posts about the roguelike game:
-[(Roguelike - Part 1)](http://busta.com.br/post/2018/06/24/roguelike-p1/)
-[(Roguelike - Part 2)](http://busta.com.br/post/2018/06/24/roguelike-p2/)
+
+[(Roguelike - Part 1)](https://busta.dev/blog/2018/06/24/roguelike-p1/)
+
+[(Roguelike - Part 2)](https://busta.dev/blog/2018/06/24/roguelike-p2/)

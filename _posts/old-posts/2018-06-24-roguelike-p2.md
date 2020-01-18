@@ -6,7 +6,7 @@ tags: [GameDev, Roguelike]
 
 Aqui começarei a falar de aspectos mais técnicos e decisões de design do jogo. Caso não tenha visto, na parte 1 explico como nasceu a ideia do projeto: 
 
-[(Roguelike - Part 1)](http://busta.com.br/post/2018/06/24/roguelike-p1/)
+[(Roguelike - Part 1)](https://busta.dev/blog/2018/06/24/roguelike-p1/)
 
 # Pixel Perfect
 
