@@ -1,37 +1,37 @@
 ---
-title: Roguelike - Parte 1 - The Beginning
+title: Roguelike - Part 1 - The Beginning
 time: '15:45'
 tags: [GameDev, Roguelike]
 ---
 
-Hoje resolvi escrever um post no blog sobre desenvolvimento.
-Faz bastante tempo que não faço isso e acho que é uma das coisas que me motiva pra continuar fazendo meus projetos pessoais.
+Today I decided to write a blog post about game development.
+Hope this will motivate me to continue with my projects.
 
-Como esse será o primeiro post dessa série sobre esse jogo específico, vou antes falar um pouco de como decidi fazer esse jogo.
+As this will be the first one of a series about this specific game, I will begin with the motivation to create the game itself.
 
-Em 2015 comecei a desenvolver jogos em Unity pra valer, graças a um projeto da Supernova Games chamado **Rogue Hearts** (Que acabou sendo postergado/cancelado):
+In 2015 I started developing Unity games for good and earning money for it. Thanks to a Supernova Games project titled **Rogue Hearts**. Unfortunately, the project ended being canceled.
 [Rogue Hearts Alpha (Facebook)](https://www.facebook.com/SupernovaIndieGames/photos/a.412007025566718.1073741828.383910141709740/677427512358000/?type=3)
 
-E por conta disso, acabei conhecendo um joguinho chamado **Cardinal Quest 2**, que era usado como uma das inspirações para o projeto:
+But to make that project, I ended up meeting a little game called **Cardinal Quest 2**, which was used as one of the benchmarks for the project.
 
-<http://cardinalquest2.com/> (Sério, se nunca jogaram, baixem agora! Tem pra iOS e Android. Então, sem desculpas!)
+<http://cardinalquest2.com/> (Seriously, if you never played that game, do it now! It's on Android, iOS, and Steam as well!)
 
-Roguelikes em geral são um dos meus gêneros favoritos de jogos, e por ser um jogo com uma boa usabilidade mobile, Cardinal Quest 2 está no topo da minha lista de jogos da sua categoria para serem jogados em celular!
+Roguelikes, in general, are one of my favorites game genres, and since it's a game with a great mobile user experience, CQ2 is on the top of my list for games of its category.
 
-Para conseguir se tornar um jogo mobile, ele acabou simplificando diversos aspectos que tornam um Roguelike um Roguelike. Por conta disso, começaram a chamá-lo de "Roguelite". É um jogo que não tem muito conteúdo, a aleatoriedade é bastante controlada (algumas áreas chegando a mudar quase nada), e tem estratégias de jogo bem limitadas. 
+To become a mobile game, it ended up simplifying diverse aspects of the Roguelike genre. Due to that, it started being called a "Roguelite" game. It does not have a whole lot of content, randomness is controlled it has some limited strategies.
 
-Voltado ao Rogue Hearts... Naquele mesmo ano de 2015, eu fui para um evento grande da Unity chamado Unite Brasil, que aconteceu junto com o SBGames, onde fomos apresentar o jogo que estávamos desenvolvendo. Fiz uma postagem no meu blog sobre isso, que pode ser vista aqui:
+Back to Rogue Hearts, in that year of 2015, I went to a big Unity event called **Unite Brasil**, which happened at the same time as **SBGames** (Brasil Games Simposium), where we presented the games we were developing. There's a blog post about it:
 
-<http://busta.com.br/post/2015/11/14/fim-viagem-unite-sbgames/>
+<https://busta.dev/blog/2015/11/14/fim-viagem-unite-sbgames/>
 
-Nesse evento foram apresentadas várias features da Unity que estariam disponíveis em early access, como o editor de Tiles e várias outras melhorias para o desenvolvimento de jogos 2D em geral!
+On that event, new features were announced and made available for early access, like many 2D tools and the Tilemap editor.
 
 <https://blogs.unity3d.com/pt/2015/04/24/early-access-to-new-2d-tools/>
 
-Isso reacendeu minha vontade de criar meu próprio Roguelike. E como o Cardinal Quest 2 foi o jogo com a melhor usabilidade (Em termos de controle, coisas que você consegue ver na tela, tamanho dos elementos e interface), eu resolvi utilizá-lo como parâmetro para saber se meu jogo está indo no rumo certo.
+After those features were released, I decided to go with my own Roguelike game. And I decided to use CQ2 as a base to work my game on, for the mentioned reasons. Since then I started making notes on my game development document. 
 
-De lá pra cá vim fazendo anotações na minha pasta de GDDs do Google Drive para não perder as ideias que iam surgindo de como esse jogo poderia ser. E agora, com a Unity 2017.4 tendo ~quase~ todas as features necessárias para o andamento desse projeto, resolvi dar continuidade.
+Now, with Unity 2017.4 release having almost all necessary features to make my life easier, I decided to continue with my project.
 
-E como eu disse ~quase~, uma das features que me faltou foi a de Pixel perfection. Isso eu vou explicar em mais detalhes no próximo post do blog [(Roguelike Parte 2)](https://busta.dev/blog/2018/06/24/roguelike-p2/)!
+Like I mentioned, **almost**. Pixel perfection feature is not available yet, so I decided to make my own, and then I decided to make a blog post about it: [(Roguelike Part 2)](https://busta.dev/blog/2018/06/24/roguelike-p2/)!
 
-PS: O Dev Blog do desenvolvedor do Cardinal Quest 2 é excelente também! Recomendo quem curtir acompanhar o andamento das coisas a dar uma olhada: <http://wootfu.com/category/cardinal-quest/>
+PS: Check out the CQ2 dev blog too! It's amazing and taught me a bit about game designing a roguelike game: <http://wootfu.com/category/cardinal-quest/>

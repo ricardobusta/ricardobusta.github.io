@@ -10,7 +10,7 @@ During the Virtual Reality discipline, we had to develop an application that use
 
 <p class="uk-text-center">lab's hmd on Vanessa's face</p>
 
-We also tested a huge 3D television, one of the first ones. It was quite hard creating stereo images for it, as it's input came from a single source, and you had to create a checkerboard pattern using stencil buffer in order to send both images at the same time. Even pixels for one eye, odd pixels for the other one.
+We also tested a huge 3D television, one of the first ones. It was quite hard creating stereo images for it, as it's input came from a single source, and you had to create a checkerboard pattern using stencil buffer to send both images at the same time. Even pixels for one eye, odd pixels for the other one.
 
 For the application itself, we decided to create a duck shooting range, where the little ducks would be passing around while you shoot them with a cork rifle.
 
