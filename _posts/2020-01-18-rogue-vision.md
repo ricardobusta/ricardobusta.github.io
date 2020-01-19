@@ -33,90 +33,92 @@ public struct FogState
 }
 ```
 
-And the data generated with the parameters I set is the following:
+And the data generated with the parameters I set is the following (in javascript notation for simplification purposes):
 
-```csharp
-FogState[12].spread = new[] {0};
-FogState[23].spread = new[] {11, 22};
-FogState[34].spread = new[] {33};
-FogState[45].spread = new[] {44};
-FogState[56].spread = new[] {55};
-FogState[67].spread = new[] {66};
-FogState[78].spread = new[] {77};
-FogState[89].spread = new[] {88, 99};
-FogState[100].spread = new[] {110};
-FogState[13].spread = new[] {1, 2};
-FogState[24].spread = new[] {12};
-FogState[35].spread = new[] {23, 34};
-FogState[46].spread = new[] {45};
-FogState[57].spread = new[] {56};
-FogState[68].spread = new[] {67};
-FogState[79].spread = new[] {78, 89};
-FogState[90].spread = new[] {100};
-FogState[101].spread = new[] {111, 112};
-FogState[25].spread = new[] {13, 14};
-FogState[36].spread = new[] {24};
-FogState[47].spread = new[] {35, 46};
-FogState[58].spread = new[] {57};
-FogState[69].spread = new[] {68, 79};
-FogState[80].spread = new[] {90};
-FogState[91].spread = new[] {101, 102};
-FogState[14].spread = new[] {3};
-FogState[37].spread = new[] {25, 26};
-FogState[48].spread = new[] {36, 47, 37};
-FogState[59].spread = new[] {58};
-FogState[70].spread = new[] {69, 80, 81};
-FogState[81].spread = new[] {91, 92};
-FogState[102].spread = new[] {113};
-FogState[15].spread = new[] {4};
-FogState[26].spread = new[] {15};
-FogState[60].spread = new[] {48, 59, 70, 49, 71, 50, 61, 72};
-FogState[92].spread = new[] {103};
-FogState[103].spread = new[] {114};
-FogState[16].spread = new[] {5};
-FogState[27].spread = new[] {16};
-FogState[38].spread = new[] {27};
-FogState[49].spread = new[] {38};
-FogState[71].spread = new[] {82};
-FogState[82].spread = new[] {93};
-FogState[93].spread = new[] {104};
-FogState[104].spread = new[] {115};
-FogState[17].spread = new[] {6};
-FogState[28].spread = new[] {17};
-FogState[39].spread = new[] {28, 29};
-FogState[50].spread = new[] {39, 40, 51};
-FogState[72].spread = new[] {83, 73, 84};
-FogState[83].spread = new[] {94, 95};
-FogState[94].spread = new[] {105};
-FogState[105].spread = new[] {116};
-FogState[18].spread = new[] {7};
-FogState[29].spread = new[] {18, 19};
-FogState[61].spread = new[] {62};
-FogState[95].spread = new[] {106, 107};
-FogState[106].spread = new[] {117};
-FogState[19].spread = new[] {8, 9};
-FogState[40].spread = new[] {30};
-FogState[51].spread = new[] {41, 52};
-FogState[62].spread = new[] {63};
-FogState[73].spread = new[] {74, 85};
-FogState[84].spread = new[] {96};
-FogState[107].spread = new[] {118, 119};
-FogState[30].spread = new[] {20};
-FogState[41].spread = new[] {31, 42};
-FogState[52].spread = new[] {53};
-FogState[63].spread = new[] {64};
-FogState[74].spread = new[] {75};
-FogState[85].spread = new[] {86, 97};
-FogState[96].spread = new[] {108};
-FogState[20].spread = new[] {10};
-FogState[31].spread = new[] {21, 32};
-FogState[42].spread = new[] {43};
-FogState[53].spread = new[] {54};
-FogState[64].spread = new[] {65};
-FogState[75].spread = new[] {76};
-FogState[86].spread = new[] {87};
-FogState[97].spread = new[] {98, 109};
-FogState[108].spread = new[] {120};
+```javascript
+{
+    12: [0],
+    23: [11, 22],
+    34: [33],
+    45: [44],
+    56: [55],
+    67: [66],
+    78: [77],
+    89: [88, 99],
+    100: [110],
+    13: [1, 2],
+    24: [12],
+    35: [23, 34],
+    46: [45],
+    57: [56],
+    68: [67],
+    79: [78, 89],
+    90: [100],
+    101: [111, 112],
+    25: [13, 14],
+    36: [24],
+    47: [35, 46],
+    58: [57],
+    69: [68, 79],
+    80: [90],
+    91: [101, 102],
+    14: [3],
+    37: [25, 26],
+    48: [36, 47, 37],
+    59: [58],
+    70: [69, 80, 81],
+    81: [91, 92],
+    102: [113],
+    15: [4],
+    26: [15],
+    60: [48, 59, 70, 49, 71, 50, 61, 72],
+    92: [103],
+    103: [114],
+    16: [5],
+    27: [16],
+    38: [27],
+    49: [38],
+    71: [82],
+    82: [93],
+    93: [104],
+    104: [115],
+    17: [6],
+    28: [17],
+    39: [28, 29],
+    50: [39, 40, 51],
+    72: [83, 73, 84],
+    83: [94, 95],
+    94: [105],
+    105: [116],
+    18: [7],
+    29: [18, 19],
+    61: [62],
+    95: [106, 107],
+    106: [117],
+    19: [8, 9],
+    40: [30],
+    51: [41, 52],
+    62: [63],
+    73: [74, 85],
+    84: [96],
+    107: [118, 119],
+    30: [20],
+    41: [31, 42],
+    52: [53],
+    63: [64],
+    74: [75],
+    85: [86, 97],
+    96: [108],
+    20: [10],
+    31: [21, 32],
+    42: [43],
+    53: [54],
+    64: [65],
+    75: [76],
+    86: [87],
+    97: [98, 109],
+    108: [120],
+}
 ```
 
 The grid I used was a 11x11 grid, and the tiles indexes are calculated as `(x + y*11)`. 
@@ -152,7 +154,8 @@ And the result is as follows:
 ![](/assets/blog/2020/rogue/raycasting_result.png)
 
 I created an interactive version of that algorithm. You can check it here:
-*add interactive version*
+
+<https://busta.dev/assets/blog/2020/rogue/fog/>
 
 Check the previous posts about the roguelike game:
 
