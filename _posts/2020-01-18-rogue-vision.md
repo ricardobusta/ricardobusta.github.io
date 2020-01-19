@@ -162,3 +162,22 @@ Check the previous posts about the roguelike game:
 [(Roguelike - Part 1)](https://busta.dev/blog/2018/06/24/roguelike-p1/)
 
 [(Roguelike - Part 2)](https://busta.dev/blog/2018/06/24/roguelike-p2/)
+
+EDIT (19/01/2020):
+After posting the previous idea on social networks, a new idea sparked that might improve the visuals of the current algorithm.
+
+Walls are not completely visible. Corners are way too much visible. And so the following idea appeared:
+
+"What about launching beams from the 4 corners of a tile, instead of it's center?"
+
+That's what I did, and then... It failed miserably. Since the lit block could be litten by multiple blocks around it, light was warping around some corners indefinetely.
+
+![](/assets/blog/2020/rogue/fail.png)
+
+Assuming just the first tile would be enough caused light to behave like a curve since the check for the adjacent tile was being done in a different position.
+
+Making pathes from multiple corners just intensified this effect, as each light path was split into 4 different curves, creating weird unexpected patterns.
+
+![](/assets/blog/2020/rogue/light_warping.png)
+
+Now I need to think of a workaround.
