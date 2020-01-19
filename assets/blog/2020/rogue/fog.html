@@ -1,14 +1,209 @@
 ---
-layout: common
 title: Roguelike Fog
 ---
-<table>
-    {% for i in (0..10) %}
-    <tr>
-        {% for j in (0..10) %}
-        {% assign index = 11 | times: i | plus: j %}
-        <td>{{ index }}</td>
-        {% endfor %}
-    </tr>
-    {% endfor %}
-</table>
+<style type="text/css">
+    .no-space-table {
+        border-spacing: 0;
+        border-collapse: collapse;
+    }
+
+    .cell {
+        width: 2rem;
+        height: 2rem;
+        border: 1px black solid;
+        padding: 0;
+        margin: 0;
+    }
+
+    .unlit_floor {
+        background-color: #000;
+    }
+
+    .lit_floor {
+        background-color: #fff;
+    }
+
+    .char {
+        background-color: red;
+    }
+
+    .unlit_wall {
+        background-color: #511;
+    }
+
+    .lit_wall {
+        background-color: #a73;
+    }
+</style>
+
+<div class="">
+    <table class="no-space-table">
+        <tbody class="uk-align-center uk-text-center">
+            {% for i in (0..10) %}
+            <tr>
+                {% for j in (0..10) %}
+                {% assign index = 11 | times: i | plus: j %}
+                <td class="cell unlit" id="cell{{ index }}"></td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<script type="text/javascript">
+    let walls = [];
+    let cells = [];
+
+    let table = {
+        12: [0],
+        23: [11, 22],
+        34: [33],
+        45: [44],
+        56: [55],
+        67: [66],
+        78: [77],
+        89: [88, 99],
+        100: [110],
+        13: [1, 2],
+        24: [12],
+        35: [23, 34],
+        46: [45],
+        57: [56],
+        68: [67],
+        79: [78, 89],
+        90: [100],
+        101: [111, 112],
+        25: [13, 14],
+        36: [24],
+        47: [35, 46],
+        58: [57],
+        69: [68, 79],
+        80: [90],
+        91: [101, 102],
+        14: [3],
+        37: [25, 26],
+        48: [36, 47, 37],
+        59: [58],
+        70: [69, 80, 81],
+        81: [91, 92],
+        102: [113],
+        15: [4],
+        26: [15],
+        60: [48, 59, 70, 49, 71, 50, 61, 72],
+        92: [103],
+        103: [114],
+        16: [5],
+        27: [16],
+        38: [27],
+        49: [38],
+        71: [82],
+        82: [93],
+        93: [104],
+        104: [115],
+        17: [6],
+        28: [17],
+        39: [28, 29],
+        50: [39, 40, 51],
+        72: [83, 73, 84],
+        83: [94, 95],
+        94: [105],
+        105: [116],
+        18: [7],
+        29: [18, 19],
+        61: [62],
+        95: [106, 107],
+        106: [117],
+        19: [8, 9],
+        40: [30],
+        51: [41, 52],
+        62: [63],
+        73: [74, 85],
+        84: [96],
+        107: [118, 119],
+        30: [20],
+        41: [31, 42],
+        52: [53],
+        63: [64],
+        74: [75],
+        85: [86, 97],
+        96: [108],
+        20: [10],
+        31: [21, 32],
+        42: [43],
+        53: [54],
+        64: [65],
+        75: [76],
+        86: [87],
+        97: [98, 109],
+        108: [120],
+    };
+
+    function updateFog() {
+        let calculated = [];
+        for (let i = 0; i < 11 * 11; i++) {
+            calculated[i] = false;
+        }
+        let queue = [];
+        table[60].forEach(element => {
+            if (!calculated[element])
+                queue.push(element);
+        });
+
+        while (queue.length > 0) {
+            let index = queue.shift();
+            console.log("Calculating: " + index);
+
+            calculated[index] = true;
+
+            if (walls[index]) continue;
+
+            if (!table[index])
+                continue;
+
+            table[index].forEach(element => {
+                if (!calculated[element])
+                    queue.push(element);
+            });
+        }
+
+        for (let i = 0; i < 11 * 11; i++) {
+            if (i == 60) continue;
+
+            let cell = document.getElementById("cell" + i);
+            var elementClass = "cell ";
+            if (calculated[i]) {
+                elementClass += "lit_";
+            } else {
+                elementClass += "unlit_"
+            }
+            if (walls[i]) {
+                elementClass += "wall";
+            } else {
+                elementClass += "floor";
+            }
+
+            cell.className = elementClass;
+        }
+    }
+
+    function onTdClick(index) {
+        // ignore player position;
+        if (index == 60) return;
+
+        walls[index] = !walls[index];
+        updateFog();
+    };
+
+    document.addEventListener('DOMContentLoaded', function () {
+        for (let i = 0; i < 11 * 11; i++) {
+            if (i == 60) continue;
+            walls[i] = false;
+            cells[i] = document.getElementById("cell" + i);
+            cells[i].addEventListener('click', () => { onTdClick(i) });
+        }
+        walls[60] = 2;
+        let cell = document.getElementById("cell" + 60);
+        cell.className = "char cell";
+    }, false);
+</script>
