@@ -2,8 +2,6 @@
 layout: legal
 ---
 
-{% assign data = site.legal-tac | where: 'title', page.title | first %}
-
 {% capture md_content %}
 {% include legal/terms-and-conditions-en-us.md company_name=page.company_name app_name=page.app_name contact=page.contact%}
 {% endcapture %}

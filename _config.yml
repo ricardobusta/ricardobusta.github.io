@@ -8,6 +8,15 @@ sass:
   sass_dir: "_sass"
   style: compressed
 
+# Legal Settings
+
+contact: contact@busta.dev
+company_name: Busta Games
+pp_layout: privacy-policy
+pp_path: "/legal/privacy-policy/"
+tac_layout: terms-and-conditions
+tac_path: "/legal/terms-and-conditions/"
+
 # Collection Settings
 collections:
   projects:
@@ -45,9 +54,7 @@ defaults:
     type: "legal-tac"
   values:
     permalink: "/legal/terms-and-conditions/:title/"
-    contact: contact@busta.dev
-    company_name: Busta Games
-    layout: terms-and-conditions
+    
 
 # Plugin Settings
 plugins:

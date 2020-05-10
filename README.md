@@ -1,7 +1,11 @@
 My personal blog. 
 Posts about technology and stuff.
 
-#Commands
+# Setup
+
+Needs to install Ruby in order to execute bundle commands
+
+# Commands
 
 ## Publish
 ```

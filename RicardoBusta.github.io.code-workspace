@@ -21,5 +21,11 @@
         "html.validate.scripts": true,
         "html.validate.styles": true,
         "html.format.indentInnerHtml": true,
+        "ruby.format": "rufo",
+        "ruby.lint": {
+            "ruby": true
+        },
+        "ruby.intellisense": "rubyLocate",
+        "ruby.codeCompletion": "rcodetools"
     },
 }
