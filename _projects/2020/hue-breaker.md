@@ -1,9 +1,10 @@
 ---
 title: "HUE BReaker"
 event: "Webgames Jam"
-date: "2 Feb 2020"
-img: "rushtoration-%.png"
-pageurl: https://globalgamejam.org/2020/games/rushtoration-5
-srcurl: https://github.com/RicardoBusta/GlobalGameJam2019
+date: "24 Apr 2020"
+img: "huebreaker-%.jpg"
+pageurl: https://webgamesjams.github.io/
+playurl: https://busta.dev/WebgamesJam18/play/
+srcurl: https://github.com/RicardoBusta/WebgamesJam18
 ---
 lorem ipsum
