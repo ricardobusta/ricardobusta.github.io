@@ -1,9 +1,0 @@
----
-layout: legal
----
-
-{% capture md_content %}
-{% include legal/privacy-policy-en-us.md company_name=page.company_name app_name=page.app_name license_type=page.license_type user_information=page.user_information contact=page.contact%}
-{% endcapture %}
-
-{{ md_content | markdownify }}

@@ -8,15 +8,6 @@ sass:
   sass_dir: "_sass"
   style: compressed
 
-# Legal Settings
-
-contact: contact@busta.dev
-company_name: Busta Games
-pp_layout: privacy-policy
-pp_path: "/legal/privacy-policy/"
-tac_layout: terms-and-conditions
-tac_path: "/legal/terms-and-conditions/"
-
 # Collection Settings
 collections:
   projects:
@@ -24,10 +15,6 @@ collections:
   sections:
     output: false
   posts:
-    output: true
-  legal-pp:
-    output: true
-  legal-tac:
     output: true
 
 defaults:
