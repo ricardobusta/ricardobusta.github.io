@@ -41,19 +41,6 @@ defaults:
     type: "posts"
   values:
     layout: "post"
-- scope:
-    path: ""
-    type: "legal-pp"
-  values:
-    permalink: "/legal/privacy-policy/:title/"
-    contact: contact@busta.dev
-    company_name: Busta Games
-    layout: privacy-policy
-- scope:
-    path: ""
-    type: "legal-tac"
-  values:
-    permalink: "/legal/terms-and-conditions/:title/"
     
 
 # Plugin Settings
