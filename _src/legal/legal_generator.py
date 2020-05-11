@@ -27,19 +27,36 @@ class LegalGenerator:
         values = {
             'contact': contact, 
             'company_name': company_name,
-            'app_name': info['title']
+            'app_name': info['title'],
+            'license_type': info['license_type'],
+            'user_information': info['user_information']
         }
 
+        # tac
         result = None
-        with open( legal_src_path.joinpath(tac_filename), 'r' ) as filein:
-            src = Template( filein.read() )
+        with open( legal_src_path.joinpath(tac_filename), 'r' ) as fileintac:
+            src = Template( fileintac.read() )
             result = src.substitute( values )
             
         tac_path.mkdir(parents=True, exist_ok=True)
-        out_file = tac_path.joinpath("{}.{}".format(info['bundle_id'], file_extension))
+        out_filetac = tac_path.joinpath("{}.{}".format(info['bundle_id'], file_extension))
         
-        with open(out_file, "w" ) as fileout:
-            print( out_file )
+        with open(out_filetac, 'w' ) as fileout:
+            print( "out: {}".format(out_filetac) )
+            fileout.write(result)
+
+        # pp
+        result = None
+        print(legal_src_path.joinpath(pp_filename))
+        with open( legal_src_path.joinpath(pp_filename), 'r' ) as fileinpp:
+            src = Template( fileinpp.read() )
+            result = src.substitute( values )
+            
+        pp_path.mkdir(parents=True, exist_ok=True)
+        out_filepp = pp_path.joinpath("{}.{}".format(info['bundle_id'], file_extension))
+        
+        with open(out_filepp, "w" ) as fileout:
+            print(  "out: {}".format(out_filepp) )
             fileout.write(result)
 
     def _get_md_files_in_path(self, path: str):
