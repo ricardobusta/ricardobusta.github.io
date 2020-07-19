@@ -11,7 +11,7 @@ tac = 'terms-and-conditions'
 
 language = 'en-us'
 
-legal_src_path = Path('.').joinpath('_src', 'legal', 'template')
+legal_src_path = Path('.').joinpath('_python', 'legal', 'template')
 legal_target_path = Path('.').joinpath('legal')
 
 tac_filename = "{}-{}.{}".format(tac, language, file_extension)
