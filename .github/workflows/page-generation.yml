@@ -20,7 +20,7 @@ jobs:
       run: |
         pip install wheel
         pip install python-frontmatter
-        python3.8.3 _python/legal/prebuild.py
+        python38 _python/legal/prebuild.py
     - name: switching from HTTPS to SSH
       run: git remote set-url origin ${{ secrets.ssh }}
     - name: check for changes
