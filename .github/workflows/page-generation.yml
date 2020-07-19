@@ -19,7 +19,7 @@ jobs:
     - name: Install Python Dependencies
       run: pip install -r ./_python/legal/python_requirements.txt
     - name: Generate content
-      run: python3 _src/legal/prebuild.py
+      run: python3 _python/legal/prebuild.py
     - name: switching from HTTPS to SSH
       run: git remote set-url origin ${{ secrets.ssh }}
     - name: check for changes
