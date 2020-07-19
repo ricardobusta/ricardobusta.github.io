@@ -17,7 +17,9 @@ jobs:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: actions/checkout@v2
     - name: Install Python Dependencies
-      run: pip install -r ./_python/legal/python_requirements.txt
+      run: |
+        pip install wheel
+        pip install frontmatter
     - name: Generate content
       run: python3 _python/legal/prebuild.py
     - name: switching from HTTPS to SSH
