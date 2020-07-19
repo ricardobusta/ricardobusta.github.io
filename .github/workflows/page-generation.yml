@@ -20,8 +20,7 @@ jobs:
       run: |
         pip install wheel
         pip install frontmatter
-    - name: Generate content
-      run: python3 _python/legal/prebuild.py
+        python3 _python/legal/prebuild.py
     - name: switching from HTTPS to SSH
       run: git remote set-url origin ${{ secrets.ssh }}
     - name: check for changes
