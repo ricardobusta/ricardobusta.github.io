@@ -18,9 +18,9 @@ jobs:
     - uses: actions/checkout@v2
     - name: Install Python Dependencies
       run: |
-        pip install wheel
-        pip install python-frontmatter
-        python38 _python/legal/prebuild.py
+        pip3 install wheel
+        pip3 install python-frontmatter
+        python3 _python/legal/prebuild.py
     - name: switching from HTTPS to SSH
       run: git remote set-url origin ${{ secrets.ssh }}
     - name: check for changes
