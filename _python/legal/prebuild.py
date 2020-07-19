@@ -1,4 +1,4 @@
-from _src.legal.legal_generator import LegalGenerator
+from legal_generator import LegalGenerator
 
 print("Starting Pre Build")
 
