@@ -19,7 +19,7 @@ jobs:
     - name: Install Python Dependencies
       run: |
         pip install wheel
-        pip install frontmatter
+        pip install python-frontmatter
         python3 _python/legal/prebuild.py
     - name: switching from HTTPS to SSH
       run: git remote set-url origin ${{ secrets.ssh }}
