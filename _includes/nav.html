@@ -6,6 +6,15 @@
             {% for section in ordered_sections offset:1 %}
             <li class="uk-active"><a href="#{{ section.title }}" uk-scroll>{{ section.title }}</a></li>
             {% endfor %}
+            <!--<li class="uk-active">
+                <div class="uk-section-secondary"
+                    style="border: 1px solid; border-radius: 50%; width: 1em; height: 1em; margin-right: 1em; ">
+                </div>
+            </li>
+            <li class="uk-active">
+                <div class="uk-section-default" style="border: 1px solid; border-radius: 50%; width: 1em; height: 1em;">
+                </div>
+            </li>-->
         </ul>
     </nav>
 </div>
