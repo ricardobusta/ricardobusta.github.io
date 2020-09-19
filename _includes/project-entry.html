@@ -5,16 +5,16 @@
     <div class="uk-overlay uk-overlay-primary uk-position-bottom uk-transition-slide-bottom">
         <b>{{ include.data.title }}</b><br />
         {{ include.data.event }} - {{ include.data.date | date_to_long_string }}<br />
-        {% if include.data.playurl %}
-        <a class="uk-button uk-button-default uk-button-small" href="{{ include.data.playurl }}"
+        {% if include.data.play-url %}
+        <a class="uk-button uk-button-default uk-button-small" href="{{ include.data.play-url }}"
             target="_blank">Play</a>
         {% endif %}
-        {% if include.data.pageurl %}
-        <a class="uk-button uk-button-default uk-button-small" href="{{ include.data.pageurl }}"
+        {% if include.data.page-url %}
+        <a class="uk-button uk-button-default uk-button-small" href="{{ include.data.page-url }}"
             target="_blank">Page</a>
         {% endif %}
-        {% if include.data.srcurl %}
-        <a class="uk-button uk-button-default uk-button-small" href="{{ include.data.srcurl }}"
+        {% if include.data.src-url %}
+        <a class="uk-button uk-button-default uk-button-small" href="{{ include.data.src-url }}"
             target="_blank">Source</a>
         {% endif %}
         {% if include.data.android-url %}

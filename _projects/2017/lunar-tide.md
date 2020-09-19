@@ -6,9 +6,9 @@ img: "lunar-tide-%.jpg"
 category: "game jam"
 
 # Urls
-playurl: https://play.google.com/store/apps/details?id=games.busta.lunartide
-srcurl: https://github.com/RicardoBusta/GlobalGameJam2017
-pageurl: https://globalgamejam.org/2017/games/lunar-tide
+android-url: https://play.google.com/store/apps/details?id=games.busta.lunartide
+src-url: https://github.com/RicardoBusta/GlobalGameJam2017
+page-url: https://globalgamejam.org/2017/games/lunar-tide
 
 # Publish Information
 bundle_id: games.busta.lunartide
