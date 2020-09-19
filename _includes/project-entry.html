@@ -17,5 +17,12 @@
         <a class="uk-button uk-button-default uk-button-small" href="{{ include.data.srcurl }}"
             target="_blank">Source</a>
         {% endif %}
+        {% if include.data.android-url %}
+        <a class="uk-button uk-button-default uk-button-small" href="{{ include.data.android-url }}"
+            target="_blank">Android</a>
+        {% endif %}
+        {% if include.data.ios-url %}
+        <a class="uk-button uk-button-default uk-button-small" href="{{ include.data.ios-url }}" target="_blank">iOS</a>
+        {% endif %}
     </div>
 </div>
