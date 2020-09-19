@@ -22,11 +22,22 @@ $global-secondary-background: $secondary-color;
 @import "uikit/mixins-theme.scss";
 
 // 3. Your custom mixin overwrites.
-@mixin hook-card() { color:rgba(233,233,233,255) }
-@mixin hook-inverse-subnav-pill-item(){border-radius: 5px; color: $global-inverse-color;}
-@mixin hook-inverse-subnav-pill-item-hover(){background-color: $secondary-color; color: $global-inverse-color;}
+@mixin hook-card() { 
+    color:rgba(233,233,233,255); 
+}
+@mixin hook-inverse-subnav-pill-item(){
+    border-radius: 5px;
+    color: $global-inverse-color;
+}
+@mixin hook-inverse-subnav-pill-item-hover(){
+    background-color: $secondary-color; 
+    color: $global-inverse-color;
+}
 @mixin hook-inverse-subnav-pill-item-onclick(){}
-@mixin hook-inverse-subnav-pill-item-active(){background-color: $secondary-color; color: $highlight-color-1;}
+@mixin hook-inverse-subnav-pill-item-active(){
+    background-color: $secondary-color;
+    color: $highlight-color-1;
+}
 
 @import "uikit/uikit";
 @import "monokai";
@@ -51,23 +62,23 @@ $global-secondary-background: $secondary-color;
     transition:.3s
 }
 
-.rb-highlight-1{
+.rb-highlight-1 > span{
     color: $highlight-color-1;
 }
 
-.rb-highlight-2{
+.rb-highlight-2 > span{
     color: $highlight-color-2;
 }
 
-.rb-highlight-3{
+.rb-highlight-3 > span{
     color: $highlight-color-3;
 }
 
-.rb-highlight-4{
+.rb-highlight-4 > span{
     color: $highlight-color-4;
 }
 
-.rb-highlight-5{
+.rb-highlight-5 > span{
     color: $highlight-color-5;
 }
 
