@@ -2,6 +2,12 @@
 $primary-color: #0e1621;
 $secondary-color: #182533;
 
+$highlight-color-1: #32d296;
+$highlight-color-2: #1e87f0;
+$highlight-color-3: #faa05a;
+$highlight-color-4: #f0506e;
+$highlight-color-5: #9D5CCC;
+
 $global-inverse-color: #eee;
 $global-emphasis-color: #eee;
 
@@ -17,6 +23,54 @@ $global-secondary-background: $secondary-color;
 
 // 3. Your custom mixin overwrites.
 @mixin hook-card() { color:rgba(233,233,233,255) }
+@mixin hook-inverse-subnav-pill-item(){border-radius: 5px; color: $global-inverse-color;}
+@mixin hook-inverse-subnav-pill-item-hover(){background-color: $secondary-color; color: $global-inverse-color;}
+@mixin hook-inverse-subnav-pill-item-onclick(){}
+@mixin hook-inverse-subnav-pill-item-active(){background-color: $secondary-color; color: $highlight-color-1;}
 
 @import "uikit/uikit";
 @import "monokai";
+
+// 4. Your CSS
+.blog-post img{
+    display: block;
+    max-width: 560px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.header-link{
+    color:rgba(255,255,255,0.9);
+    text-decoration:none;
+    transition:.4s
+}
+  
+.header-link:hover{
+    text-decoration:none;
+    text-shadow:0 0 5px #1e87f0;
+    transition:.3s
+}
+
+.rb-highlight-1{
+    color: $highlight-color-1;
+}
+
+.rb-highlight-2{
+    color: $highlight-color-2;
+}
+
+.rb-highlight-3{
+    color: $highlight-color-3;
+}
+
+.rb-highlight-4{
+    color: $highlight-color-4;
+}
+
+.rb-highlight-5{
+    color: $highlight-color-5;
+}
+
+html {
+    background-color: $secondary-color;
+}

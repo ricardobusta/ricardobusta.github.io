@@ -3,6 +3,7 @@ title: "Rogue (WIP)"
 event: "Side Project"
 date: "01 Jan 2020"
 img: "rogue-%.png"
+category: "game"
 
 # Publish Information
 bundle_id: games.busta.rogue
