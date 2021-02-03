@@ -7,7 +7,7 @@ category: "game jam"
 
 # Urls
 android-url: https://play.google.com/store/apps/details?id=games.busta.lunartide
-src-url: https://github.com/RicardoBusta/GlobalGameJam2017
+src-url: https://github.com/ricardobusta/globalgamejam2017
 page-url: https://globalgamejam.org/2017/games/lunar-tide
 
 # Publish Information
