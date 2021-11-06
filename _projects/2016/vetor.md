@@ -4,7 +4,7 @@ event: "InovAPPS 2015"
 date: "Dec 2016"
 img: "vetor-%.jpg"
 android-url: https://play.google.com/store/apps/details?id=com.OldDogs.Vetor
-category: "game"
+category: "game featured"
 
 # Publish Information
 bundle_id: com.OldDogs.Vetor
