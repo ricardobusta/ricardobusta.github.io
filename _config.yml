@@ -16,6 +16,8 @@ collections:
     output: false
   posts:
     output: true
+  certifications:
+    output: false
 
 defaults:
 - scope:
@@ -26,6 +28,11 @@ defaults:
 - scope:
     path: ""
     type: "posts"
+  values:
+    layout: "post"
+- scope:
+    path: ""
+    type: "certifications"
   values:
     layout: "post"
     

@@ -1,4 +1,4 @@
-My personal blog. 
+lMy personal blog. 
 Posts about technology and stuff.
 
 # Setup
