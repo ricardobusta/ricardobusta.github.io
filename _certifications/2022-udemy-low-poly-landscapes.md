@@ -1,6 +1,6 @@
 ---
 title: "Udemy Low Poly Landscapes"
-date: "31 Dec 2021"
+date: "02 Jan 2022"
 category: "course"
 link: "https://busta.dev/udemy-low-poly-landscapes/"
 ---
