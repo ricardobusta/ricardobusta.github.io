@@ -7,5 +7,12 @@ category: "game jam featured"
 page-url: https://webgamesjams.github.io/
 play-url: https://busta.dev/WebgamesJam21/play/
 src-url: https://github.com/RicardoBusta/WebgamesJam21
+
+# Publish Information
+bundle_id: games.busta.alchemist
+# license_type: [open source/free/freemium/ad-supported/commercial]
+license_type: a free
+# user_information: [users name, address, location, pictures]
+user_information:
 ---
 lorem ipsum
