@@ -7,6 +7,7 @@ category: "game jam featured"
 page-url: https://webgamesjams.github.io/
 play-url: https://busta.dev/WebgamesJam21/play/
 src-url: https://github.com/RicardoBusta/WebgamesJam21
+android-url: https://play.google.com/store/apps/details?id=games.busta.alchemist
 
 # Publish Information
 bundle_id: games.busta.alchemist
