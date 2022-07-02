@@ -29,6 +29,15 @@ Enable draft posts in order to preview them
 bundle exec jekyll serve --drafts
 ```
 
+## UiKit setup
+
+```
+npm install -g yarn
+yarn
+yarn compile
+yarn watch
+```
+
 ## Preprocessors
 
 Due to security reasons, Jekyll custom plugins are disabled. For that reason, any pre-processing has to be executed locally and commited to the repository.

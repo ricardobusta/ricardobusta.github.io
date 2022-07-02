@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="20"
+   height="20"
+   viewBox="0 0 20 20"
+   version="1.1"
+   id="svg4"
+   sodipodi:docname="apple.svg"
+   inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs8" />
+  <sodipodi:namedview
+     id="namedview6"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     showgrid="false"
+     inkscape:zoom="20.6"
+     inkscape:cx="22.621359"
+     inkscape:cy="13.033981"
+     inkscape:window-width="1920"
+     inkscape:window-height="1009"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg4" />
+  <path
+     id="path870"
+     style="stroke-width:0.323503;paint-order:markers stroke fill"
+     d="M 13.513748,0.99691393 C 11.52355,1.3656231 9.8669399,3.5706918 9.9922115,4.9852555 11.997594,4.585857 13.544589,2.6943778 13.513748,0.99691393 Z M 13.269793,5.2778119 c -0.485037,0.00357 -0.968996,0.088895 -1.42858,0.2447036 C 11.103662,5.7470596 10.346574,6.27288 9.5564708,5.9314988 8.6677629,5.6370522 7.7826224,5.2010886 6.8170665,5.3187103 4.9689916,5.5199654 3.4632325,7.0644372 3.0679717,8.8459447 2.5795992,10.874634 3.0356088,13.024492 3.8731164,14.897106 c 0.5978362,1.205766 1.3522851,2.366416 2.3757424,3.253536 0.711535,0.606511 1.7376125,0.479233 2.5143777,0.07686 0.8942986,-0.398899 1.9318615,-0.4991 2.8510525,-0.118553 0.834551,0.398765 1.933867,0.708459 2.741536,0.08416 1.347558,-1.019783 2.15865,-2.577736 2.777484,-4.115405 C 16.925448,13.54244 16.063042,13.196226 15.757022,12.590624 14.811698,11.410938 14.619938,9.6610406 15.431789,8.3597119 15.652819,7.762901 16.473577,7.3138306 16.610136,6.8556123 15.944529,5.9384356 14.874985,5.3900661 13.754305,5.3018676 13.593254,5.2844812 13.43147,5.276635 13.269793,5.2777941 Z" />
+</svg>
