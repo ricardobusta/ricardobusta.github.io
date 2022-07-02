@@ -1,4 +1,4 @@
-lMy personal blog. 
+My personal blog. 
 Posts about technology and stuff.
 
 # Setup
@@ -24,7 +24,7 @@ bundle exec jekyll build
 ```
 
 ## Serve with drafts
-Enables drafts posts in order to preview them
+Enable draft posts in order to preview them
 ```sh
 bundle exec jekyll serve --drafts
 ```
