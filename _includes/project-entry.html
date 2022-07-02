@@ -1,4 +1,4 @@
-<div class="uk-card">
+<div class="uk-card rb-project-entry">
     <div class="uk-height-medium uk-transition-toggle uk-cover-container uk-background-cover"
          style="background-color: black; background-image: url(assets/projects/{{ include.data.img | replace: '%', 'img' }});">
         <div class="uk-background-cover uk-height-medium uk-panel uk-flex uk-flex-center uk-flex-middle uk-transition-scale-up"
@@ -9,22 +9,22 @@
         {{ include.data.event }} - {{ include.data.date | date_to_long_string }}<br />
         {% if include.data.play-url %}
         <a class="uk-button uk-button-default uk-button-small" href="{{ include.data.play-url }}"
-           target="_blank">Play</a>
+           target="_blank"><span uk-icon="play"></span><span> Play</span></a>
         {% endif %}
         {% if include.data.page-url %}
         <a class="uk-button uk-button-default uk-button-small" href="{{ include.data.page-url }}"
-           target="_blank">Page</a>
+           target="_blank"><span uk-icon="world"></span><span> Page</span></a>
         {% endif %}
         {% if include.data.src-url %}
         <a class="uk-button uk-button-default uk-button-small" href="{{ include.data.src-url }}"
-           target="_blank">Source</a>
+           target="_blank"><span uk-icon="github"></span><span> Src</span></a>
         {% endif %}
         {% if include.data.android-url %}
         <a class="uk-button uk-button-default uk-button-small" href="{{ include.data.android-url }}"
-           target="_blank">Android</a>
+           target="_blank"><span uk-icon="google"></span><span> And</span></a>
         {% endif %}
         {% if include.data.ios-url %}
-        <a class="uk-button uk-button-default uk-button-small" href="{{ include.data.ios-url }}" target="_blank">iOS</a>
+        <a class="uk-button uk-button-default uk-button-small" href="{{ include.data.ios-url }}" target="_blank"><span uk-icon="info"></span><span> iOS</span></a>
         {% endif %}
     </div>
 </div>
