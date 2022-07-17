@@ -1,5 +1,5 @@
 ---
-title: "Switchcraft"
+title: "Switchcraft - Wooga GmbH"
 event: "Game Engineer"
 date: "11 Oct 2021"
 img: "switchcraft-%.jpg"
