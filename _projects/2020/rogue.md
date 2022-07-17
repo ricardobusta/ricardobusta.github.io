@@ -4,6 +4,7 @@ event: "Side Project"
 date: "01 Jan 2020"
 img: "rogue-%.png"
 category: "game"
+youtube-url: tKBjZZS0NW4
 
 # Publish Information
 bundle_id: games.busta.rogue

@@ -4,6 +4,7 @@ event: "InovAPPS 2015"
 date: "Dec 2016"
 img: "vetor-%.jpg"
 android-url: https://play.google.com/store/apps/details?id=com.OldDogs.Vetor
+youtube-url: nykkkCIcUEA
 category: "game featured"
 
 # Publish Information
