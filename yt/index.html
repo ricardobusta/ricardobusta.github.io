@@ -1,21 +1,26 @@
+---
+redirect: https://www.youtube.com/channel/UCpJetW3gb5VhqJOkpbEZYuw
+desc: busta.dev youtube channel
+---
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="refresh" content="0; url=https://www.youtube.com/channel/UCpJetW3gb5VhqJOkpbEZYuw">
-    <meta property="og:title" content="busta.dev youtube channel"/>
-    <meta property="og:image" content="https://busta.dev/assets/youtube_thumbnails/preview.png"/>
-    <meta property="og:description" content="busta.dev youtube channel"/>
-    <meta property="og:url" content="https://www.youtube.com/channel/UCpJetW3gb5VhqJOkpbEZYuw"/>
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="627" />
+    <meta http-equiv="refresh" content="0; url={{ page.redirect }}">
+    <meta property="og:title" content="{{ page.desc }}"/>
+    <meta property="og:image" content="{{ site.url }}/assets/youtube_thumbnails/preview.png"/>
+    <meta property="og:description" content="{{ page.desc }}"/>
+    <meta property="og:url" content="{{ site.url }}/yt"/>
+    <meta property="og:image:width" content="1200"/>
+    <meta property="og:image:height" content="627"/>
     <meta property="og:type" content="website"/>
-    <title>busta.dev youtube channel</title>
+
+    <title>{{ page.desc }}</title>
     <script>
-        location.replace("https://www.youtube.com/channel/UCpJetW3gb5VhqJOkpbEZYuw")
+        location.replace("{{ page.redirect }}")
     </script>
 </head>
 <body style="background-color: black; color: white;">
-<a href="https://www.youtube.com/channel/UCpJetW3gb5VhqJOkpbEZYuw">If you are not redirected automatically, here is the link.</a>
+<a href="{{ page.redirect }}">If you are not redirected automatically, here is the link.</a>
 </body>
 </html>

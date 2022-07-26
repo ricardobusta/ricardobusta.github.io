@@ -1,6 +1,7 @@
 # Site Settings
-title: 'busta.dev'
-description: 'Games, software and other interesting projects developed by Ricardo Bustamante, a.k.a. "Busta"'
+title: 'busta.dev archive'
+description: >-
+  Games, software and other projects developed by Ricardo Bustamante, a.k.a. Busta.
 url: https://busta.dev
 
 # Build Settings
