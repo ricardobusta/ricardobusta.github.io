@@ -6,7 +6,7 @@ img: "fatty-bird-%.png"
 category: "game jam"
 
 # Urls
-src-url: https://github.com/RicardoBusta/LudumDare40
+src-url: https://github.com/ricardobusta/ludumdare40
 page-url: https://ldjam.com/events/ludum-dare/40/fatty-bird-in-the-evil-aspargus-land
 
 # Publish Information
