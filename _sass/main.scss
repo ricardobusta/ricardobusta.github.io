@@ -57,9 +57,8 @@ $rb-entry-card-border-color: #444c56;
 // 4. Your CSS
 
 .rb-project-entry{
-    border-radius: $rb-border-radius;
-    border: 1px solid $rb-entry-card-border-color;
-    padding: 10px;
+    border: 0px;
+    padding: 5px;
 }
 
 .rb-blog-post img{
