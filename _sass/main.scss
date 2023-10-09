@@ -46,9 +46,14 @@ $rb-entry-card-border-color: #444c56;
 
 @mixin hook-inverse-button-default(){
     background-color: $rb-button-background-color;
-    border-color: $rb-border-color;
+    border: 0;
     color: $global-inverse-color;
     border-radius: $rb-border-radius;
+}
+
+@mixin hook-inverse-button-default-hover(){
+    background-color: $secondary-color;
+    color: $highlight-color-1;
 }
 
 @import "uikit/uikit";
