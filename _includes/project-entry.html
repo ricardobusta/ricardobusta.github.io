@@ -1,8 +1,28 @@
+{% capture img-year-name %}{{include.data.date | date: "%Y" | append: "-" | append: include.data.img}}{% endcapture %}
+
+{% assign img0-file = "/assets/projects/" | append: img-year-name | append: "-img0.png" %}
+{% assign img0-path = "/assets/projects/default-img0.png" %}
+{% assign img1-file = "/assets/projects/" | append: img-year-name | append: "-img1.png" %}
+{% assign img1-path = "/assets/projects/default-img1.png" %}
+
+{% for file in site.static_files %}
+    {% if file.path == img0-file %}
+        {% assign img0-path = img0-file %}
+    {% endif %}
+
+    {% if file.path == img1-file %}
+        {% assign img1-path = img1-file %}
+    {% endif %}
+{% endfor %}
+
+<p> {{ img0-exists }}</p>
+<p> {{ img1-exists }}</p>
+
 <div class="uk-card rb-project-entry">
     <div class="uk-height-medium uk-transition-toggle uk-cover-container uk-background-cover"
-         style="background-color: black; background-image: url(assets/projects/{{ include.data.img | replace: '%', 'img' }});">
+         style="background-color: black; background-image: url({{ img1-path }});">
         <div class="uk-background-cover uk-height-medium uk-panel uk-flex uk-flex-center uk-flex-middle uk-transition-scale-up"
-             style="background-image: url(assets/projects/{{ include.data.img | replace: '%', 'ss' }});"></div>
+             style="background-image: url({{ img0-path }});"></div>
     </div>
     <div class="rb-highlight-1">
         <span><b>{{ include.data.title }}</b></span><br/>
