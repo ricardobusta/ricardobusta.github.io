@@ -1,9 +1,11 @@
 import can from 'canvas';
 import fs from 'fs';
 
-const size = 512;
+const sizeX = 378
+const sizeY = 300
+const aspect = sizeX / sizeY;
 
-const canvas = can.createCanvas(size, size);
+const canvas = can.createCanvas(sizeX, sizeY);
 const context = canvas.getContext('2d');
 
 const projectsAssetPath = './_srcassets/projects/';
@@ -50,15 +52,33 @@ function getAverageRGB(image) {
 }
 
 function resizeImage(image, max, color){
-    const side = max ? Math.max(image.width, image.height) : Math.min(image.width, image.height);
-    const scale = size / side;
+    let side = 0;
+    let scale = 1;
+    let imgAspect = image.width / image.height;
+    if(max){
+        if(imgAspect > aspect){
+            side = image.width;
+            scale = sizeX / side;
+        }else{
+            side = image.height;
+            scale = sizeY / side;
+        }
+    }else{
+        if(imgAspect > aspect){
+            side = image.height;
+            scale = sizeY / side;
+        }else{
+            side = image.width;
+            scale = sizeX / side;
+        }
+    }
     const w = image.width * scale;
     const h = image.height * scale;
-    const x = (size - w) / 2;
-    const y = (size - h) / 2;
+    const x = (sizeX - w) / 2;
+    const y = (sizeY - h) / 2;
 
     context.fillStyle = color;
-    context.fillRect(0, 0, size, size);
+    context.fillRect(0, 0, sizeX, sizeY);
     context.drawImage(image, x, y, w, h);
 }
 
