@@ -2,7 +2,6 @@
 title: "Fatty Bird in the Evil Aspargus Land"
 event: "Ludum Dare 40 Compo"
 date: "2017-12-03"
-img: "fatty-bird-%.png"
 category: "game jam"
 
 # Urls

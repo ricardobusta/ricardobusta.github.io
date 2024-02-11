@@ -2,7 +2,6 @@
 title: "BustaBot"
 event: "Side Project"
 date: "Jan 2019"
-img: "bustabot-%.jpg"
 category: "software"
 page-url: https://web.telegram.org/#/im?p=@BustaBot
 src-url: https://github.com/RicardoBusta/BustaBot

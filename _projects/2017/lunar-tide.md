@@ -2,7 +2,6 @@
 title: "Lunar Tide"
 event: "Global Game Jam"
 date: "22 Jan 2017"
-img: "lunar-tide-%.jpg"
 category: "game jam featured"
 
 # Urls
