@@ -23,19 +23,43 @@ function ensureDirSync (dirpath) {
     }
 }
 
-function resizeImage(image){
-    const maxSide = Math.max(image.width, image.height);
-    const scale = size / maxSide;
+function getAverageRGB(image) {
+    resizeImage(image, false, '#000000ff')
+
+    let data = context.getImageData(0, 0, image.width, image.height);
+
+    let length = data.data.length;
+    let i = 0;
+    let r = 0, g = 0, b = 0;
+
+    while ( i < length ) {
+        r += data.data[i];
+        g += data.data[i+1];
+        b += data.data[i+2];
+        i += 4;
+    }
+
+    let count = length / 4;
+
+    r = ~~(r/count);
+    g = ~~(g/count);
+    b = ~~(b/count);
+
+    let rgb = "#" + r.toString(16) + g.toString(16) + b.toString(16) + "ff";
+    return rgb;
+}
+
+function resizeImage(image, max, color){
+    const side = max ? Math.max(image.width, image.height) : Math.min(image.width, image.height);
+    const scale = size / side;
     const w = image.width * scale;
     const h = image.height * scale;
     const x = (size - w) / 2;
     const y = (size - h) / 2;
 
-    context.fillStyle = '#000000ff';
+    context.fillStyle = color;
     context.fillRect(0, 0, size, size);
     context.drawImage(image, x, y, w, h);
-
-    return canvas.toBuffer('image/png');
 }
 
 const dirs = getChildren(projectsAssetPath, true);
@@ -48,7 +72,9 @@ dirs.forEach(dir => {
     files.forEach(file => {
         try {
             can.loadImage(projectsAssetPath + year + "/" + file).then(image => {
-                const buffer = resizeImage(image)
+                var rgb = getAverageRGB(image)
+                resizeImage(image, true, rgb);
+                const buffer = canvas.toBuffer('image/png');
                 if (file.endsWith("jpg")) {
                     file = file.replace("jpg", "png");
                 }
