@@ -38,19 +38,10 @@ yarn compile
 yarn watch
 ```
 
-## Preprocessors
+## Update project pictures
 
-Due to security reasons, Jekyll custom plugins are disabled. For that reason, any pre-processing has to be executed locally and commited to the repository.
-
-```sh
-# run prebuild
-python .\prebuild.py
-```
-
-python dependency management
-```sh
-# save dependencies to file
-pip freeze > .\python_requirements.txt  
-# install dependencies
-pip install -r .\python_requirements.txt
+place source images under `_srcassets/projects`
+then run 
+```shell
+node .\generateAssets.js 
 ```
