@@ -2,9 +2,123 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Calculadora de Custo de Impressão 3D</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 500px;
+            margin: 30px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+        }
+        label {
+            display: block;
+            margin-top: 15px;
+        }
+        input {
+            width: 100%;
+            padding: 6px;
+            margin-top: 5px;
+            box-sizing: border-box;
+        }
+        input::placeholder {
+            color: #999;
+        }
+        .error {
+            color: red;
+            font-size: 0.9em;
+            display: none;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
-    Hello World
+<h2>Calculadora de Custo de Impressão 3D</h2>
+
+<label>
+    Custo da energia (R$/kWh):
+    <input type="text" id="custoEnergia" placeholder="Ex: 0,95" value="0,95" />
+    <span class="error" id="erroEnergia">Valor inválido</span>
+</label>
+
+<label>
+    Custo do quilo do filamento (R$/kg):
+    <input type="text" id="custoFilamento" placeholder="Ex: 135" />
+    <span class="error" id="erroFilamento">Valor inválido</span>
+</label>
+
+<label>
+    Tempo de impressão (horas):
+    <input type="text" id="tempoImpressao" placeholder="Ex: 1,1" />
+    <span class="error" id="erroTempo">Valor inválido</span>
+</label>
+
+<label>
+    Quantidade de filamento usada (g):
+    <input type="text" id="qtdFilamento" placeholder="Ex: 49" />
+    <span class="error" id="erroQtd">Valor inválido</span>
+</label>
+
+<div class="result" id="resultado">Custo total: R$ 0,00</div>
+
+<script>
+    const campos = [
+        { id: 'custoEnergia', erro: 'erroEnergia' },
+        { id: 'custoFilamento', erro: 'erroFilamento' },
+        { id: 'tempoImpressao', erro: 'erroTempo' },
+        { id: 'qtdFilamento', erro: 'erroQtd' }
+    ];
+
+    campos.forEach(campo => {
+        document.getElementById(campo.id).addEventListener('input', calcular);
+    });
+
+    function calcular() {
+        let valido = true;
+        const valores = {};
+
+        campos.forEach(campo => {
+            const input = document.getElementById(campo.id);
+            const erro = document.getElementById(campo.erro);
+            const valorStr = input.value.trim().replace(',', '.');
+
+            if (valorStr === '') {
+                erro.style.display = 'none';
+                valido = false;
+            } else {
+                const valor = parseFloat(valorStr);
+                if (isNaN(valor) || valor < 0) {
+                    erro.style.display = 'inline';
+                    valido = false;
+                } else {
+                    erro.style.display = 'none';
+                    valores[campo.id] = valor;
+                }
+            }
+        });
+
+        if (!valido) {
+            document.getElementById('resultado').textContent = 'Custo total: R$ 0,00';
+            return;
+        }
+
+        const consumoEnergiaKWh = 0.12 * valores.tempoImpressao;
+        const custoEnergia = consumoEnergiaKWh * valores.custoEnergia;
+        const custoFilamento = (valores.qtdFilamento / 1000) * valores.custoFilamento;
+        const custoManutencao = valores.tempoImpressao * 0.10;
+
+        const total = custoEnergia + custoFilamento + custoManutencao;
+
+        document.getElementById('resultado').textContent = `Custo total: R$ ${total.toFixed(2)}`;
+    }
+
+    calcular();
+</script>
+
 </body>
 </html>
