@@ -4,36 +4,77 @@
     <meta charset="UTF-8">
     <title>Calculadora de Custo de Impressão 3D</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            max-width: 500px;
-            margin: 30px auto;
-            padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 10px;
+        :root {
+            --bg: #f9fafb;
+            --input-bg: #ffffff;
+            --text: #111827;
+            --placeholder: #9ca3af;
+            --border: #d1d5db;
+            --error: #ef4444;
+            --accent: #6366f1;
         }
-        label {
-            display: block;
-            margin-top: 15px;
-        }
-        input {
-            width: 100%;
-            padding: 6px;
-            margin-top: 5px;
+
+        * {
             box-sizing: border-box;
         }
-        input::placeholder {
-            color: #999;
+
+        body {
+            background-color: var(--bg);
+            font-family: 'Inter', sans-serif;
+            color: var(--text);
+            padding: 40px 20px;
+            max-width: 600px;
+            margin: auto;
         }
+
+        h2 {
+            font-size: 1.8rem;
+            margin-bottom: 24px;
+            font-weight: 600;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 18px;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px 12px;
+            margin-top: 6px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            background-color: var(--input-bg);
+            font-size: 1rem;
+            transition: border 0.2s;
+        }
+
+        input:focus {
+            border-color: var(--accent);
+            outline: none;
+        }
+
+        input::placeholder {
+            color: var(--placeholder);
+        }
+
         .error {
-            color: red;
-            font-size: 0.9em;
+            color: var(--error);
+            font-size: 0.85rem;
+            margin-top: 4px;
             display: none;
         }
+
         .result {
-            margin-top: 20px;
-            font-size: 1.2em;
-            font-weight: bold;
+            margin-top: 30px;
+            font-size: 1.2rem;
+            font-weight: 500;
+        }
+
+        .result strong {
+            display: block;
+            margin-top: 6px;
+            font-size: 1.3rem;
         }
     </style>
 </head>
@@ -42,36 +83,46 @@
 
 <label>
     Custo da energia (R$/kWh):
-    <input type="text" id="custoEnergia" placeholder="Ex: 0,95" value="0,95" />
+    <input type="text" id="custoEnergia" placeholder="Ex: 0,95" value="0,95"/>
     <span class="error" id="erroEnergia">Valor inválido</span>
 </label>
 
 <label>
     Custo do quilo do filamento (R$/kg):
-    <input type="text" id="custoFilamento" placeholder="Ex: 135" />
+    <input type="text" id="custoFilamento" placeholder="Ex: 135"/>
     <span class="error" id="erroFilamento">Valor inválido</span>
 </label>
 
 <label>
     Tempo de impressão (horas):
-    <input type="text" id="tempoImpressao" placeholder="Ex: 1,1" />
+    <input type="text" id="tempoImpressao" placeholder="Ex: 1,1"/>
     <span class="error" id="erroTempo">Valor inválido</span>
 </label>
 
 <label>
     Quantidade de filamento usada (g):
-    <input type="text" id="qtdFilamento" placeholder="Ex: 49" />
+    <input type="text" id="qtdFilamento" placeholder="Ex: 49"/>
     <span class="error" id="erroQtd">Valor inválido</span>
 </label>
 
-<div class="result" id="resultado">Custo total: R$ 0,00</div>
+<label>
+    Margem de lucro (%):
+    <input type="text" id="lucroPercentual" placeholder="Ex: 30" value="10"/>
+    <span class="error" id="erroLucro">Valor inválido</span>
+</label>
+
+<div class="result" id="resultado">
+    Custo total: R$ 0,00<br/>
+    Preço final com lucro: R$ 0,00
+</div>
 
 <script>
     const campos = [
-        { id: 'custoEnergia', erro: 'erroEnergia' },
-        { id: 'custoFilamento', erro: 'erroFilamento' },
-        { id: 'tempoImpressao', erro: 'erroTempo' },
-        { id: 'qtdFilamento', erro: 'erroQtd' }
+        {id: 'custoEnergia', erro: 'erroEnergia'},
+        {id: 'custoFilamento', erro: 'erroFilamento'},
+        {id: 'tempoImpressao', erro: 'erroTempo'},
+        {id: 'qtdFilamento', erro: 'erroQtd'},
+        {id: 'lucroPercentual', erro: 'erroLucro'}
     ];
 
     campos.forEach(campo => {
@@ -103,7 +154,10 @@
         });
 
         if (!valido) {
-            document.getElementById('resultado').textContent = 'Custo total: R$ 0,00';
+            document.getElementById('resultado').innerHTML = `
+          Custo total: R$ 0,00<br/>
+          Preço final com lucro: R$ 0,00
+        `;
             return;
         }
 
@@ -112,13 +166,15 @@
         const custoFilamento = (valores.qtdFilamento / 1000) * valores.custoFilamento;
         const custoManutencao = valores.tempoImpressao * 0.10;
 
-        const total = custoEnergia + custoFilamento + custoManutencao;
+        const custoTotal = custoEnergia + custoFilamento + custoManutencao;
+        const precoFinal = custoTotal * (1 + valores.lucroPercentual / 100);
 
-        document.getElementById('resultado').textContent = `Custo total: R$ ${total.toFixed(2)}`;
+        document.getElementById('resultado').innerHTML = `
+        Custo total: R$ ${custoTotal.toFixed(2)}<br/>
+        Preço final com lucro: R$ ${precoFinal.toFixed(2)}`;
     }
 
     calcular();
 </script>
-
 </body>
 </html>
