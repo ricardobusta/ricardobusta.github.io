@@ -249,6 +249,14 @@
 </div>
 
 <script>
+    const isDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+    if (isDarkMode) {
+        document.body.classList.add('dark');
+    } else {
+        document.body.classList.remove('dark');
+    }
+
     function toggleDarkMode() {
         document.body.classList.toggle('dark');
     }
