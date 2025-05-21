@@ -8,17 +8,21 @@
         :root {
             --bg-color: #fdfdfd;
             --text-color: #333;
+            --text-color-dark: #99A;
             --accent-color: #444466;
             --tag-bg: #eee;
             --line-color: #c1c1f3;
+            --link-color: #39f;
         }
 
         body.dark {
-            --bg-color: #1e1e1e;
-            --text-color: #ddd;
-            --accent-color: #82aaff;
-            --tag-bg: #333;
-            --line-color: #c1c1f3;
+            --bg-color: #2d333b;
+            --text-color: #adbac7;
+            --text-color-dark: #667;
+            --accent-color: #39f;
+            --tag-bg: #373e47;
+            --line-color: #32d296;
+            --link-color: #faa05a;
         }
 
         body {
@@ -75,7 +79,7 @@
 
         .location {
             font-style: italic;
-            color: #888;
+            color: var(--text-color-dark);
         }
 
         ul {
@@ -83,7 +87,13 @@
         }
 
         a {
-            color: var(--accent-color);
+            color: var(--link-color);
+        }
+
+        hr {
+            border: none;
+            border-top: 1px dashed var(--text-color-dark); /* Color and thickness */
+            margin: 30px 0; /* Spacing above and below */
         }
 
         .photo {
@@ -111,9 +121,11 @@
         <h1>Ricardo Bustamante</h1>
         <h3>Senior Software Engineer</h3>
         <div class="contact">
-            <div> <a href="mailto:ricardo@busta.dev">ricardo@busta.dev</a> | <a href="tel:+5585991181404">+55 85 991181404</a> | <a href="https://maps.app.goo.gl/9nELCxTXZ8A8qqwY9">Fortaleza CE Brazil</a></div>
+            <div><a href="mailto:ricardo@busta.dev">ricardo@busta.dev</a> | <a href="tel:+5585991181404">+55 85
+                991181404</a> | <a href="https://maps.app.goo.gl/9nELCxTXZ8A8qqwY9">Fortaleza CE Brazil</a></div>
             <div>
-                <a href="https://www.linkedin.com/in/ricardobusta">linkedin</a> | <a href="https://github.com/ricardobusta">github</a> | <a href="https://busta.dev">busta.dev</a>
+                <a href="https://www.linkedin.com/in/ricardobusta">linkedin</a> | <a
+                    href="https://github.com/ricardobusta">github</a> | <a href="https://busta.dev">busta.dev</a>
             </div>
         </div>
     </div>
@@ -143,10 +155,12 @@
                 and artists, SDK integration, asset pipelines, and core feature development.
             </li>
             <li>Played a key role in the development of a custom Match-3 engine and island decoration systems.</li>
-            <li>Notable titles: <i>Switchcraft</i>, <i>Ghost Detective (Netflix Games)</i>, <i>Claire's Chronicles</i>.</li>
+            <li>Notable titles: <i>Switchcraft</i>, <i>Ghost Detective (Netflix Games)</i>, <i>Claire's Chronicles</i>.
+            </li>
             <li>Key Technologies: C#, Unity, Android, iOS.</li>
         </ul>
     </div>
+    <hr>
     <div class="experience">
         <h3>Software Engineer | Tapps Games</h3>
         <p class="location">2017 – 2020 | São Paulo, Brazil</p>
@@ -162,6 +176,7 @@
             <li>Key Technologies: Unity, C#, Python, GoCD, Android, iOS.</li>
         </ul>
     </div>
+    <hr>
     <div class="experience">
         <h3>Indie Game Dev | Busta.Games, Supernova, INOVAApps</h3>
         <p class="location">2015 – 2017 | Fortaleza, Brazil</p>
@@ -172,6 +187,7 @@
             </li>
         </ul>
     </div>
+    <hr>
     <div class="experience">
         <h3>Software Engineer | LSBD</h3>
         <p class="location">2013 – 2015 | Fortaleza, Brazil</p>
@@ -196,6 +212,7 @@
             <li>Technologies: C++, OpenGL, C#, Unity</li>
         </ul>
     </div>
+    <hr>
     <div class="education-item">
         <h3>Computer Science Degree | Universidade Federal do Ceará</h3>
         <p class="location">2008 – 2013 | Fortaleza, Brazil</p>
