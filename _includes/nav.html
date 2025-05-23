@@ -1,20 +1,25 @@
 <div uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky">
     <nav class="uk-navbar-container" uk-navbar>
-        <ul class="uk-navbar-nav uk-navbar-center">
-            <li class="uk-active"><a href="#" uk-scroll>Home</a></li>
-            {% assign ordered_sections = site.sections | sort: "priority" %}
-            {% for section in ordered_sections offset:1 %}
-            <li class="uk-active"><a href="#{{ section.title }}" uk-scroll>{{ section.title }}</a></li>
-            {% endfor %}
-            <!--<li class="uk-active">
-                <div class="uk-section-secondary"
-                    style="border: 1px solid; border-radius: 50%; width: 1em; height: 1em; margin-right: 1em; ">
-                </div>
-            </li>
-            <li class="uk-active">
-                <div class="uk-section-default" style="border: 1px solid; border-radius: 50%; width: 1em; height: 1em;">
-                </div>
-            </li>-->
-        </ul>
+        <div class="uk-navbar-left"></div>
+
+        <div class="uk-navbar-center">
+            <ul class="uk-navbar-nav">
+                <li class="uk-active"><a href="#" uk-scroll>Home</a></li>
+                {% assign ordered_sections = site.sections | sort: "priority" %}
+                {% for section in ordered_sections offset:1 %}
+                <li class="uk-active"><a href="#{{ section.title }}" uk-scroll>{{ section.title }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="uk-navbar-right">
+            <div class="switch-container" style="display: flex; align-items: center; gap: 8px; padding-right: 15px;">
+                <span style="font-size: 14px;">Dark Mode</span>
+                <label class="switch">
+                    <input type="checkbox" id="nav-toggle" onclick="toggleDarkMode()">
+                    <span class="slider round"></span>
+                </label>
+            </div>
+        </div>
     </nav>
 </div>
