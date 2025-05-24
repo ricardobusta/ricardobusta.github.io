@@ -14,7 +14,7 @@ priority: 30
         {% assign ordered_certifications = site.certifications | sort: "date" | reverse %}
         {% for certification in ordered_certifications %}
         <li category="{{ certification.category | default: 'other' }}">
-            <div uk-scrollspy="target: > div; cls: uk-animation-fade; delay: 150; repeat: true">
+            <div>
                 <a href="{{certification.link}}">{{certification.date | date_to_long_string}} - {{ certification.title
                     }}</a>
             </div>

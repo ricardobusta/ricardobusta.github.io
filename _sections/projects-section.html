@@ -17,7 +17,7 @@ priority: 20
         {% assign ordered_projects = site.projects | sort: "date" | reverse %}
         {% for project in ordered_projects %}
         <li category="{{ project.category | default: 'other' }}">
-            <div uk-scrollspy="target: > div; cls: uk-animation-fade; delay: 150; repeat: true">
+            <div>
                 {% include project-entry.html data=project %}
             </div>
         </li>
