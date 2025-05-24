@@ -20,6 +20,8 @@ collections:
     output: true
   certifications:
     output: false
+  recipes:
+    output: true
 
 defaults:
 - scope:
@@ -37,6 +39,12 @@ defaults:
     type: "certifications"
   values:
     layout: "post"
+- scope:
+    path: ""
+    type: "recipes"
+  values:
+    permalink: "/:path/"
+    layout: "recipe"
     
 
 # Plugin Settings

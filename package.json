@@ -2,6 +2,7 @@
     "scripts": {
         "bundle": "bundle",
         "bundle-update": "bundle update",
+        "build": "bundle exec jekyll build",
         "build-serve": "bundle exec jekyll serve",
         "build-serve-drafts": "bundle exec jekyll serve --drafts"
     },
