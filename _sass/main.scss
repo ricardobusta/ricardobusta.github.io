@@ -62,20 +62,6 @@ $rb-entry-card-border-color: #444c56;
 
 // 4. Your CSS
 
-.dark-mode {
-  background-color: #121212;
-  color: #ffffff;
-}
-
-.dark-mode a {
-  color: #90caf9;
-}
-
-.dark-mode .uk-card {
-  background-color: #1e1e1e;
-  color: #ffffff;
-}
-
 .rb-project-entry {
   border: 0px;
   padding: 5px;
@@ -122,6 +108,22 @@ $rb-entry-card-border-color: #444c56;
 
 html {
   background-color: $bg-color;
+}
+
+// Dark Mode
+
+.dark-mode {
+  background-color: #121212;
+  color: #ffffff;
+}
+
+.dark-mode a {
+  color: #90caf9;
+}
+
+.dark-mode .uk-card {
+  background-color: #1e1e1e;
+  color: #ffffff;
 }
 
 // 5. Dark Mode Switch
