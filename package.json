@@ -6,8 +6,7 @@
         "build-serve-drafts": "bundle exec jekyll serve --drafts"
     },
     "dependencies": {
-        "canvas": "^2.11.2",
-        "fs": "0.0.1-security"
+        "canvas": "^3.1.0"
     },
     "type": "module"
 }
