@@ -1,6 +1,7 @@
 // 1. Your custom variables and variable overwrites.
-$primary-color: #22272e;
-$secondary-color: #2d333b;
+
+$fg-color: black;
+$bg-color: white;
 
 $highlight-color-1: #32d296;
 $highlight-color-2: #1e87f0;
@@ -8,14 +9,14 @@ $highlight-color-3: #faa05a;
 $highlight-color-4: #f0506e;
 $highlight-color-5: #9D5CCC;
 
-$global-inverse-color: #adbac7;
-$global-emphasis-color: #eee;
+//$global-inverse-color: #adbac7;
+//$global-emphasis-color: #eee;
 
-$global-muted-background: $secondary-color;
-$global-primary-background: $primary-color;
-$global-link-color: $primary-color;
-$global-link-hover-color: $primary-color;
-$global-secondary-background: $secondary-color;
+//$global-muted-background: $secondary-color;
+//$global-primary-background: $primary-color;
+//$global-link-color: $primary-color;
+//$global-link-hover-color: $primary-color;
+//$global-secondary-background: $secondary-color;
 
 $rb-button-background-color: #373e47;
 $rb-border-color: #ccd9e61a;
@@ -27,84 +28,148 @@ $rb-entry-card-border-color: #444c56;
 @import "uikit/mixins-theme.scss";
 
 // 3. Your custom mixin overwrites.
-@mixin hook-card() { 
-    color:$global-inverse-color;
-}
-@mixin hook-inverse-subnav-pill-item(){
-    border-radius: 5px;
-    color: $global-inverse-color;
-}
-@mixin hook-inverse-subnav-pill-item-hover(){
-    background-color: $secondary-color; 
-    color: $global-inverse-color;
-}
-@mixin hook-inverse-subnav-pill-item-onclick(){}
-@mixin hook-inverse-subnav-pill-item-active(){
-    background-color: $secondary-color;
-    color: $highlight-color-1;
-}
-
-@mixin hook-inverse-button-default(){
-    background-color: $rb-button-background-color;
-    border: 0;
-    color: $global-inverse-color;
-    border-radius: $rb-border-radius;
-}
-
-@mixin hook-inverse-button-default-hover(){
-    background-color: $secondary-color;
-    color: $highlight-color-1;
-}
+//@mixin hook-card() {
+//    color:$global-inverse-color;
+//}
+//@mixin hook-inverse-subnav-pill-item(){
+//    border-radius: 5px;
+//    color: $global-inverse-color;
+//}
+//@mixin hook-inverse-subnav-pill-item-hover(){
+//    background-color: $secondary-color;
+//    color: $global-inverse-color;
+//}
+//@mixin hook-inverse-subnav-pill-item-onclick(){}
+//@mixin hook-inverse-subnav-pill-item-active(){
+//    background-color: $secondary-color;
+//    color: $highlight-color-1;
+//}
+//
+//@mixin hook-inverse-button-default(){
+//    background-color: $rb-button-background-color;
+//    border: 0;
+//    color: $global-inverse-color;
+//    border-radius: $rb-border-radius;
+//}
+//
+//@mixin hook-inverse-button-default-hover(){
+//    background-color: $secondary-color;
+//    color: $highlight-color-1;
+//}
 
 @import "uikit/uikit";
 @import "monokai";
 
 // 4. Your CSS
 
-.rb-project-entry{
-    border: 0px;
-    padding: 5px;
+.dark-mode {
+  background-color: #121212;
+  color: #ffffff;
 }
 
-.rb-blog-post img{
-    display: block;
-    max-width: 560px;
-    margin-left: auto;
-    margin-right: auto;
+.dark-mode a {
+  color: #90caf9;
 }
 
-.rb-header-link{
-    color:$global-link-color;
-    text-decoration:none;
-    transition:.4s
-}
-  
-.rb-header-link:hover{
-    text-decoration:none;
-    text-shadow:0 0 5px #1e87f0;
-    transition:.3s
+.dark-mode .uk-card {
+  background-color: #1e1e1e;
+  color: #ffffff;
 }
 
-.rb-highlight-1 > span{
-    color: $highlight-color-1;
+.rb-project-entry {
+  border: 0px;
+  padding: 5px;
 }
 
-.rb-highlight-2 > span{
-    color: $highlight-color-2;
+.rb-blog-post img {
+  display: block;
+  max-width: 560px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.rb-highlight-3 > span{
-    color: $highlight-color-3;
+.rb-header-link {
+  color: $global-link-color;
+  text-decoration: none;
+  transition: .4s
 }
 
-.rb-highlight-4 > span{
-    color: $highlight-color-4;
+.rb-header-link:hover {
+  text-decoration: none;
+  text-shadow: 0 0 5px #1e87f0;
+  transition: .3s
 }
 
-.rb-highlight-5 > span{
-    color: $highlight-color-5;
+.rb-highlight-1 > span {
+  color: $highlight-color-1;
+}
+
+.rb-highlight-2 > span {
+  color: $highlight-color-2;
+}
+
+.rb-highlight-3 > span {
+  color: $highlight-color-3;
+}
+
+.rb-highlight-4 > span {
+  color: $highlight-color-4;
+}
+
+.rb-highlight-5 > span {
+  color: $highlight-color-5;
 }
 
 html {
-    background-color: $secondary-color;
+  background-color: $bg-color;
+}
+
+// 5. Dark Mode Switch
+.switch-container {
+  padding: 0 15px;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 26px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: 0.4s;
+  border-radius: 34px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 18px;
+  width: 18px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: #4caf50;
+}
+
+input:checked + .slider:before {
+  transform: translateX(24px);
 }
