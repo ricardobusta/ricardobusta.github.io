@@ -1,0 +1,5 @@
+<div>
+    <a href="{{  site.baseurl }}{{ include.data.url }}">
+        {% if recipe.status == "wip" %}🚧(WIP) {% endif %}{{ include.data.title }}
+    </a>
+</div>

@@ -1,0 +1,67 @@
+---
+layout: default
+---
+
+{% assign recipe = site.recipes | where: 'title', page.title | first %}
+
+</br>
+<div class="uk-card uk-card-body uk-card-default">
+    <h1>{{ recipe.title }}</h1>
+    <img data-src="{{ recipe.img-url }}" uk-img />
+
+    {% for description in recipe.description %}
+    <p>{{description}}</p>
+    {% endfor %}
+</div>
+</br>
+
+<div class="uk-card uk-card-body uk-card-default">
+    <h2>
+        {% case recipe.language %}
+        {% when "br" %}
+        Equipamento
+        {% when "en" %}
+        Tools
+        {% else %}
+        Equipment
+        {% endcase %}
+    </h2>
+    <ul>
+        {% for tool in recipe.tools %}
+        <li> {{ tool }} </li>
+        {% endfor %}
+    </ul>
+</div>
+</br>
+
+<div class="uk-card uk-card-body uk-card-default">
+    <h2>
+        {% case recipe.language %}
+        {% when "br" %}
+        Ingredientes
+        {% when "en" %}
+        Ingredients
+        {% else %}
+        Ingredients
+        {% endcase %}
+    </h2>
+    <ul>
+        {% for ingredient in recipe.ingredients %}
+            {% assign key = ingredient[0] | downcase %}
+            {% if key == "section" %}
+                <h3>{{ ingredient[1] }}</h3>
+            {% else %}
+                <div class="uk-grid-small" uk-grid>
+                    <div class="uk-width-expand" uk-leader="fill: .">{{ ingredient[0] }}</div>
+                    <div>{{ ingredient[1] }}</div>
+                </div>
+            {% endif %}
+        {% endfor %}
+    </ul>
+</div>
+</br>
+
+<div class="uk-card uk-card-body uk-card-default">
+    <p>{{ content }}</p>
+</div>
+</br>

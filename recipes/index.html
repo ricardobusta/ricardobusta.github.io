@@ -1,0 +1,23 @@
+---
+layout: default
+title: Home
+---
+{% include recipes/nav.html %}
+{% include recipes/info.html %}
+<div class="uk-card uk-card-body uk-card-default">
+    {% assign ordered_recipes = site.recipes | sort: "title" | where: "language", "en" %}
+    <div class="uk-column-1-2 uk-column-divider">
+    <ul class="uk-list uk-list-divider">
+        {% for recipe in ordered_recipes %}
+        {% if recipe.status != "hidden" %}
+        <li>
+            <div>
+                {% include recipes/recipe-entry.html data=recipe %}
+            </div>
+        </li>
+        {% endif %}
+        {% endfor %}
+    </ul>
+    </div>
+</div>
+<br />

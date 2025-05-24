@@ -6,13 +6,13 @@
 {% assign img1-path = "/assets/projects/default-img1.png" %}
 
 {% for file in site.static_files %}
-    {% if file.path == img0-file %}
-        {% assign img0-path = img0-file %}
-    {% endif %}
+{% if file.path == img0-file %}
+{% assign img0-path = img0-file %}
+{% endif %}
 
-    {% if file.path == img1-file %}
-        {% assign img1-path = img1-file %}
-    {% endif %}
+{% if file.path == img1-file %}
+{% assign img1-path = img1-file %}
+{% endif %}
 {% endfor %}
 
 <div class="uk-card rb-project-entry">
@@ -23,7 +23,7 @@
     </div>
     <div class="rb-highlight-1">
         <span><b>{{ include.data.title }}</b></span><br/>
-        {{ include.data.event }} - {{ include.data.date | date_to_long_string }}<br />
+        {{ include.data.event }} - {{ include.data.date | date_to_long_string }}<br/>
         {% if include.data.play-url %}
         <a class="uk-button uk-button-default uk-button-small" href="{{ include.data.play-url }}"
            target="_blank"><span uk-icon="play-circle"></span><span> Play</span></a>
@@ -41,10 +41,12 @@
            target="_blank"><span uk-icon="android-robot"></span></a>
         {% endif %}
         {% if include.data.ios-url %}
-        <a class="uk-button uk-button-default uk-button-small" href="{{ include.data.ios-url }}" target="_blank"><span uk-icon="apple"></span></a>
+        <a class="uk-button uk-button-default uk-button-small" href="{{ include.data.ios-url }}" target="_blank"><span
+                uk-icon="apple"></span></a>
         {% endif %}
         {% if include.data.youtube-url %}
-        <a class="uk-button uk-button-default uk-button-small" href="https://youtu.be/{{ include.data.youtube-url }}" target="_blank"><span uk-icon="youtube"></span></a>
+        <a class="uk-button uk-button-default uk-button-small" href="https://youtu.be/{{ include.data.youtube-url }}"
+           target="_blank"><span uk-icon="youtube"></span></a>
         {% endif %}
     </div>
 </div>
