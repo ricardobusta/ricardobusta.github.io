@@ -48,3 +48,6 @@ then run
 ```shell
 node .\generateAssets.js 
 ```
+
+## Check Gem versions
+https://pages.github.com/versions/
