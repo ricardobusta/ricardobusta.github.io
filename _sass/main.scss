@@ -1,6 +1,6 @@
 // 1. Your custom variables and variable overwrites.
 
-$fg-color: #000;
+$fg-color: #223;
 $bg-color: #fff;
 
 $highlight-color-1: #32d296;
@@ -24,7 +24,7 @@ $global-link-color: $highlight-color-1;
 $global-link-hover-color: $highlight-color-2;
 $global-secondary-background: $highlight-color-3;
 
-$global-inverse-color: yellow;
+//$global-inverse-color: yellow;
 $global-emphasis-color: #446;
 
 // 2. Import default variables and available mixins.
@@ -32,34 +32,34 @@ $global-emphasis-color: #446;
 @import "uikit/mixins-theme.scss";
 
 // 3. Your custom mixin overwrites.
-//@mixin hook-card() {
-//    color:$global-inverse-color;
-//}
-//@mixin hook-inverse-subnav-pill-item(){
-//    border-radius: 5px;
-//    color: $global-inverse-color;
-//}
-//@mixin hook-inverse-subnav-pill-item-hover(){
-//    background-color: $secondary-color;
-//    color: $global-inverse-color;
-//}
-//@mixin hook-inverse-subnav-pill-item-onclick(){}
-//@mixin hook-inverse-subnav-pill-item-active(){
-//    background-color: $secondary-color;
-//    color: $highlight-color-1;
-//}
-//
-//@mixin hook-inverse-button-default(){
-//    background-color: $rb-button-background-color;
-//    border: 0;
-//    color: $global-inverse-color;
-//    border-radius: $rb-border-radius;
-//}
-//
-//@mixin hook-inverse-button-default-hover(){
-//    background-color: $secondary-color;
-//    color: $highlight-color-1;
-//}
+@mixin hook-card() {
+    color:green;
+}
+@mixin hook-inverse-subnav-pill-item(){
+    border-radius: 5px;
+    color: blue;
+}
+@mixin hook-inverse-subnav-pill-item-hover(){
+    background-color: red;
+    color: blue;
+}
+@mixin hook-inverse-subnav-pill-item-onclick(){}
+@mixin hook-inverse-subnav-pill-item-active(){
+    background-color: cyan;
+    color: orange;
+}
+
+@mixin hook-inverse-button-default(){
+    background-color: yellow;
+    border: 0;
+    color: purple;
+    border-radius: 5px;
+}
+
+@mixin hook-inverse-button-default-hover(){
+    background-color: red;
+    color: $highlight-color-1;
+}
 
 @import "uikit/uikit";
 @import "monokai";
@@ -111,6 +111,10 @@ html {
 .dark-mode a {
   color: $highlight-color-2;
   text-decoration: none;
+}
+
+.dark-mode a:hover {
+  color: $highlight-color-3;
 }
 
 .dark-mode .uk-card {
