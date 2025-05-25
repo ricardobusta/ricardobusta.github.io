@@ -1,7 +1,7 @@
 // 1. Your custom variables and variable overwrites.
 
-$fg-color: black;
-$bg-color: white;
+$fg-color: #000;
+$bg-color: #fff;
 
 $highlight-color-1: #32d296;
 $highlight-color-2: #1e87f0;
@@ -9,19 +9,25 @@ $highlight-color-3: #faa05a;
 $highlight-color-4: #f0506e;
 $highlight-color-5: #9D5CCC;
 
-//$global-inverse-color: #adbac7;
-//$global-emphasis-color: #eee;
+$fg-color-dark: #adbac7;
+$bg-color-dark: #2d333b;
 
-//$global-muted-background: $secondary-color;
-//$global-primary-background: $primary-color;
-//$global-link-color: $primary-color;
-//$global-link-hover-color: $primary-color;
-//$global-secondary-background: $secondary-color;
+$highlight-color-1-dark: #32d296;
+$highlight-color-2-dark: #1e87f0;
+$highlight-color-3-dark: #faa05a;
+$highlight-color-4-dark: #f0506e;
+$highlight-color-5-dark: #9D5CCC;
 
-$rb-button-background-color: #373e47;
-$rb-border-color: #ccd9e61a;
-$rb-border-radius: 6px;
-$rb-entry-card-border-color: #444c56;
+$global-muted-background: $bg-color;
+$global-primary-background: $fg-color;
+$global-link-color: $highlight-color-1;
+$global-link-hover-color: $highlight-color-2;
+$global-secondary-background: $highlight-color-3;
+
+$global-inverse-color: yellow;
+$global-emphasis-color: #446;
+
+
 
 // 2. Import default variables and available mixins.
 @import "uikit/variables-theme.scss";
@@ -74,16 +80,8 @@ $rb-entry-card-border-color: #444c56;
   margin-right: auto;
 }
 
-.rb-header-link {
-  color: $global-link-color;
-  text-decoration: none;
-  transition: .4s
-}
-
-.rb-header-link:hover {
-  text-decoration: none;
-  text-shadow: 0 0 5px #1e87f0;
-  transition: .3s
+.rb-highlight-1{
+  color: $fg-color;
 }
 
 .rb-highlight-1 > span {
@@ -108,22 +106,22 @@ $rb-entry-card-border-color: #444c56;
 
 html {
   background-color: $bg-color;
+  color: $fg-color;
 }
 
-// Dark Mode
-
 .dark-mode {
-  background-color: #121212;
-  color: #ffffff;
+  background-color: $bg-color-dark;
+  color: $fg-color-dark;
 }
 
 .dark-mode a {
-  color: #90caf9;
+  color: $highlight-color-2;
+  text-decoration: none;
 }
 
 .dark-mode .uk-card {
-  background-color: #1e1e1e;
-  color: #ffffff;
+  background-color: $bg-color-dark;
+  color: $fg-color-dark;
 }
 
 // 5. Dark Mode Switch
@@ -169,7 +167,7 @@ html {
 }
 
 input:checked + .slider {
-  background-color: #4caf50;
+  background-color: $highlight-color-1;
 }
 
 input:checked + .slider:before {
