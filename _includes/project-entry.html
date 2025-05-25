@@ -1,9 +1,9 @@
 {% capture img-year-name %}{{include.data.date | date: "%Y" | append: "-" | append: include.data.slug}}{% endcapture %}
 
-{% assign img0-file = "/assets/projects/" | append: img-year-name | append: "-img0.png" %}
-{% assign img0-path = "/assets/projects/default-img0.png" %}
-{% assign img1-file = "/assets/projects/" | append: img-year-name | append: "-img1.png" %}
-{% assign img1-path = "/assets/projects/default-img1.png" %}
+{% assign img0-file = "/assets/projects/" | append: img-year-name | append: "-img0.webp" %}
+{% assign img0-path = "/assets/projects/default-img0.webp" %}
+{% assign img1-file = "/assets/projects/" | append: img-year-name | append: "-img1.webp" %}
+{% assign img1-path = "/assets/projects/default-img1.webp" %}
 
 {% for file in site.static_files %}
 {% if file.path == img0-file %}

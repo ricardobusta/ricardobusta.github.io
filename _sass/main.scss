@@ -27,8 +27,6 @@ $global-secondary-background: $highlight-color-3;
 $global-inverse-color: yellow;
 $global-emphasis-color: #446;
 
-
-
 // 2. Import default variables and available mixins.
 @import "uikit/variables-theme.scss";
 @import "uikit/mixins-theme.scss";
@@ -80,10 +78,6 @@ $global-emphasis-color: #446;
   margin-right: auto;
 }
 
-.rb-highlight-1{
-  color: $fg-color;
-}
-
 .rb-highlight-1 > span {
   color: $highlight-color-1;
 }
@@ -122,6 +116,10 @@ html {
 .dark-mode .uk-card {
   background-color: $bg-color-dark;
   color: $fg-color-dark;
+}
+
+.dark-mode h1 {
+    color: $fg-color-dark;
 }
 
 // 5. Dark Mode Switch

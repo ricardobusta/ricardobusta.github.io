@@ -1,5 +1,6 @@
 import can from 'canvas';
 import fs from 'fs';
+import sharp from 'sharp';
 
 const sizeX = 378
 const sizeY = 300
@@ -90,29 +91,56 @@ dirs.forEach(dir => {
     const year = dir;
     const files = getChildren(projectsAssetPath+dir, false);
     files.forEach(file => {
-        try {
-            can.loadImage(projectsAssetPath + year + "/" + file).then(image => {
-                var rgb = getAverageRGB(image)
+        const filePath = projectsAssetPath + year + "/" + file;
+
+        const loadImage = async () => {
+            try {
+                let image;
+
+                if (file.endsWith(".webp")) {
+                    const pngBuffer = await sharp(filePath).png().toBuffer();
+                    image = new can.Image();
+                    image.src = pngBuffer;
+                } else {
+                    image = await can.loadImage(filePath);
+                }
+
+                const rgb = getAverageRGB(image);
                 resizeImage(image, true, rgb);
-                const buffer = canvas.toBuffer('image/png');
-                if (file.endsWith("jpg")) {
-                    file = file.replace("jpg", "png");
+                const buffer = canvas.toBuffer('image/png'); // old way
+
+// Save as webp with sharp
+                let newFile = file;
+                if (newFile.endsWith("jpg")) {
+                    newFile = newFile.replace("jpg", "webp");
                 }
-                if (file.endsWith("-img.png")) {
-                    file = file.replace("-img.png", "-img0.png");
+                if (newFile.endsWith("png")) {
+                    newFile = newFile.replace("png", "webp");
                 }
-                if (file.endsWith("-ss.png")) {
-                    file = file.replace("-ss.png", "-img1.png");
+                if (newFile.endsWith("-img.webp")) {
+                    newFile = newFile.replace("-img.webp", "-img0.webp");
                 }
-                const path = outputPath + year + "-" + file;
-                console.log(`success: ${path}`)
-                fs.writeFileSync(path, buffer);
-            });
-        }catch(e){
-            console.log(`failed: ${file}`)
+                if (newFile.endsWith("-ss.webp")) {
+                    newFile = newFile.replace("-ss.webp", "-img1.webp");
+                }
+                if (newFile.endsWith("webp")) {
+                    newFile = newFile.replace("webp", "webp");
+                }
+
+                const outPath = outputPath + year + "-" + newFile;
+                console.log(`success: ${outPath}`);
+
+// ✅ Use sharp to write WebP
+                await sharp(buffer)
+                    .webp({ quality: 90 })  // optional: tweak quality, lossless: true
+                    .toFile(outPath);
+
+            } catch (e) {
+                console.log(`failed: ${file}`);
+                console.error(e);
+            }
         }
+
+        loadImage();
     });
 });
-
-
-

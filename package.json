@@ -4,10 +4,12 @@
         "bundle-update": "bundle update",
         "build": "bundle exec jekyll build",
         "build-serve": "bundle exec jekyll serve",
-        "build-serve-drafts": "bundle exec jekyll serve --drafts"
+        "build-serve-drafts": "bundle exec jekyll serve --drafts",
+        "generate-project-images": "node generateAssets.js"
     },
     "dependencies": {
-        "canvas": "^3.1.0"
+        "canvas": "^3.1.0",
+        "sharp": "^0.34.2"
     },
     "type": "module"
 }
