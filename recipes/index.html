@@ -1,0 +1,27 @@
+---
+layout: default
+title: Home
+---
+{% include recipes/recipes-nav.html %}
+<div class="uk-container uk-container-medium">
+    <br>
+    {% include recipes/recipes-info.html %}
+    <br>
+    <div class="uk-card uk-card-body uk-card-default">
+        {% assign ordered_recipes = site.recipes | sort: "title" | where: "language", "en" %}
+        <div class="uk-column-1-2 uk-column-divider">
+            <ul class="uk-list uk-list-divider">
+                {% for recipe in ordered_recipes %}
+                {% if recipe.status != "hidden" %}
+                <li>
+                    <div>
+                        {% include recipes/recipes-entry.html data=recipe %}
+                    </div>
+                </li>
+                {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+<br/>

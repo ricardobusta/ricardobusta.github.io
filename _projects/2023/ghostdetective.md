@@ -6,5 +6,6 @@ category: "game featured"
 android-url: https://play.google.com/store/apps/details?id=com.netflix.NGP.GhostDetective
 ios-url: https://apps.apple.com/de/app/ghost-detective/id6446073149
 youtube-url: q0LFmmpghV0
+page-url: https://www.wooga.com/games/ghost-detective
 ---
 lorem ipsum

@@ -4,3 +4,4 @@ _site/
 *__pycache__*
 node_modules/
 .idea/
+.sass-cache

@@ -1,0 +1,18 @@
+<div uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky">
+    <nav class="uk-navbar-container uk-card uk-card-default" style="height: 3rem" uk-navbar>
+        <ul class="uk-navbar-nav uk-navbar-center">
+            <li class="uk-active"><a href="{{ site.url }}">Busta.dev</a></li>
+            <li class="uk-active"><a href="{{ site.url }}/recipes">Recipes</a></li>
+        </ul>
+
+        <div class="uk-navbar-right">
+            <div class="switch-container" style="display: flex; align-items: center; gap: 8px; padding-right: 15px;">
+                <span style="font-size: 14px;">Dark Mode</span>
+                <label class="switch">
+                    <input id="nav-toggle" onclick="toggleDarkMode()" type="checkbox">
+                    <span class="slider round"></span>
+                </label>
+            </div>
+        </div>
+    </nav>
+</div>
