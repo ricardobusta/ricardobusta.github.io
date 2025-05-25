@@ -1,25 +1,24 @@
 // 1. Your custom variables and variable overwrites.
 
-$fg-color: #223;
-$bg-color: #fff;
+$fg-color-light: #2E2E32;
+$bg-color-light: #F5F5F7;
+$dimmed-color-light: #6B7280;
+$link-color-light: #6366F1;
+$highlight-color-light: #3B82F6;
 
-$highlight-color-1: #32d296;
-$highlight-color-2: #1e87f0;
-$highlight-color-3: #faa05a;
-$highlight-color-4: #f0506e;
-$highlight-color-5: #9D5CCC;
+$fg-color-dark: #D1D5DB;
+$dimmed-color-dark: #9CA3AF;
+$bg-color-dark: #1c1f26;
+$link-color-dark: #A78BFA;
+$highlight-color-dark: #93C5FD;
 
-$fg-color-dark: #adbac7;
-$bg-color-dark: #2d333b;
-
-$global-muted-background: $bg-color;
-$global-primary-background: $fg-color;
-$global-link-color: $highlight-color-2;
-$global-link-hover-color: $highlight-color-1;
-$global-secondary-background: $highlight-color-3;
+$global-primary-background: $fg-color-light;
+$global-link-color: $link-color-light;
+$global-link-hover-color: $highlight-color-light;
+$global-secondary-background: orange;
 
 //$global-inverse-color: yellow;
-$global-emphasis-color: #446;
+//$global-emphasis-color: $highlight-color-light;
 
 // 2. Import default variables and available mixins.
 @import "uikit/variables-theme.scss";
@@ -38,7 +37,7 @@ $global-emphasis-color: #446;
 }
 
 .rb-card-image {
-  background-color: $bg-color;
+  background-color: $bg-color-light;
   border-radius: 0.75rem;
 }
 
@@ -57,14 +56,9 @@ $global-emphasis-color: #446;
   margin-right: auto;
 }
 
-.rb-highlight > span {
-  color: lighten($global-emphasis-color, 15%);
-  font-weight: bold;
-}
-
 .rb-button-project {
-  color: $bg-color;
-  background-color: $highlight-color-2;
+  color: $bg-color-light;
+  background-color: $link-color-light;
   border: none;
   border-radius: 5px;
   text-transform: none;
@@ -72,26 +66,31 @@ $global-emphasis-color: #446;
 }
 
 .rb-button-project:hover {
-  color: $bg-color;
-  background-color: $highlight-color-1;
+  color: $bg-color-light;
+  background-color: $highlight-color-light;
+}
+
+.rb-highlight > span {
+  color: $highlight-color-light;
+  font-weight: bold;
 }
 
 .dark-mode .rb-button-project {
-  color: $highlight-color-2;
+  color: $link-color-dark;
   background-color: lighten($bg-color-dark, 5%);
 }
 
 .dark-mode .rb-button-project:hover {
-  color: $highlight-color-1;
+  color: $highlight-color-dark;
 }
 
 .dark-mode .rb-highlight > span {
-  color: lighten($global-emphasis-color, 25%);
+  color: $highlight-color-dark;
 }
 
 html {
-  background-color: darken($bg-color, 3%);
-  color: $fg-color;
+  background-color: darken($bg-color-light, 3%);
+  color: $fg-color-light;
 }
 
 .dark-mode {
@@ -100,12 +99,12 @@ html {
 }
 
 .dark-mode a {
-  color: $highlight-color-2;
+  color: $link-color-dark;
   text-decoration: none;
 }
 
 .dark-mode a:hover {
-  color: $highlight-color-1;
+  color: $highlight-color-dark;
 }
 
 .dark-mode .uk-card {
@@ -164,7 +163,7 @@ html {
 }
 
 input:checked + .slider {
-  background-color: $highlight-color-1;
+  background-color: $link-color-light;
 }
 
 input:checked + .slider:before {
