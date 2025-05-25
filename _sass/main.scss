@@ -99,12 +99,12 @@ $global-emphasis-color: #446;
 }
 
 html {
-  background-color: $bg-color;
+  background-color: darken($bg-color, 1%);
   color: $fg-color;
 }
 
 .dark-mode {
-  background-color: $bg-color-dark;
+  background-color: darken($bg-color-dark, 1%);
   color: $fg-color-dark;
 }
 
@@ -119,6 +119,10 @@ html {
 }
 
 .dark-mode h1 {
+    color: $fg-color-dark;
+}
+
+.dark-mode .uk-navbar-nav > li > a {
     color: $fg-color-dark;
 }
 

@@ -3,7 +3,14 @@ layout: default
 title: Home
 ---
 {% include nav.html %}
-{% assign ordered_sections = site.sections | sort: "priority" %}
-{% for section in ordered_sections %}
-{% include section.html title=section.title content=section.content %}
-{% endfor %}
+<div class="uk-container uk-container-medium">
+    <br/>
+    {% include section-info.html %}
+    <br/>
+    {% include section-about.html %}
+    <br/>
+    {% include section-project.html %}
+    <br/>
+    {% include section-education.html %}
+    <br/>
+</div>

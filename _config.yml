@@ -14,8 +14,6 @@ sass:
 collections:
   projects:
     output: false
-  sections:
-    output: false
   posts:
     output: true
   certifications:
