@@ -12,16 +12,10 @@ $highlight-color-5: #9D5CCC;
 $fg-color-dark: #adbac7;
 $bg-color-dark: #2d333b;
 
-$highlight-color-1-dark: #32d296;
-$highlight-color-2-dark: #1e87f0;
-$highlight-color-3-dark: #faa05a;
-$highlight-color-4-dark: #f0506e;
-$highlight-color-5-dark: #9D5CCC;
-
 $global-muted-background: $bg-color;
 $global-primary-background: $fg-color;
-$global-link-color: $highlight-color-1;
-$global-link-hover-color: $highlight-color-2;
+$global-link-color: $highlight-color-2;
+$global-link-hover-color: $highlight-color-1;
 $global-secondary-background: $highlight-color-3;
 
 //$global-inverse-color: yellow;
@@ -32,43 +26,28 @@ $global-emphasis-color: #446;
 @import "uikit/mixins-theme.scss";
 
 // 3. Your custom mixin overwrites.
-@mixin hook-card() {
-    color:green;
-}
-@mixin hook-inverse-subnav-pill-item(){
-    border-radius: 5px;
-    color: blue;
-}
-@mixin hook-inverse-subnav-pill-item-hover(){
-    background-color: red;
-    color: blue;
-}
-@mixin hook-inverse-subnav-pill-item-onclick(){}
-@mixin hook-inverse-subnav-pill-item-active(){
-    background-color: cyan;
-    color: orange;
-}
-
-@mixin hook-inverse-button-default(){
-    background-color: yellow;
-    border: 0;
-    color: purple;
-    border-radius: 5px;
-}
-
-@mixin hook-inverse-button-default-hover(){
-    background-color: red;
-    color: $highlight-color-1;
-}
 
 @import "uikit/uikit";
 @import "monokai";
 
 // 4. Your CSS
 
-.rb-project-entry {
-  border: 0px;
-  padding: 5px;
+.rb-card-project {
+  border: none;
+  border-radius: 0.75rem;
+}
+
+.rb-card-image {
+  background-color: $bg-color;
+  border-radius: 0.75rem;
+}
+
+.rb-text-title {
+  font-size: 1.3rem;
+}
+
+.rb-text-height-small {
+  height: 2.5rem;
 }
 
 .rb-blog-post img {
@@ -78,33 +57,45 @@ $global-emphasis-color: #446;
   margin-right: auto;
 }
 
-.rb-highlight-1 > span {
+.rb-highlight > span {
+  color: lighten($global-emphasis-color, 15%);
+  font-weight: bold;
+}
+
+.rb-button-project {
+  color: $bg-color;
+  background-color: $highlight-color-2;
+  border: none;
+  border-radius: 5px;
+  text-transform: none;
+  font-weight: bold;
+}
+
+.rb-button-project:hover {
+  color: $bg-color;
+  background-color: $highlight-color-1;
+}
+
+.dark-mode .rb-button-project {
+  color: $highlight-color-2;
+  background-color: lighten($bg-color-dark, 5%);
+}
+
+.dark-mode .rb-button-project:hover {
   color: $highlight-color-1;
 }
 
-.rb-highlight-2 > span {
-  color: $highlight-color-2;
-}
-
-.rb-highlight-3 > span {
-  color: $highlight-color-3;
-}
-
-.rb-highlight-4 > span {
-  color: $highlight-color-4;
-}
-
-.rb-highlight-5 > span {
-  color: $highlight-color-5;
+.dark-mode .rb-highlight > span {
+  color: lighten($global-emphasis-color, 25%);
 }
 
 html {
-  background-color: darken($bg-color, 1%);
+  background-color: darken($bg-color, 3%);
   color: $fg-color;
 }
 
 .dark-mode {
-  background-color: darken($bg-color-dark, 1%);
+  background-color: darken($bg-color-dark, 3%);
   color: $fg-color-dark;
 }
 
@@ -114,7 +105,7 @@ html {
 }
 
 .dark-mode a:hover {
-  color: $highlight-color-3;
+  color: $highlight-color-1;
 }
 
 .dark-mode .uk-card {
@@ -123,11 +114,11 @@ html {
 }
 
 .dark-mode h1 {
-    color: $fg-color-dark;
+  color: $fg-color-dark;
 }
 
 .dark-mode .uk-navbar-nav > li > a {
-    color: $fg-color-dark;
+  color: $fg-color-dark;
 }
 
 // 5. Dark Mode Switch
