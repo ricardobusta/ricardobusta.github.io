@@ -1,10 +1,10 @@
 ---
-layout: common
+layout: blog
 ---
 {% assign post = site.posts | where: 'title', page.title | first %}
-<div class="uk-card blog-post">
+<div class="uk-card uk-card-default blog-post">
     {{ post.title }}
     {{ post.date }}
     {{ content }}
-    <a onclick="window.history.back()">Back</a>
 </div>
+<a onclick="window.history.back()">Back</a>
