@@ -6,6 +6,7 @@ category: "game jam featured"
 
 # Urls
 android-url: https://play.google.com/store/apps/details?id=games.busta.lunartide
+ios-url: https://apps.apple.com/app/lunar-tide-planetary-defense/id6749640893
 src-url: https://github.com/ricardobusta/globalgamejam2017
 page-url: https://globalgamejam.org/2017/games/lunar-tide
 
