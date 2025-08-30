@@ -1,0 +1,26 @@
+---
+redirect: "https://docs.google.com/spreadsheets/d/1qk5_lUGQ2UVcC4wd52HqemPOtw3F92XVnIcB-17dXkE/edit?gid=0#gid=0"
+desc: "convite mariana"
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="refresh" content="0; url={{ page.redirect }}">
+    <meta property="og:title" content="{{ page.desc }}"/>
+    <meta property="og:image" content="{{ site.url }}/mariana/convite_mariana.png"/>
+    <meta property="og:description" content="{{ page.desc }}"/>
+    <meta property="og:url" content="{{ site.url }}/yt"/>
+    <meta property="og:image:width" content="1200"/>
+    <meta property="og:image:height" content="627"/>
+    <meta property="og:type" content="website"/>
+
+    <title>{{ page.desc }}</title>
+    <script>
+        location.replace("{{ page.redirect }}")
+    </script>
+</head>
+<body style="background-color: black; color: white;">
+<a href="{{ page.redirect }}">Se você não for redirecionado, aqui está o link.</a>
+</body>
+</html>
