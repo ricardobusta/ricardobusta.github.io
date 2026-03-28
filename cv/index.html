@@ -422,7 +422,7 @@
 
             .cv-grid {
                 gap: 1rem;
-                grid-template-columns: minmax(0, 1.9fr) minmax(170px, 0.72fr);
+                grid-template-columns: minmax(0, 2.05fr) minmax(145px, 0.6fr);
             }
 
             .cv-section + .cv-section {
@@ -447,41 +447,15 @@
                 display: none !important;
             }
 
-            .cv-item.export-compact .cv-item-header {
-                display: block !important;
-            }
-
-            .cv-item.export-compact .cv-item-subtitle,
-            .cv-item.export-compact .cv-item-period {
-                display: none !important;
-            }
-
-        .cv-item-export-meta {
-            display: none !important;
-        }
-
-            .cv-item.export-compact .cv-item-export-meta {
-                display: flex !important;
-                justify-content: space-between;
-                align-items: baseline;
-                gap: 0.5rem;
-                margin-top: 0.12rem;
-                color: #5c6c85;
-                font-size: 0.72rem;
-                font-weight: 600;
-            }
-
-            .cv-item.export-compact .cv-item-export-location {
-                min-width: 0;
-            }
-
-            .cv-item.export-compact .cv-item-export-period {
-                white-space: nowrap;
-                text-align: right;
-            }
-
             .cv-item-title {
                 font-size: 0.82rem;
+            }
+
+            .cv-item-header {
+                display: grid;
+                grid-template-columns: minmax(0, 1fr) auto;
+                align-items: start;
+                gap: 0.35rem 0.8rem;
             }
 
             .cv-item-subtitle,
@@ -511,6 +485,11 @@
             .cv-contact-item {
                 font-size: 0.68rem;
                 line-height: 1.2;
+            }
+
+            .cv-item-period {
+                justify-self: end;
+                white-space: nowrap;
             }
 
             .cv-list li + li {
