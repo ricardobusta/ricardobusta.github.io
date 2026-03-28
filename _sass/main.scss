@@ -179,6 +179,7 @@ $global-font-family: "IBM Plex Sans", "Segoe UI", sans-serif;
 .rb-hero-grid {
   align-items: center;
   gap: 1.5rem;
+  justify-content: center;
 }
 
 .rb-profile-avatar {
@@ -194,6 +195,10 @@ $global-font-family: "IBM Plex Sans", "Segoe UI", sans-serif;
   line-height: 1;
   font-weight: 700;
   letter-spacing: -0.04em;
+}
+
+.rb-hero-card .uk-width-expand\@m {
+  max-width: 46rem;
 }
 
 .rb-hero-alias {
@@ -288,6 +293,12 @@ $global-font-family: "IBM Plex Sans", "Segoe UI", sans-serif;
   line-height: 1.7;
 }
 
+.rb-about-list-centered {
+  max-width: 46rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .rb-about-emoji {
   display: inline-block;
   width: 1.5rem;
@@ -318,12 +329,23 @@ $global-font-family: "IBM Plex Sans", "Segoe UI", sans-serif;
 }
 
 .rb-footer {
-  margin: 0 auto;
-  max-width: 1100px;
-  border: 1px solid $border-color-light;
-  border-radius: 1rem;
-  background: $surface-color-light;
-  box-shadow: 0 16px 40px rgba(19, 34, 66, 0.06);
+  margin: 0;
+  border-top: 1px solid $border-color-light;
+  border-right: 0;
+  border-bottom: 0;
+  border-left: 0;
+  border-radius: 0;
+  background: rgba(255, 255, 255, 0.74);
+  box-shadow: 0 -10px 28px rgba(19, 34, 66, 0.05);
+  backdrop-filter: blur(12px);
+}
+
+.rb-footer-inner {
+  padding: 1rem 1.25rem 1.1rem;
+  color: $dimmed-color-light;
+  font-size: 0.92rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
 }
 
 .dark-mode .rb-button-project {
@@ -410,11 +432,16 @@ h1 {
 
 .dark-mode .rb-card-project,
 .dark-mode .rb-section-card,
-.dark-mode .rb-footer,
 .dark-mode .uk-card {
   border-color: $border-color-dark;
   background: $surface-color-dark;
   box-shadow: 0 20px 45px rgba(0, 0, 0, 0.25);
+}
+
+.dark-mode .rb-footer {
+  border-top-color: $border-color-dark;
+  background: rgba(16, 27, 45, 0.82);
+  box-shadow: 0 -10px 28px rgba(0, 0, 0, 0.18);
 }
 
 .dark-mode .rb-hero-card {
@@ -533,7 +560,8 @@ h1 {
 .dark-mode .rb-filter-nav > li > a,
 .dark-mode .rb-education-date,
 .dark-mode .rb-education-subtitle,
-.dark-mode .rb-tool-description {
+.dark-mode .rb-tool-description,
+.dark-mode .rb-footer-inner {
   color: $dimmed-color-dark;
 }
 
@@ -646,6 +674,10 @@ input:checked + .slider:before {
     gap: 1.1rem;
   }
 
+  .rb-hero-card .uk-width-expand\@m {
+    max-width: none;
+  }
+
   .rb-profile-avatar {
     width: 9rem;
     height: 9rem;
@@ -721,8 +753,7 @@ input:checked + .slider:before {
   }
 
   .rb-section-card,
-  .rb-hero-card,
-  .rb-footer {
+  .rb-hero-card {
     border-radius: 1rem;
   }
 
