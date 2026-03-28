@@ -1,0 +1,115 @@
+nav_sections:
+  - id: About
+    label: About
+  - id: Projects
+    label: Projects
+  - id: Education
+    label: Education
+
+profile:
+  avatar: "https://avatars2.githubusercontent.com/u/6434768?s=460"
+  name: "Ricardo Bustamante"
+  nickname: "Busta"
+  intro: "I am a Senior Software Engineer and Game Developer from Fortaleza CE, Brazil."
+  resume_url: "/cv"
+  social_prompt: "You can find me in:"
+  social_links:
+    - kind: uikit
+      url: "https://github.com/ricardobusta"
+      icon: "github"
+      color: "#666"
+    - kind: include
+      url: "https://busta.itch.io/"
+      include: "icon/itchio.html"
+      width: "30px"
+    - kind: uikit
+      url: "https://www.linkedin.com/in/ricardo-bustamante-de-queiroz-31627b87"
+      icon: "linkedin"
+      color: "#0077b7"
+    - kind: uikit
+      url: "https://twitter.com/ricardobusta"
+      icon: "x"
+      color: "#2f9fef"
+    - kind: uikit
+      url: "https://www.threads.net/@ricardobustadev"
+      icon: "threads"
+      color: "#888"
+    - kind: uikit
+      url: "https://www.youtube.com/channel/UCpJetW3gb5VhqJOkpbEZYuw"
+      icon: "youtube"
+      color: "#f50000"
+    - kind: include
+      url: "mailto:ricardo@busta.dev"
+      include: "icon/gmail.html"
+      width: "30px"
+
+about:
+  title: "About"
+  career_start_year: 2013
+  items:
+    - emoji: "🔢"
+      type: experience
+      prefix: "<span>Senior Software Engineer</span>, working in the industry for"
+      suffix: "years."
+    - emoji: "🔧"
+      content: 'Previously worked at <span>Wooga</span><a href="https://www.wooga.com/">[↗️]</a> - Berlin 🇩🇪 for 5 years as full time employee.'
+    - emoji: "🔨"
+      content: 'Also worked at <span>Tapps Games</span><a href="http://tappsgames.com/">[↗️]</a> - São Paulo, and <span>LSBD</span><a href="https://lsbd.ufc.br/">[↗️]</a> - Fortaleza.'
+    - emoji: "💻"
+      content: 'I use <span>Unity3D</span>, <span>C#</span> and <span>Git</span> daily.'
+    - emoji: "⚙️"
+      content: 'Also use to some extent: <span>C</span>, <span>C++</span>, <span>Typescript</span>, <span>Javascript</span>, <span>OpenGL</span>, <span>Direct3D</span>, <span>Google Cloud</span>, <span>Lua</span> and <span>Python</span> for projects.'
+    - emoji: "🎨"
+      content: 'I like to do Vector Art with <span>Inkscape</span>, Pixel Art with <span>Aseprite</span>, Textures with <span>GIMP</span> and 3D Models with <span>Blender</span>.'
+    - emoji: "🎓"
+      content: 'Graduated in <span>Computer Science</span> at <span>Universidade Federal do Ceará (UFC)</span>.'
+    - emoji: "📚"
+      content: 'Master Degree with emphasys in <span>Computer Graphics</span> and <span>Virtual Reality</span> at <span>UFC</span>.'
+    - emoji: "🤖"
+      content: 'Upholder of <span>Automation</span>, <span>Testing</span> and <span>Continuous Integration</span>/<span>Continuous Delivery</span>.'
+    - emoji: "💬"
+      content: 'I like to talk about <span>Science</span>, <span>Math</span>, <span>Computer Science</span> and <span>Technology</span>. Also send me pictures of your pets.'
+    - emoji: "🪁"
+      content: 'Hobbies include <span>DIY Projects</span> and <span>Playing Videogames</span>. Also, my site has a <span>Cooking Recipes</span><a href="recipes/">[↗️]</a> section.'
+    - emoji: "🐈"
+      content: "I have two cats: <span>Cake</span> and <span>Fionna</span>. Yes, it's from Adventure Time."
+
+projects:
+  title: "Projects"
+  filters:
+    - label: "Game"
+      selector: "[category*='game']"
+    - label: "Jam"
+      selector: "[category*='jam']"
+    - label: "Featured"
+      selector: "[category*='featured']"
+      active: true
+    - label: "Software"
+      selector: "[category*='software']"
+    - label: "All"
+
+education:
+  title: "Education - Courses & Certifications"
+  filters:
+    - label: "All"
+      active: true
+    - label: "Course"
+      selector: "[category*='course']"
+    - label: "Certification"
+      selector: "[category*='certification']"
+
+links:
+  title: "Links and Tools"
+  items:
+    - label: "Resume / CV"
+      path: "/cv"
+    - label: "Recipes"
+      path: "/recipes"
+    - label: "Blog"
+      path: "/blog"
+    - label: "3D Printing Cost Calculator"
+      path: "/tools/3d-print-calculator"
+    - label: "Busta Dev Google Play"
+      url: "https://play.google.com/store/apps/dev?id=7481566864033761721"
+    - label: "Busta Games Google Play"
+      url: "https://play.google.com/store/apps/dev?id=7085647263262057841"

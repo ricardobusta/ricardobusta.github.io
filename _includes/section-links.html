@@ -1,11 +1,8 @@
-<h1 id="Links">Links and Tools</h1>
+<h1 id="Links">{{ site.data.home.links.title }}</h1>
 <div class="uk-card uk-card-body uk-height-xlarge uk-card-default">
     <ul class="uk-list uk-list-divider">
-        <li><a href="{{ site.baseurl }}/cv">Resume / CV</a></li>
-        <li><a href="{{ site.baseurl }}/recipes">Recipes</a></li>
-        <li><a href="{{ site.baseurl }}/blog">Blog</a></li>
-        <li><a href="{{ site.baseurl }}/tools/3d-print-calculator">3D Printing Cost Calculator</a></li>
-        <li><a href="https://play.google.com/store/apps/dev?id=7481566864033761721">Busta Dev Google Play</a></li>
-        <li><a href="https://play.google.com/store/apps/dev?id=7085647263262057841">Busta Games Google Play</a></li>
+        {% for item in site.data.home.links.items %}
+        <li><a href="{% if item.path %}{{ item.path | relative_url }}{% else %}{{ item.url }}{% endif %}">{{ item.label }}</a></li>
+        {% endfor %}
     </ul>
 </div>

@@ -5,9 +5,8 @@
         <div class="uk-navbar-center">
             <ul class="uk-navbar-nav">
                 <li class="uk-active"><a href="#" uk-scroll>Home</a></li>
-                {% assign ordered_sections = "About,Projects,Education" | split:"," %}
-                {% for section in ordered_sections %}
-                <li class="uk-active"><a href="#{{ section }}" uk-scroll>{{ section }}</a></li>
+                {% for section in site.data.home.nav_sections %}
+                <li class="uk-active"><a href="#{{ section.id }}" uk-scroll>{{ section.label }}</a></li>
                 {% endfor %}
             </ul>
         </div>

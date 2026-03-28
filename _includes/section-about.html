@@ -1,58 +1,20 @@
-<h1 id="About">About</h1>
+<h1 id="About">{{ site.data.home.about.title }}</h1>
 <div class="uk-card uk-card-body uk-card-default">
     <ul class="uk-list">
-        <li class="rb-highlight">🔢 <span>Senior Software Engineer</span>, working in the industry for
-            <span id="manyYears">Years</span> years.
+        {% for item in site.data.home.about.items %}
+        <li class="rb-highlight">
+            {{ item.emoji }}
+            {% if item.type == "experience" %}
+            {{ item.prefix }} <span id="manyYears">Years</span> {{ item.suffix }}
+            {% else %}
+            {{ item.content }}
+            {% endif %}
         </li>
+        {% endfor %}
 
         <script>
-            const years = new Date().getFullYear() - 2013;
+            const years = new Date().getFullYear() - {{ site.data.home.about.career_start_year }};
             document.getElementById("manyYears").textContent = years;
         </script>
-
-        <li class="rb-highlight">🔧 Previously worked at <span>Wooga</span><a
-                href="https://www.wooga.com/">[↗️]</a> -
-            Berlin 🇩🇪 for 5 years as full time employee.
-        </li>
-
-        <li class="rb-highlight">🔨 Also worked at <span>Tapps Games</span><a
-                href="http://tappsgames.com/">[↗️]</a> -
-            São Paulo, and <span>LSBD</span><a href="https://lsbd.ufc.br/">[↗️]</a> - Fortaleza.
-        </li>
-
-        <li class="rb-highlight">💻 I use <span>Unity3D</span>, <span>C#</span> and <span>Git</span> daily.</li>
-
-        <li class="rb-highlight">⚙️ Also use to some extent: <span>C</span>, <span>C++</span>,
-            <span>Typescript</span>, <span>Javascript</span>, <span>OpenGL</span>, <span>Direct3D</span>, <span>Google
-                Cloud</span>, <span>Lua</span> and <span>Python</span> for projects.
-        </li>
-
-        <li class="rb-highlight">🎨 I like to do Vector Art with <span>Inkscape</span>, Pixel Art with
-            <span>Aseprite</span>, Textures with <span>GIMP</span> and 3D Models with <span>Blender</span>.
-        </li>
-
-        <li class="rb-highlight">🎓 Graduated in <span>Computer Science</span> at <span>Universidade
-                Federal do Ceará (UFC)</span>.
-        </li>
-
-        <li class="rb-highlight">📚 Master Degree with emphasys in <span>Computer Graphics</span> and <span>Virtual
-                Reality</span> at <span>UFC</span>.
-        </li>
-
-        <li class="rb-highlight">🤖 Upholder of <span>Automation</span>, <span>Testing</span> and <span>Continuous
-                Integration</span>/<span>Continuous Delivery</span>.
-        </li>
-
-        <li class="rb-highlight">💬 I like to talk about <span>Science</span>, <span>Math</span>,
-            <span>Computer Science</span> and <span>Technology</span>. Also send me pictures of your pets.
-        </li>
-
-        <li class="rb-highlight">🪁 Hobbies include <span>DIY Projects</span> and <span>Playing
-                Videogames</span>. Also, my site has a <span>Cooking Recipes</span><a href="recipes/">[↗️]</a> section.
-        </li>
-
-        <li class="rb-highlight">🐈 I have two cats: <span>Cake</span> and <span>Fionna</span>. Yes, it's from
-            Adventure Time.
-        </li>
     </ul>
 </div>
