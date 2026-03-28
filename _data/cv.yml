@@ -1,0 +1,138 @@
+personal:
+  name: "Ricardo Bustamante"
+  title: "Senior Software Engineer"
+  photo: "https://avatars2.githubusercontent.com/u/6434768?s=460"
+  summary: "Senior software engineer with strong experience in Unity, C#, tooling, game systems, mobile delivery, and cross-disciplinary workflows. Background includes shared libraries, SDK integration, build pipelines, gameplay systems, graphics-oriented R&D, and shipping products across game studios and independent work."
+  footer: 'Ricardo Bustamante · Senior Software Engineer · <a href="https://busta.dev">busta.dev</a>'
+  contacts:
+    - label: "Email"
+      text: "ricardo@busta.dev"
+      url: "mailto:ricardo@busta.dev"
+    - label: "Phone"
+      text: "+55 85 99118-1404"
+      url: "tel:+5585991181404"
+    - label: "Location"
+      text: "Fortaleza, CE, Brazil"
+      url: "https://maps.app.goo.gl/9nELCxTXZ8A8qqwY9"
+    - label: "LinkedIn"
+      text: "linkedin.com/in/ricardobusta"
+      url: "https://www.linkedin.com/in/ricardobusta"
+    - label: "GitHub"
+      text: "github.com/ricardobusta"
+      url: "https://github.com/ricardobusta"
+    - label: "Website"
+      text: "busta.dev"
+      url: "https://busta.dev"
+
+main_sections:
+  - title: "Experience"
+    items:
+      - title: "Senior Software Engineer | Outfit7"
+        location: "Remote, Contractor"
+        period: "2025 - present"
+        bullets:
+          - "Develop multiple game prototypes in a small team for Google Play and Apple Arcade."
+      - title: "Senior Software Engineer | Wooga"
+        location: "Berlin, Germany"
+        period: "2020 – 2025"
+        export_mode: "full"
+        bullets:
+          - "Contributed to multiple game titles and shared libraries with strong focus on designer and artist tooling, SDK integration, asset pipelines, and core feature development."
+          - "Played a key role in the development of a custom Match-3 engine and island decoration systems."
+          - "Notable titles: <i>Switchcraft</i>, <i>Ghost Detective (Netflix Games)</i>, <i>Claire's Chronicles</i>."
+          - "Key technologies: C#, Unity, Android, iOS."
+      - title: "Software Engineer | Tapps Games"
+        location: "São Paulo, Brazil"
+        period: "2017 – 2020"
+        export_mode: "full"
+        bullets:
+          - "Developed a shared Unity library integrating major SDKs such as Firebase, Facebook, and AppsFlyer across the studio portfolio."
+          - "Contributed to planning and implementation of the client build pipeline."
+          - "Co-architected a backend-configurable ad mediation system powered by AI-driven logic."
+          - "Notable projects: <i>TPUnity</i>, <i>TPAds</i>, <i>Starside</i>, <i>Decor Dream</i>, <i>LogicPic</i>, <i>Logicube</i>."
+      - title: "Indie Game Developer | Busta.Games, Supernova, INOVAApps"
+        location: "Fortaleza, Brazil"
+        period: "2015 – 2017"
+        export_mode: "full"
+        bullets:
+          - "Developed multiple games and prototypes independently and through partner initiatives."
+          - "Released and exhibited projects with emphasis on rapid iteration, game feel, and production ownership."
+          - "Notable project: <i>Vetor</i>, an educational game awarded Best Educational Game in Development at BIG Starter 2016."
+      - title: "Software Engineer | LSBD"
+        location: "Fortaleza, Brazil"
+        period: "2013 – 2015"
+        export_mode: "full"
+        bullets:
+          - "Participated in research and development initiatives in collaboration with multinational partners."
+          - "Developed hardware diagnostic modules for Lenovo focused on GPU and sensor diagnostics."
+          - "Key technologies: C++, Qt, OpenGL, OpenCL, Direct3D."
+
+  - title: "Education"
+    items:
+      - title: "Master’s Degree in Computer Science | Universidade Federal do Ceará"
+        location: "Fortaleza, Brazil"
+        period: "2014 – 2016"
+        export_mode: "compact"
+        bullets:
+          - "Research focus on density perception and panoramic vision techniques for synthetic-vision crowd simulation."
+          - "Worked with C++, OpenGL, C#, and Unity."
+      - title: "Computer Science Degree | Universidade Federal do Ceará"
+        location: "Fortaleza, Brazil"
+        period: "2008 – 2013"
+        export_mode: "compact"
+        bullets:
+          - "Strong emphasis on Computer Graphics, Algebra, and Virtual Reality."
+          - "Part of the DoG study group: Developers of Games. Studied developing game with C++, SDL1 and OpenGL."
+
+side_sections:
+  - title: "Core Skills"
+    kind: "tags"
+    items:
+      - "C#"
+      - "Unity"
+      - "C++"
+      - "Python"
+      - "Git"
+      - "Android"
+      - "iOS"
+      - "Build Pipelines"
+      - "Tooling"
+      - "SDK Integration"
+      - "Jenkins"
+      - "JIRA"
+
+  - title: "Additional Tools"
+    kind: "tags"
+    items:
+      - "OpenGL"
+      - "Direct3D"
+      - "Qt"
+      - "Lua"
+      - "JavaScript"
+      - "Node.js"
+      - "HTML/CSS"
+      - "MySQL"
+      - "PostgreSQL"
+      - "GoCD"
+      - "Bash"
+      - "Rider"
+
+  - title: "Languages"
+    kind: "meta"
+    items:
+      - label: "Portuguese"
+        value: "Native"
+      - label: "English"
+        value: "Fluent"
+      - label: "German"
+        value: "Basic / A2"
+
+  - title: "Links"
+    kind: "meta"
+    items:
+      - label: "Website"
+        value: '<a href="https://busta.dev">busta.dev</a>'
+      - label: "GitHub"
+        value: '<a href="https://github.com/ricardobusta">github.com/ricardobusta</a>'
+      - label: "LinkedIn"
+        value: '<a href="https://www.linkedin.com/in/ricardobusta">linkedin.com/in/ricardobusta</a>'
