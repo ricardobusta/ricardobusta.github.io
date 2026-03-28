@@ -22,6 +22,8 @@ layout: compress
     <script src="/assets/uikit/js/uikit-icons.min.js"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
+        const themeStorageKey = 'themePreference';
+        const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
 
         function gtag() {
             dataLayer.push(arguments);
@@ -31,20 +33,47 @@ layout: compress
 
         gtag('config', 'UA-146839159-1');
 
-        function toggleDarkMode() {
-            document.body.classList.toggle('dark-mode');
+        function getStoredThemePreference() {
+            const storedTheme = localStorage.getItem(themeStorageKey);
+            return storedTheme === 'dark' || storedTheme === 'light' ? storedTheme : null;
+        }
 
-            const isDark = document.body.classList.contains('dark-mode');
-            localStorage.setItem('darkMode', isDark);
+        function getPreferredTheme() {
+            return getStoredThemePreference() || (darkModeMediaQuery.matches ? 'dark' : 'light');
+        }
+
+        function applyTheme(theme) {
+            const isDark = theme === 'dark';
+
+            document.body.classList.toggle('dark-mode', isDark);
+            document.documentElement.style.colorScheme = theme;
+
+            const toggle = document.getElementById('nav-toggle');
+            if (toggle) {
+                toggle.checked = isDark;
+            }
+        }
+
+        function toggleDarkMode() {
+            const nextTheme = document.body.classList.contains('dark-mode') ? 'light' : 'dark';
+            localStorage.setItem(themeStorageKey, nextTheme);
+            applyTheme(nextTheme);
         }
 
         document.addEventListener('DOMContentLoaded', () => {
-            const isDark = localStorage.getItem('darkMode') === 'true';
-            if (isDark) {
-                document.body.classList.add('dark-mode');
+            applyTheme(getPreferredTheme());
+
+            const handleSystemThemeChange = (event) => {
+                if (!getStoredThemePreference()) {
+                    applyTheme(event.matches ? 'dark' : 'light');
+                }
+            };
+
+            if (darkModeMediaQuery.addEventListener) {
+                darkModeMediaQuery.addEventListener('change', handleSystemThemeChange);
+            } else if (darkModeMediaQuery.addListener) {
+                darkModeMediaQuery.addListener(handleSystemThemeChange);
             }
-            const toggle = document.getElementById('nav-toggle');
-            toggle.checked = isDark;
         });
     </script>
 </head>
