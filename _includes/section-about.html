@@ -1,9 +1,9 @@
-<h1 id="About">{{ site.data.home.about.title }}</h1>
-<div class="uk-card uk-card-body uk-card-default">
-    <ul class="uk-list">
+<h1 class="rb-section-title" id="About">{{ site.data.home.about.title }}</h1>
+<div class="uk-card uk-card-body uk-card-default rb-section-card">
+    <ul class="uk-list rb-about-list">
         {% for item in site.data.home.about.items %}
-        <li class="rb-highlight">
-            {{ item.emoji }}
+        <li class="rb-highlight rb-about-item">
+            <span class="rb-about-emoji">{{ item.emoji }}</span>
             {% if item.type == "experience" %}
             {{ item.prefix }} <span id="manyYears">Years</span> {{ item.suffix }}
             {% else %}

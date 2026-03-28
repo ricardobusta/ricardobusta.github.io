@@ -1,10 +1,13 @@
 {% assign link_icon_width = "30px" %}
 {% assign link_icon_ratio = 1.5 %}
-<div>
-    <a href="{{ site.data.home.profile.resume_url | relative_url }}">Resume / CV</a>
-    <p>{{ site.data.home.profile.social_prompt }}</p>
+<div class="rb-profile-links">
+    <div class="rb-profile-actions">
+        <a class="uk-button rb-button-primary" href="{{ site.data.home.profile.resume_url | relative_url }}">Resume / CV</a>
+    </div>
+    <p class="rb-profile-links-label">{{ site.data.home.profile.social_prompt }}</p>
+    <div class="rb-social-links">
     {% for link in site.data.home.profile.social_links %}
-    <a href="{{ link.url }}">
+    <a class="rb-social-link" href="{{ link.url }}">
         {% if link.kind == "uikit" %}
         <span style="color:{{ link.color }}" uk-icon="icon: {{ link.icon }}; ratio: {{ link_icon_ratio }}"></span>
         {% elsif link.kind == "include" %}
@@ -17,4 +20,5 @@
         {% endif %}
     </a>
     {% endfor %}
+    </div>
 </div>

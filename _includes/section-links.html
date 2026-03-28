@@ -1,6 +1,6 @@
-<h1 id="Links">{{ site.data.home.links.title }}</h1>
-<div class="uk-card uk-card-body uk-height-xlarge uk-card-default">
-    <ul class="uk-list uk-list-divider">
+<h1 class="rb-section-title" id="Links">{{ site.data.home.links.title }}</h1>
+<div class="uk-card uk-card-body uk-card-default rb-section-card">
+    <ul class="uk-list uk-list-divider rb-tools-list">
         {% for item in site.data.home.links.items %}
         <li><a href="{% if item.path %}{{ item.path | relative_url }}{% else %}{{ item.url }}{% endif %}">{{ item.label }}</a></li>
         {% endfor %}
