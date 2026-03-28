@@ -20,22 +20,24 @@
          style="background-image: url({{ img0-path }});">
         <div class="uk-background-cover rb-card-image uk-height-medium uk-panel uk-flex uk-flex-center uk-flex-middle uk-transition-scale-up"
              style="background-image: url({{ img1-path }});"></div>
-    </div>
-    <div class="rb-highlight rb-card-body">
-        <span class="rb-text-title">{{ include.data.title }}</span>
-        <p class="rb-text-height-small rb-project-meta">{{ include.data.event }} - {{ include.data.date | date_to_long_string }}</p>
-        <div class="rb-project-actions">
+        <div class="rb-card-overlay"></div>
+        <div class="rb-card-body rb-card-body-overlay rb-highlight">
+            <div class="rb-project-copy">
+                <span class="rb-text-title">{{ include.data.title }}</span>
+                <p class="rb-text-height-small rb-project-meta">{{ include.data.event }} - {{ include.data.date | date_to_long_string }}</p>
+            </div>
+            <div class="rb-project-actions">
         {% if include.data.play-url %}
         <a class="uk-button rb-button-project uk-button-small" href="{{ include.data.play-url }}"
-           target="_blank"><span uk-icon="play-circle"></span><span> Play</span></a>
+           target="_blank"><span uk-icon="play-circle"></span><span>Play</span></a>
         {% endif %}
         {% if include.data.page-url %}
         <a class="uk-button rb-button-project uk-button-small" href="{{ include.data.page-url }}"
-           target="_blank"><span uk-icon="link"></span><span> Page</span></a>
+           target="_blank"><span uk-icon="link"></span><span>Page</span></a>
         {% endif %}
         {% if include.data.src-url %}
         <a class="uk-button rb-button-project uk-button-small" href="{{ include.data.src-url }}"
-           target="_blank"><span uk-icon="github-alt"></span><span> Src</span></a>
+           target="_blank"><span uk-icon="github-alt"></span><span>Source</span></a>
         {% endif %}
         {% if include.data.android-url %}
         <a class="uk-button rb-button-project uk-button-small" href="{{ include.data.android-url }}"
@@ -49,6 +51,7 @@
         <a class="uk-button rb-button-project uk-button-small" href="https://youtu.be/{{ include.data.youtube-url }}"
            target="_blank"><span uk-icon="youtube"></span></a>
         {% endif %}
+            </div>
         </div>
     </div>
 </div>

@@ -56,11 +56,30 @@ $global-font-family: "IBM Plex Sans", "Segoe UI", sans-serif;
 }
 
 .rb-card-image {
+  position: relative;
   background-color: $surface-strong-light;
+}
+
+.rb-card-overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(8, 16, 32, 0.06) 0%, rgba(8, 16, 32, 0.32) 45%, rgba(8, 16, 32, 0.86) 100%);
 }
 
 .rb-card-body {
   padding: 1.1rem 1.1rem 1.2rem;
+}
+
+.rb-card-body-overlay {
+  position: absolute;
+  inset: auto 0 0;
+  z-index: 2;
+  padding: 1rem 1rem 1rem;
+}
+
+.rb-project-copy {
+  max-width: 100%;
 }
 
 .rb-text-title {
@@ -68,16 +87,18 @@ $global-font-family: "IBM Plex Sans", "Segoe UI", sans-serif;
   font-size: 1.22rem;
   font-weight: 700;
   letter-spacing: -0.02em;
+  color: #fff;
 }
 
 .rb-text-height-small {
-  min-height: 3rem;
+  min-height: 0;
 }
 
 .rb-project-meta {
-  margin: 0.45rem 0 0.9rem;
-  color: $dimmed-color-light;
-  font-size: 0.95rem;
+  margin: 0.35rem 0 0.8rem;
+  color: rgba(233, 240, 252, 0.84);
+  font-size: 0.9rem;
+  line-height: 1.45;
 }
 
 .rb-project-actions {
@@ -94,19 +115,27 @@ $global-font-family: "IBM Plex Sans", "Segoe UI", sans-serif;
 }
 
 .rb-button-project {
-  color: $surface-strong-light;
-  background: linear-gradient(135deg, $accent-color-light, $link-color-light);
-  border: 1px solid transparent;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  min-height: 0;
+  padding: 0.35rem 0.72rem;
+  color: rgba(255, 255, 255, 0.92);
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.16);
   border-radius: 999px;
   text-transform: none;
-  font-weight: 600;
+  font-size: 0.78rem;
+  font-weight: 700;
   letter-spacing: 0.01em;
-  box-shadow: 0 8px 18px rgba(15, 91, 216, 0.18);
+  backdrop-filter: blur(8px);
+  box-shadow: none;
 }
 
 .rb-button-project:hover {
-  color: $surface-strong-light;
-  background: linear-gradient(135deg, darken($accent-color-light, 2%), $highlight-color-light);
+  color: #fff;
+  background: rgba(255, 255, 255, 0.18);
+  border-color: rgba(255, 255, 255, 0.26);
 }
 
 .rb-highlight > span {
@@ -303,13 +332,16 @@ $global-font-family: "IBM Plex Sans", "Segoe UI", sans-serif;
 }
 
 .dark-mode .rb-button-project {
-  color: $fg-color-dark;
-  background: linear-gradient(135deg, lighten($bg-color-dark, 8%), lighten($bg-color-dark, 15%));
+  color: rgba(255, 255, 255, 0.92);
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.14);
   box-shadow: none;
 }
 
 .dark-mode .rb-button-project:hover {
-  color: $highlight-color-dark;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.14);
+  border-color: rgba(255, 255, 255, 0.22);
 }
 
 .dark-mode .rb-highlight > span {
@@ -395,6 +427,11 @@ h1 {
   background:
     radial-gradient(circle at top right, rgba(138, 180, 255, 0.14), transparent 34%),
     linear-gradient(180deg, rgba(16, 27, 45, 0.95), rgba(14, 24, 40, 0.92));
+}
+
+.dark-mode .rb-card-overlay {
+  background:
+    linear-gradient(180deg, rgba(4, 8, 16, 0.08) 0%, rgba(4, 8, 16, 0.38) 42%, rgba(4, 8, 16, 0.9) 100%);
 }
 
 .dark-mode .rb-profile-avatar {
@@ -632,6 +669,19 @@ input:checked + .slider:before {
   .rb-social-links,
   .rb-project-actions {
     gap: 0.55rem;
+  }
+
+  .rb-card-body-overlay {
+    padding: 0.85rem;
+  }
+
+  .rb-project-meta {
+    font-size: 0.84rem;
+  }
+
+  .rb-button-project {
+    padding: 0.32rem 0.64rem;
+    font-size: 0.75rem;
   }
 
   .rb-social-link {
