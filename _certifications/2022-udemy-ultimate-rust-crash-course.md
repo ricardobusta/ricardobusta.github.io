@@ -1,6 +1,6 @@
 ---
 title: "Ultimate Rust Crash Course"
-date: "17 Dez 2022"
+date: "2022-12-17"
 category: "course"
 link: "https://busta.dev/udemy-ultimate-rust-crash-course/"
 ---

@@ -317,11 +317,6 @@ $global-font-family: "IBM Plex Sans", "Segoe UI", sans-serif;
   color: $accent-color-light;
 }
 
-.rb-tools-list li a,
-.rb-education-list li a {
-  font-weight: 600;
-}
-
 .rb-footer {
   margin: 0 auto;
   max-width: 1100px;
@@ -434,6 +429,71 @@ h1 {
     linear-gradient(180deg, rgba(4, 8, 16, 0.08) 0%, rgba(4, 8, 16, 0.38) 42%, rgba(4, 8, 16, 0.9) 100%);
 }
 
+.rb-education-grid,
+.rb-tools-grid {
+  margin-top: 0.15rem;
+}
+
+.rb-education-card,
+.rb-tool-card {
+  display: flex;
+  flex-direction: column;
+  padding: 0.7rem 0.75rem;
+  border: 1px solid $border-color-light;
+  border-radius: 0.75rem;
+  background: rgba(255, 255, 255, 0.42);
+  box-shadow: none;
+}
+
+.rb-education-card:hover,
+.rb-tool-card:hover {
+  border-color: rgba(15, 91, 216, 0.2);
+  background: rgba(255, 255, 255, 0.62);
+  box-shadow: none;
+}
+
+.rb-education-card-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 0.45rem;
+}
+
+.rb-education-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.18rem 0.45rem;
+  border-radius: 999px;
+  background: rgba(15, 91, 216, 0.1);
+  color: $accent-color-light;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.rb-education-date {
+  color: $dimmed-color-light;
+  font-size: 0.72rem;
+  font-weight: 600;
+}
+
+.rb-education-title,
+.rb-tool-title {
+  font-size: 0.88rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.rb-education-subtitle,
+.rb-tool-description {
+  margin-top: 0.24rem;
+  color: $dimmed-color-light;
+  font-size: 0.78rem;
+  line-height: 1.35;
+}
+
 .dark-mode .rb-profile-avatar {
   border-color: rgba(162, 184, 220, 0.2);
 }
@@ -442,6 +502,23 @@ h1 {
 .dark-mode .rb-filter-nav > li > a {
   border-color: $border-color-dark;
   background: rgba(255, 255, 255, 0.02);
+}
+
+.dark-mode .rb-education-card,
+.dark-mode .rb-tool-card {
+  border-color: $border-color-dark;
+  background: rgba(255, 255, 255, 0.02);
+  box-shadow: none;
+}
+
+.dark-mode .rb-education-card:hover,
+.dark-mode .rb-tool-card:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.dark-mode .rb-education-badge {
+  background: rgba(138, 180, 255, 0.1);
+  color: $accent-color-dark;
 }
 
 .dark-mode .rb-hero-name,
@@ -453,12 +530,17 @@ h1 {
 .dark-mode .rb-hero-alias,
 .dark-mode .rb-project-meta,
 .dark-mode .rb-profile-links-label,
-.dark-mode .rb-filter-nav > li > a {
+.dark-mode .rb-filter-nav > li > a,
+.dark-mode .rb-education-date,
+.dark-mode .rb-education-subtitle,
+.dark-mode .rb-tool-description {
   color: $dimmed-color-dark;
 }
 
 .dark-mode .rb-hero-intro,
-.dark-mode .uk-navbar-nav > li > a {
+.dark-mode .uk-navbar-nav > li > a,
+.dark-mode .rb-education-title,
+.dark-mode .rb-tool-title {
   color: $fg-color-dark;
 }
 
@@ -687,6 +769,16 @@ input:checked + .slider:before {
   .rb-social-link {
     width: 2.8rem;
     height: 2.8rem;
+  }
+
+  .rb-education-card,
+  .rb-tool-card {
+    padding: 0.65rem 0.7rem;
+    border-radius: 0.72rem;
+  }
+
+  .rb-education-card-meta {
+    margin-bottom: 0.42rem;
   }
 
   .rb-about-item {
