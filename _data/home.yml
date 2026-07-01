@@ -71,8 +71,6 @@ about:
       content: 'I like to talk about <span>Science</span>, <span>Math</span>, <span>Computer Science</span> and <span>Technology</span>. Also send me pictures of your pets.'
     - emoji: "🪁"
       content: 'Hobbies include <span>DIY Projects</span> and <span>Playing Videogames</span>. Also, my site has a <span>Cooking Recipes</span><a href="recipes/">[↗️]</a> section.'
-    - emoji: "🐈"
-      content: "I have two cats: <span>Cake</span> and <span>Mimi</span>."
 
 projects:
   title: "Projects"
