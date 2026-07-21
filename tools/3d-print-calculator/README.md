@@ -9,10 +9,21 @@ inteiramente no navegador e não envia os dados para nenhum serviço externo.
 2. Selecione a impressora e o filamento.
 3. Informe o tempo total e o peso total mostrados pelo Bambu Studio.
 4. Informe quantas peças foram produzidas no trabalho.
-5. Use `Copiar info` para enviar a simulação.
+5. Use `Copiar parâmetros` para gerar parâmetros em YAML, fáceis de ler e importar depois.
 
-Para conferir uma simulação recebida, cole a mensagem no painel inferior e use
-`Conferir texto` ou `Colar e importar`.
+Para importar uma impressão recebida, cole os parâmetros YAML no painel inferior.
+O valor será recalculado usando as configurações atuais. Simulações no formato
+anterior, com JSON, continuam podendo ser conferidas.
+
+## Importar um arquivo já fatiado
+
+O campo `Arquivo fatiado do Bambu Studio` aceita `.gcode` e arquivos Bambu
+`.3mf` que já contenham o G-code da placa. Ele lê o tempo e o peso de filamento
+calculados pelo Bambu Studio e preenche esses dois campos no simulador.
+
+No Bambu Studio, abra o projeto, use **Fatiar placa** e exporte o G-code ou o
+arquivo fatiado. Um projeto `.3mf` ainda não fatiado não contém dados
+suficientes para estimar o tempo e o consumo.
 
 ## Executar localmente
 

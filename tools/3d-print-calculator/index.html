@@ -88,6 +88,21 @@
               </div>
             </div>
 
+            <div class="sliced-file-import">
+              <label for="sliced-file-input">Arquivo fatiado do Bambu Studio</label>
+              <input
+                id="sliced-file-input"
+                name="slicedFile"
+                type="file"
+                accept=".3mf,.gcode,.gcode.3mf"
+                aria-describedby="sliced-file-help sliced-file-status"
+              />
+              <p id="sliced-file-help" class="field-help">
+                Envie um G-code ou 3MF já fatiado. Projetos 3MF sem fatiamento não têm tempo e consumo para importar.
+              </p>
+              <p id="sliced-file-status" class="action-status" role="status" aria-live="polite"></p>
+            </div>
+
           </form>
         </section>
 
@@ -126,10 +141,10 @@
 
           <div class="result-actions action-row">
             <button id="copy-button" class="button primary-button" type="button" disabled>
-              Copiar info
+              Copiar parâmetros
             </button>
             <button id="import-focus-button" class="button secondary-button" type="button">
-              Importar info
+              Importar parâmetros
             </button>
             <button id="reset-button" class="text-button" type="button">Nova simulação</button>
           </div>
@@ -137,16 +152,16 @@
         </section>
 
         <details id="import-panel" class="panel import-panel">
-          <summary>Conferir uma simulação recebida</summary>
+          <summary>Importar parâmetros de uma impressão</summary>
           <div class="import-content">
             <p class="panel-intro">
-              Cole aqui o texto enviado para conferir o resultado com os parâmetros atuais.
+              Cole os parâmetros em YAML. O valor será recalculado com as configurações atuais.
             </p>
-            <label class="sr-only" for="import-textarea">Texto da simulação recebida</label>
-            <textarea id="import-textarea" rows="8" placeholder="Cole aqui a mensagem copiada..."></textarea>
+            <label class="sr-only" for="import-textarea">Parâmetros da impressão</label>
+            <textarea id="import-textarea" rows="8" placeholder="Cole aqui os parâmetros copiados..."></textarea>
             <div class="action-row import-actions">
               <button id="paste-import-button" class="button secondary-button" type="button">Colar e importar</button>
-              <button id="parse-import-button" class="button primary-button" type="button">Conferir texto</button>
+              <button id="parse-import-button" class="button primary-button" type="button">Importar parâmetros</button>
             </div>
             <p id="import-status" class="action-status" role="status" aria-live="polite"></p>
             <div id="verification-panel" class="verification-panel" hidden>

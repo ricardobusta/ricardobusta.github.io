@@ -252,6 +252,40 @@ textarea:focus {
   margin-top: 10px;
 }
 
+.sliced-file-import {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+}
+
+.sliced-file-import label {
+  display: block;
+  margin-bottom: 5px;
+  color: var(--ink);
+  font-size: 0.84rem;
+  font-weight: 750;
+}
+
+.sliced-file-import input {
+  width: 100%;
+  min-height: 41px;
+  padding: 7px 10px;
+  border: 1px solid var(--line-strong);
+  border-radius: 9px;
+  color: var(--ink);
+  background: #fbfcfd;
+}
+
+.sliced-file-import input:focus {
+  border-color: var(--blue);
+  background: #fff;
+  outline: none;
+}
+
+.sliced-file-import .action-status {
+  margin-bottom: 0;
+}
+
 .assumptions-details summary,
 .import-panel > summary {
   padding: 14px 0;

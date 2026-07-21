@@ -1,10 +1,8 @@
 (function () {
   "use strict";
 
-  var APP_NAME = "Simulador de custo de impressão 3D";
-  var APP_VERSION = "1.1.0";
   var PAYLOAD_TYPE = "3d-print-cost-simulation";
-  var PAYLOAD_VERSION = 1;
+  var PAYLOAD_VERSION = 2;
   var CUSTOM_MATERIAL_ID = "custom";
   var activeCostTooltip = null;
   var state = {
@@ -73,6 +71,202 @@
     var wholeHours = Math.floor(totalMinutes / 60);
     var remainingMinutes = totalMinutes % 60;
     return wholeHours + "h " + String(remainingMinutes).padStart(2, "0") + "min";
+  }
+
+  function numberFromGcode(value) {
+    var parsed = Number(String(value || "").trim().replace(",", "."));
+    return Number.isFinite(parsed) ? parsed : null;
+  }
+
+  function sumGcodeNumbers(value) {
+    var matches = String(value || "").match(/[0-9]+(?:[.,][0-9]+)?/g);
+    if (!matches) {
+      return null;
+    }
+    return matches.reduce(function (total, item) {
+      return total + numberFromGcode(item);
+    }, 0);
+  }
+
+  function parseDurationToSeconds(value) {
+    var source = String(value || "").trim().toLowerCase();
+    var clock = source.match(/^(\d+):(\d{1,2})(?::(\d{1,2}))?$/);
+    if (clock) {
+      return clock[3]
+        ? Number(clock[1]) * 3600 + Number(clock[2]) * 60 + Number(clock[3])
+        : Number(clock[1]) * 60 + Number(clock[2]);
+    }
+    var hours = source.match(/([0-9]+(?:[.,][0-9]+)?)\s*(?:h|hour(?:s)?)/);
+    var minutes = source.match(/([0-9]+(?:[.,][0-9]+)?)\s*(?:m|min(?:ute)?s?)/);
+    var seconds = source.match(/([0-9]+(?:[.,][0-9]+)?)\s*(?:s|sec(?:ond)?s?)/);
+    if (!hours && !minutes && !seconds) {
+      return null;
+    }
+    return Math.round(
+      (hours ? numberFromGcode(hours[1]) * 3600 : 0) +
+      (minutes ? numberFromGcode(minutes[1]) * 60 : 0) +
+      (seconds ? numberFromGcode(seconds[1]) : 0)
+    );
+  }
+
+  function parseSlicedGcode(gcode) {
+    var source = String(gcode || "");
+    var totalFilament = source.match(/^\s*;\s*total\s+filament\s+(?:used|weight)\s*\[g\]\s*[:=]\s*([^\r\n]+)/im);
+    var filamentGrams = totalFilament ? sumGcodeNumbers(totalFilament[1]) : null;
+    if (filamentGrams == null) {
+      var individualFilaments = source.match(/^\s*;\s*filament\s+used\s*\[g\]\s*[:=]\s*([^\r\n]+)/gim);
+      if (individualFilaments) {
+        filamentGrams = individualFilaments.reduce(function (total, line) {
+          var value = line.slice(line.indexOf("=") + 1);
+          return total + (sumGcodeNumbers(value) || 0);
+        }, 0);
+      }
+    }
+
+    var rawSeconds = source.match(/^\s*;\s*total\s+estimated\s+time\s*[:=]\s*([0-9]+(?:[.,][0-9]+)?)\s*(?:s|sec(?:onds?)?)?\s*$/im);
+    var printTimeSeconds = rawSeconds ? Math.round(numberFromGcode(rawSeconds[1])) : null;
+    if (printTimeSeconds == null) {
+      var humanDuration = source.match(/^\s*;\s*(?:estimated\s+printing\s+time(?:\s*\([^)]*\))?|total\s+estimated\s+time)\s*[:=]\s*([^\r\n]+)/im);
+      printTimeSeconds = humanDuration ? parseDurationToSeconds(humanDuration[1]) : null;
+    }
+
+    if (filamentGrams == null || printTimeSeconds == null) {
+      throw new Error(
+        "O G-code não contém os dois valores necessários (tempo e filamento). " +
+        "No Bambu Studio, fatie a placa e exporte novamente o G-code."
+      );
+    }
+    return {
+      filamentGrams: Math.round(filamentGrams * 100) / 100,
+      printTimeSeconds: printTimeSeconds
+    };
+  }
+
+  function findZipEndOfCentralDirectory(view) {
+    var minimumOffset = Math.max(0, view.byteLength - 65557);
+    for (var offset = view.byteLength - 22; offset >= minimumOffset; offset -= 1) {
+      if (view.getUint32(offset, true) === 0x06054b50) {
+        return offset;
+      }
+    }
+    throw new Error("O arquivo não parece ser um 3MF Bambu válido.");
+  }
+
+  function readZipEntries(arrayBuffer) {
+    var view = new DataView(arrayBuffer);
+    var decoder = new TextDecoder("utf-8");
+    var endOffset = findZipEndOfCentralDirectory(view);
+    var entryCount = view.getUint16(endOffset + 10, true);
+    var centralOffset = view.getUint32(endOffset + 16, true);
+    var entries = [];
+    var offset = centralOffset;
+    for (var index = 0; index < entryCount; index += 1) {
+      if (offset + 46 > view.byteLength || view.getUint32(offset, true) !== 0x02014b50) {
+        throw new Error("Não foi possível ler o conteúdo do arquivo 3MF.");
+      }
+      var flags = view.getUint16(offset + 8, true);
+      var compression = view.getUint16(offset + 10, true);
+      var compressedSize = view.getUint32(offset + 20, true);
+      var nameLength = view.getUint16(offset + 28, true);
+      var extraLength = view.getUint16(offset + 30, true);
+      var commentLength = view.getUint16(offset + 32, true);
+      var localOffset = view.getUint32(offset + 42, true);
+      var nextOffset = offset + 46 + nameLength + extraLength + commentLength;
+      if (nextOffset > view.byteLength || compressedSize === 0xffffffff) {
+        throw new Error("O arquivo 3MF usa uma estrutura ZIP não suportada.");
+      }
+      entries.push({
+        name: decoder.decode(new Uint8Array(arrayBuffer, offset + 46, nameLength)),
+        flags: flags,
+        compression: compression,
+        compressedSize: compressedSize,
+        localOffset: localOffset
+      });
+      offset = nextOffset;
+    }
+    return entries;
+  }
+
+  async function unzipEntry(arrayBuffer, entry) {
+    var view = new DataView(arrayBuffer);
+    if (entry.flags & 0x0001) {
+      throw new Error("Arquivos 3MF protegidos por senha não são suportados.");
+    }
+    if (entry.localOffset + 30 > view.byteLength || view.getUint32(entry.localOffset, true) !== 0x04034b50) {
+      throw new Error("Não foi possível abrir o G-code dentro do 3MF.");
+    }
+    var nameLength = view.getUint16(entry.localOffset + 26, true);
+    var extraLength = view.getUint16(entry.localOffset + 28, true);
+    var dataOffset = entry.localOffset + 30 + nameLength + extraLength;
+    if (dataOffset + entry.compressedSize > view.byteLength) {
+      throw new Error("O G-code dentro do 3MF está incompleto.");
+    }
+    var compressed = new Uint8Array(arrayBuffer, dataOffset, entry.compressedSize);
+    if (entry.compression === 0) {
+      return compressed;
+    }
+    if (entry.compression !== 8 || typeof DecompressionStream === "undefined") {
+      throw new Error("Seu navegador não consegue descompactar este 3MF. Exporte um arquivo .gcode no Bambu Studio e envie-o aqui.");
+    }
+    var stream = new Blob([compressed]).stream().pipeThrough(new DecompressionStream("deflate-raw"));
+    return new Uint8Array(await new Response(stream).arrayBuffer());
+  }
+
+  async function readSlicedBambuArchive(arrayBuffer) {
+    var entries = readZipEntries(arrayBuffer);
+    var gcodeEntries = entries.filter(function (entry) {
+      return /(^|\/)metadata\/plate_\d+\.gcode$/i.test(entry.name);
+    });
+    var gcodeEntry = gcodeEntries.find(function (entry) {
+      return /plate_1\.gcode$/i.test(entry.name);
+    }) || gcodeEntries[0];
+    if (!gcodeEntry) {
+      throw new Error(
+        "Não encontrei G-code fatiado neste 3MF. No Bambu Studio, abra o projeto, clique em Fatiar placa e exporte o G-code ou o 3MF fatiado."
+      );
+    }
+    var gcodeBytes = await unzipEntry(arrayBuffer, gcodeEntry);
+    var result = parseSlicedGcode(new TextDecoder("utf-8").decode(gcodeBytes));
+    result.entryName = gcodeEntry.name;
+    return result;
+  }
+
+  async function readSlicedFile(file) {
+    var name = String(file && file.name || "");
+    if (/\.gcode$/i.test(name)) {
+      var gcodeResult = parseSlicedGcode(await file.text());
+      gcodeResult.entryName = name;
+      return gcodeResult;
+    }
+    if (!/\.3mf$/i.test(name)) {
+      throw new Error("Escolha um arquivo .gcode ou um 3MF fatiado do Bambu Studio.");
+    }
+    return readSlicedBambuArchive(await file.arrayBuffer());
+  }
+
+  async function importSlicedFile(event) {
+    var input = event.target;
+    var file = input.files && input.files[0];
+    var status = $("sliced-file-status");
+    if (!file) {
+      return;
+    }
+    setActionStatus(status, "Lendo os dados fatiados...", "");
+    try {
+      var data = await readSlicedFile(file);
+      var totalMinutes = Math.max(0, Math.round(data.printTimeSeconds / 60));
+      $("hours-input").value = String(Math.floor(totalMinutes / 60));
+      $("minutes-input").value = String(totalMinutes % 60);
+      $("grams-input").value = String(data.filamentGrams);
+      renderEstimate();
+      setActionStatus(
+        status,
+        "Tempo e filamento preenchidos a partir de " + data.entryName + ". Confira a quantidade de peças antes de usar o valor.",
+        "success"
+      );
+    } catch (error) {
+      setActionStatus(status, error.message, "error");
+    }
   }
 
   function normalizeCollection(config, key) {
@@ -265,7 +459,7 @@
         " kW médio";
     }
     if (material) {
-      if (isCustomMaterial(material) && !$("custom-filament-price-input").value.trim()) {
+      if (isCustomMaterial(material) && !String($("custom-filament-price-input").value).trim()) {
         $("filament-note").textContent = "Informe o preço do rolo de 1 kg abaixo.";
         return;
       }
@@ -403,59 +597,44 @@
     if (!state.lastEstimate) {
       throw new Error("Preencha os dados da impressão antes de copiar.");
     }
-    return {
+    var payload = {
       type: PAYLOAD_TYPE,
       schemaVersion: PAYLOAD_VERSION,
-      app: {
-        name: APP_NAME,
-        version: APP_VERSION
-      },
-      createdAt: new Date().toISOString(),
       selection: {
         printerId: state.lastEstimate.printer.id,
         materialId: state.lastEstimate.material.id
       },
-      job: clone(state.lastEstimate.job),
-      configSnapshot: {
-        printer: clone(state.lastEstimate.printer),
-        material: clone(state.lastEstimate.material),
-        expenses: clone(state.lastEstimate.expenses),
-        settings: clone(state.lastEstimate.settings)
-      },
-      estimate: clone(state.lastEstimate.estimate)
+      job: clone(state.lastEstimate.job)
     };
+    if (state.lastEstimate.material.id === CUSTOM_MATERIAL_ID) {
+      payload.customFilamentPriceBRL = state.lastEstimate.material.spoolPriceBRL;
+    }
+    return payload;
+  }
+
+  function yamlString(value) {
+    return JSON.stringify(String(value));
   }
 
   function createShareText(payload) {
-    var printer = payload.configSnapshot.printer;
-    var material = payload.configSnapshot.material;
-    var estimate = payload.estimate;
+    var printer = state.lastEstimate.printer;
+    var material = state.lastEstimate.material;
     var job = payload.job;
     var readable = [
-      "SIMULAÇÃO DE IMPRESSÃO 3D",
-      "",
-      "Impressora: " + printer.name,
-      "Filamento: " + material.name,
-      "Tempo: " + formatDuration(job.hours, job.minutes),
-      "Filamento usado: " + formatNumber(job.filamentGrams, 1) + " g",
-      "Quantidade: " + estimate.quantity + " peça(s)",
-      "",
-      "CUSTOS",
-      "Filamento: " + formatCurrency(estimate.breakdown[0].cost),
-      "Reserva da impressora: " + formatCurrency(estimate.breakdown[1].cost),
-      "Energia elétrica: " + formatCurrency(estimate.breakdown[2].cost),
-      "Reserva de falhas: " + formatCurrency(estimate.breakdown[3].cost),
-      "Consumíveis: " + formatCurrency(estimate.breakdown[4].cost),
-      "Valor do serviço: " + formatCurrency(estimate.serviceValue),
-      "Margem do serviço: " + formatPercent(estimate.profitMargin),
-      "",
-      "PREÇO SUGERIDO: " + formatCurrency(estimate.priceTotal),
-      "POR PEÇA: " + formatCurrency(estimate.pricePerPiece),
-      "",
-      "--- DADOS PARA IMPORTAÇÃO ---",
-      JSON.stringify(payload, null, 2),
-      "--- FIM DOS DADOS ---"
+      "# Parâmetros da impressão 3D",
+      "# Impressora selecionada: " + printer.name,
+      "# Filamento selecionado: " + material.name,
+      "versao: " + payload.schemaVersion,
+      "impressora_id: " + yamlString(payload.selection.printerId),
+      "filamento_id: " + yamlString(payload.selection.materialId),
+      "horas: " + numberOr(job.hours, 0),
+      "minutos: " + numberOr(job.minutes, 0),
+      "filamento_g: " + numberOr(job.filamentGrams, 0),
+      "pecas: " + numberOr(job.quantity, 1)
     ];
+    if (payload.selection.materialId === CUSTOM_MATERIAL_ID) {
+      readable.push("preco_rolo_customizado_brl: " + numberOr(payload.customFilamentPriceBRL, 0));
+    }
     return readable.join("\n");
   }
 
@@ -497,7 +676,7 @@
       if (!copied && !fallbackCopy(text)) {
         throw new Error("Não foi possível acessar a área de transferência.");
       }
-      setActionStatus(status, "Info copiada. Você já pode enviar a mensagem.", "success");
+      setActionStatus(status, "Parâmetros copiados em YAML. Você já pode enviar a mensagem.", "success");
     } catch (error) {
       setActionStatus(status, error.message, "error");
     }
@@ -505,23 +684,87 @@
 
   function extractImportPayload(text) {
     var source = String(text || "").trim();
+    if (!source) {
+      throw new Error("Cole os parâmetros YAML ou uma simulação anterior para importar.");
+    }
     var markerMatch = source.match(/--- DADOS PARA IMPORTAÇÃO ---\s*([\s\S]*?)\s*--- FIM DOS DADOS ---/i);
     var jsonText = markerMatch ? markerMatch[1].trim() : source;
-    if (!markerMatch) {
-      var firstBrace = jsonText.indexOf("{");
-      var lastBrace = jsonText.lastIndexOf("}");
-      if (firstBrace >= 0 && lastBrace > firstBrace) {
-        jsonText = jsonText.slice(firstBrace, lastBrace + 1);
-      }
+    if (markerMatch || jsonText.charAt(0) === "{") {
+      return parseJsonPayload(jsonText);
     }
-    if (!jsonText) {
-      throw new Error("Cole uma mensagem ou um bloco JSON para importar.");
+    var firstBrace = jsonText.indexOf("{");
+    var lastBrace = jsonText.lastIndexOf("}");
+    if (firstBrace >= 0 && lastBrace > firstBrace) {
+      return parseJsonPayload(jsonText.slice(firstBrace, lastBrace + 1));
     }
+    return parseParameterYaml(source);
+  }
+
+  function parseJsonPayload(jsonText) {
     var payload;
     try {
       payload = JSON.parse(jsonText);
     } catch (error) {
-      throw new Error("Não consegui ler o bloco de dados. Copie a mensagem completa novamente.");
+      throw new Error("Não consegui ler os dados. Copie a mensagem completa novamente.");
+    }
+    validatePayload(payload);
+    return payload;
+  }
+
+  function parseYamlValue(value) {
+    var normalized = String(value || "").trim();
+    if (normalized.charAt(0) === '"') {
+      try {
+        return JSON.parse(normalized);
+      } catch (error) {
+        throw new Error("Um texto entre aspas no YAML está incompleto.");
+      }
+    }
+    return normalized.replace(/\s+#.*$/, "").trim();
+  }
+
+  function parseParameterYaml(source) {
+    var fields = {};
+    source.split(/\r?\n/).forEach(function (line) {
+      var match = line.match(/^\s*([a-z_]+):\s*(.*?)\s*$/i);
+      if (match) {
+        fields[match[1]] = parseYamlValue(match[2]);
+      }
+    });
+
+    function yamlNumber(name, minimum) {
+      if (!Object.prototype.hasOwnProperty.call(fields, name)) {
+        throw new Error("O parâmetro '" + name + "' está ausente.");
+      }
+      var value = Number(String(fields[name]).replace(",", "."));
+      if (!Number.isFinite(value) || value < minimum) {
+        throw new Error("O parâmetro '" + name + "' precisa ser um número válido.");
+      }
+      return value;
+    }
+
+    if (Number(fields.versao) !== PAYLOAD_VERSION) {
+      throw new Error("Esta versão dos parâmetros não é compatível com a página.");
+    }
+    if (!fields.impressora_id || !fields.filamento_id) {
+      throw new Error("Os parâmetros precisam informar a impressora e o filamento selecionados.");
+    }
+    var payload = {
+      type: PAYLOAD_TYPE,
+      schemaVersion: PAYLOAD_VERSION,
+      selection: {
+        printerId: String(fields.impressora_id),
+        materialId: String(fields.filamento_id)
+      },
+      job: {
+        hours: yamlNumber("horas", 0),
+        minutes: yamlNumber("minutos", 0),
+        filamentGrams: yamlNumber("filamento_g", 0),
+        quantity: yamlNumber("pecas", 1)
+      }
+    };
+    if (payload.selection.materialId === CUSTOM_MATERIAL_ID) {
+      payload.customFilamentPriceBRL = yamlNumber("preco_rolo_customizado_brl", 0);
     }
     validatePayload(payload);
     return payload;
@@ -531,19 +774,34 @@
     if (!payload || payload.type !== PAYLOAD_TYPE) {
       throw new Error("Este texto não parece ser uma simulação deste aplicativo.");
     }
+    if (payload.schemaVersion === 1) {
+      if (!payload.job || !payload.configSnapshot || !payload.configSnapshot.printer ||
+        !payload.configSnapshot.material || !payload.configSnapshot.expenses ||
+        !payload.configSnapshot.settings || !payload.estimate) {
+        throw new Error("A simulação anterior está incompleta e não pode ser conferida.");
+      }
+      ["costTotal", "priceTotal", "pricePerPiece"].forEach(function (key) {
+        if (!Number.isFinite(Number(payload.estimate[key]))) {
+          throw new Error("A simulação anterior não contém um resultado válido.");
+        }
+      });
+      return;
+    }
     if (payload.schemaVersion !== PAYLOAD_VERSION) {
-      throw new Error("A versão desta simulação não é compatível com esta página.");
+      throw new Error("A versão destes parâmetros não é compatível com esta página.");
     }
-    if (!payload.job || !payload.configSnapshot || !payload.configSnapshot.printer ||
-      !payload.configSnapshot.material || !payload.configSnapshot.expenses ||
-      !payload.configSnapshot.settings || !payload.estimate) {
-      throw new Error("A simulação está incompleta e não pode ser conferida.");
+    if (!payload.selection || !payload.selection.printerId || !payload.selection.materialId || !payload.job) {
+      throw new Error("Os parâmetros estão incompletos e não podem ser importados.");
     }
-    ["costTotal", "priceTotal", "pricePerPiece"].forEach(function (key) {
-      if (!Number.isFinite(Number(payload.estimate[key]))) {
-        throw new Error("A simulação não contém um resultado válido.");
+    ["hours", "minutes", "filamentGrams", "quantity"].forEach(function (key) {
+      if (!Number.isFinite(Number(payload.job[key]))) {
+        throw new Error("Os parâmetros não contêm um valor válido para '" + key + "'.");
       }
     });
+    if (payload.selection.materialId === CUSTOM_MATERIAL_ID &&
+      !Number.isFinite(Number(payload.customFilamentPriceBRL))) {
+      throw new Error("O filamento Custom precisa incluir o preço do rolo.");
+    }
   }
 
   function valuesMatch(first, second) {
@@ -612,10 +870,12 @@
     body.appendChild(explanation);
   }
 
+  /* Legacy JSON simulations include a full configuration snapshot. */
   function importSimulationText(text) {
     var status = $("import-status");
     try {
       var payload = extractImportPayload(text);
+      var isLegacyPayload = payload.schemaVersion === 1;
       state.importedPayload = payload;
       setJobForm(payload.job);
       if (payload.selection && state.configs.printers.some(function (item) { return item.id === payload.selection.printerId; })) {
@@ -624,16 +884,20 @@
       if (payload.selection && state.configs.materials.some(function (item) { return item.id === payload.selection.materialId; })) {
         $("filament-select").value = payload.selection.materialId;
         if (payload.selection.materialId === CUSTOM_MATERIAL_ID) {
-          $("custom-filament-price-input").value = numberOr(
-            payload.configSnapshot.material.spoolPriceBRL,
-            0
-          );
+          $("custom-filament-price-input").value = String(isLegacyPayload
+            ? numberOr(payload.configSnapshot.material.spoolPriceBRL, 0)
+            : numberOr(payload.customFilamentPriceBRL, 0));
         }
       }
       renderEstimate();
-      renderVerification(payload);
-      $("verification-panel").scrollIntoView({ block: "nearest" });
-      setActionStatus(status, "Simulação importada e conferida abaixo.", "success");
+      if (isLegacyPayload) {
+        renderVerification(payload);
+        $("verification-panel").scrollIntoView({ block: "nearest" });
+        setActionStatus(status, "Simulação anterior importada e conferida abaixo.", "success");
+      } else {
+        $("verification-panel").hidden = true;
+        setActionStatus(status, "Parâmetros importados. O valor foi recalculado com as configurações atuais.", "success");
+      }
     } catch (error) {
       $("verification-panel").hidden = true;
       setActionStatus(status, error.message, "error");
@@ -666,9 +930,11 @@
       quantity: defaults.quantity
     });
     $("import-textarea").value = "";
+    $("sliced-file-input").value = "";
     $("verification-panel").hidden = true;
     setActionStatus($("copy-status"), "", "");
     setActionStatus($("import-status"), "", "");
+    setActionStatus($("sliced-file-status"), "", "");
     state.importedPayload = null;
     renderEstimate();
   }
@@ -709,6 +975,7 @@
       element.addEventListener("input", renderEstimate);
       element.addEventListener("change", renderEstimate);
     });
+    $("sliced-file-input").addEventListener("change", importSlicedFile);
     $("copy-button").addEventListener("click", copySimulation);
     $("import-focus-button").addEventListener("click", function () {
       $("import-panel").open = true;
@@ -744,6 +1011,8 @@
     calculateEstimate: calculateEstimate,
     buildPayload: buildPayload,
     extractImportPayload: extractImportPayload,
+    parseSlicedGcode: parseSlicedGcode,
+    readSlicedBambuArchive: readSlicedBambuArchive,
     getState: function () { return state; }
   };
 
