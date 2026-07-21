@@ -39,7 +39,7 @@ Todos os valores ficam em `config.js`:
 
 - `printers`: preço, consumo, vida útil e reserva de manutenção.
 - `materials`: preço e peso dos rolos.
-- `expenses`: energia, taxa de falhas, consumíveis e mão de obra opcional.
+- `expenses`: energia, taxa de falhas e consumíveis.
 - `settings`: margem do serviço e valores iniciais do formulário.
 
 Os arquivos são públicos quando o projeto está no GitHub Pages. Não coloque
@@ -54,3 +54,6 @@ informações pessoais neles.
 - Valor total = custo total / (1 − margem do serviço).
 
 A margem inicial do serviço é 20% sobre o valor total.
+
+O filamento `Custom` permite informar no formulário o preço, em R$, de um rolo
+de 1 kg.

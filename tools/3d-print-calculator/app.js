@@ -2,9 +2,11 @@
   "use strict";
 
   var APP_NAME = "Simulador de custo de impressão 3D";
-  var APP_VERSION = "1.0.0";
+  var APP_VERSION = "1.1.0";
   var PAYLOAD_TYPE = "3d-print-cost-simulation";
   var PAYLOAD_VERSION = 1;
+  var CUSTOM_MATERIAL_ID = "custom";
+  var activeCostTooltip = null;
   var state = {
     configs: null,
     lastEstimate: null,
@@ -26,6 +28,20 @@
 
   function nonNegative(value, fallback) {
     return Math.max(0, numberOr(value, fallback));
+  }
+
+  function currencyInputValue(value, fallback) {
+    var normalized = String(value == null ? "" : value)
+      .trim()
+      .replace(/\s/g, "")
+      .replace(/^R\$/i, "");
+    if (!normalized) {
+      return fallback;
+    }
+    if (normalized.indexOf(",") !== -1) {
+      normalized = normalized.replace(/\./g, "").replace(",", ".");
+    }
+    return nonNegative(normalized, fallback);
   }
 
   function clamp(value, min, max) {
@@ -81,11 +97,6 @@
     var printHours = hours + minutes / 60;
     var filamentGrams = nonNegative(job.filamentGrams, 0);
     var quantity = Math.max(1, Math.floor(nonNegative(job.quantity, 1)));
-    var setupMinutes = nonNegative(
-      job.setupMinutes,
-      expenses.labor && expenses.labor.defaultSetupMinutes
-    );
-
     var spoolWeightKg = Math.max(0.000001, nonNegative(material.spoolWeightKg, 1));
     var materialCostPerKg = nonNegative(material.spoolPriceBRL, 0) / spoolWeightKg;
     var materialCost = (filamentGrams / 1000) * materialCostPerKg;
@@ -115,18 +126,7 @@
       : 0;
     var consumablesCost = nonNegative(expenses.consumablesPerJobBRL, 0);
 
-    var labor = expenses.labor || {};
-    var overhead = expenses.fixedOverhead || {};
-    var overheadHourlyRate = overhead.enabled
-      ? nonNegative(overhead.monthlyBRL, 0) /
-        Math.max(0.000001, nonNegative(overhead.productiveHoursPerMonth, 1))
-      : 0;
-    var laborHourlyRate = labor.enabled
-      ? nonNegative(labor.baseHourlyRateBRL, 0) + overheadHourlyRate
-      : 0;
-    var laborCost = (setupMinutes / 60) * laborHourlyRate;
-
-    var costTotal = directCost + failureAllowance + consumablesCost + laborCost;
+    var costTotal = directCost + failureAllowance + consumablesCost;
     var profitMargin = clamp(nonNegative(settings.profitMargin, 0), 0, 0.99);
     var priceTotal = costTotal / (1 - profitMargin);
     var serviceValue = priceTotal - costTotal;
@@ -136,23 +136,61 @@
       printHours: printHours,
       materialCostPerKg: materialCostPerKg,
       machineHourlyRate: machineHourlyRate,
-      overheadHourlyRate: overheadHourlyRate,
       failureRate: failureRate,
       profitMargin: profitMargin,
       quantity: quantity,
-      setupMinutes: setupMinutes,
       directCost: directCost,
       costTotal: costTotal,
       serviceValue: serviceValue,
       priceTotal: priceTotal,
       pricePerPiece: pricePerPiece,
       breakdown: [
-        { key: "material", label: "Filamento", cost: materialCost },
-        { key: "machine", label: "Reserva da impressora", cost: machineCost },
-        { key: "electricity", label: "Energia elétrica", cost: electricityCost },
-        { key: "failure", label: "Reserva de falhas", cost: failureAllowance },
-        { key: "consumables", label: "Consumíveis", cost: consumablesCost },
-        { key: "labor", label: "Tempo de serviço", cost: laborCost }
+        {
+          key: "material",
+          label: "Filamento",
+          cost: materialCost,
+          description: "Custo do plástico usado: " +
+            formatNumber(filamentGrams, 1) + " g × " +
+            formatCurrency(materialCostPerKg) + "/kg."
+        },
+        {
+          key: "machine",
+          label: "Reserva da impressora",
+          cost: machineCost,
+          description: "Custo de uso, desgaste e manutenção futura da impressora: " +
+            formatDuration(hours, minutes) + " × " +
+            formatCurrency(machineHourlyRate) + "/h. A taxa por hora dilui o preço da máquina e a reserva de manutenção pela vida útil configurada."
+        },
+        {
+          key: "electricity",
+          label: "Energia elétrica",
+          cost: electricityCost,
+          description: "Custo da energia durante a impressão: " +
+            formatDuration(hours, minutes) + " × " +
+            formatNumber(powerKw, 2) + " kW × " +
+            formatCurrency(electricityRate) + "/kWh."
+        },
+        {
+          key: "failure",
+          label: "Reserva de falhas",
+          cost: failureAllowance,
+          description: "Reserva para cobrir material, energia e uso da máquina perdidos em impressões que falham. A taxa configurada é " +
+            formatPercent(failureRate) + " e é aplicada ao custo direto de " +
+            formatCurrency(directCost) + "."
+        },
+        {
+          key: "consumables",
+          label: "Consumíveis",
+          cost: consumablesCost,
+          description: "Valor fixo por trabalho para itens como cola, fita, limpeza ou desgaste de peças. O valor atual é definido no config.js."
+        },
+        {
+          key: "service",
+          label: "Valor do serviço",
+          cost: serviceValue,
+          description: "Margem da operação, não mão de obra. É a diferença entre os custos e o preço sugerido, calculada com a margem de " +
+            formatPercent(profitMargin) + " configurada para o serviço."
+        }
       ]
     };
   }
@@ -162,8 +200,7 @@
       hours: nonNegative($("hours-input").value, 0),
       minutes: nonNegative($("minutes-input").value, 0),
       filamentGrams: nonNegative($("grams-input").value, 0),
-      quantity: Math.max(1, Math.floor(nonNegative($("quantity-input").value, 1))),
-      setupMinutes: nonNegative($("setup-minutes-input").value, 0)
+      quantity: Math.max(1, Math.floor(nonNegative($("quantity-input").value, 1)))
     };
   }
 
@@ -172,7 +209,6 @@
     $("minutes-input").value = numberOr(job.minutes, 0);
     $("grams-input").value = numberOr(job.filamentGrams, 0);
     $("quantity-input").value = Math.max(1, Math.floor(numberOr(job.quantity, 1)));
-    $("setup-minutes-input").value = numberOr(job.setupMinutes, 0);
   }
 
   function selectedItem(collection, id) {
@@ -195,6 +231,31 @@
     select.disabled = items.length === 0;
   }
 
+  function isCustomMaterial(material) {
+    return material && material.id === CUSTOM_MATERIAL_ID;
+  }
+
+  function selectedMaterial() {
+    var material = selectedItem(state.configs.materials, $("filament-select").value);
+    if (!isCustomMaterial(material)) {
+      return material;
+    }
+    var customMaterial = clone(material);
+    customMaterial.spoolPriceBRL = currencyInputValue(
+      $("custom-filament-price-input").value,
+      0
+    );
+    return customMaterial;
+  }
+
+  function updateCustomFilamentPriceField(material) {
+    var isCustom = isCustomMaterial(material);
+    var field = $("custom-filament-price-field");
+    var input = $("custom-filament-price-input");
+    field.hidden = !isCustom;
+    input.required = isCustom;
+  }
+
   function updateFieldNotes(printer, material) {
     if (printer) {
       $("printer-note").textContent =
@@ -204,6 +265,10 @@
         " kW médio";
     }
     if (material) {
+      if (isCustomMaterial(material) && !$("custom-filament-price-input").value.trim()) {
+        $("filament-note").textContent = "Informe o preço do rolo de 1 kg abaixo.";
+        return;
+      }
       $("filament-note").textContent =
         formatCurrency(material.spoolPriceBRL) +
         " por " +
@@ -214,21 +279,40 @@
     }
   }
 
-  function updateLaborNote() {
-    var labor = state.configs && state.configs.expenses.labor;
-    var overhead = state.configs && state.configs.expenses.fixedOverhead;
-    if (!labor || !labor.enabled) {
-      $("labor-note").textContent =
-        "A mão de obra está desativada no config.js; este campo não entra no preço.";
+  function closeCostTooltip(restoreFocus) {
+    if (!activeCostTooltip) {
       return;
     }
-    var rate = nonNegative(labor.baseHourlyRateBRL, 0);
-    if (overhead && overhead.enabled) {
-      rate += nonNegative(overhead.monthlyBRL, 0) /
-        Math.max(0.000001, nonNegative(overhead.productiveHoursPerMonth, 1));
+    activeCostTooltip.panel.hidden = true;
+    activeCostTooltip.button.setAttribute("aria-expanded", "false");
+    if (restoreFocus) {
+      activeCostTooltip.button.focus();
     }
-    $("labor-note").textContent =
-      formatCurrency(rate) + "/h será aplicado ao tempo informado acima.";
+    activeCostTooltip = null;
+  }
+
+  function toggleCostTooltip(button, panel, row) {
+    if (activeCostTooltip && activeCostTooltip.button === button) {
+      closeCostTooltip(false);
+      return;
+    }
+    closeCostTooltip(false);
+    panel.hidden = false;
+    button.setAttribute("aria-expanded", "true");
+    activeCostTooltip = { button: button, panel: panel, row: row };
+  }
+
+  function initializeCostTooltipDismissal() {
+    document.addEventListener("click", function (event) {
+      if (activeCostTooltip && !activeCostTooltip.row.contains(event.target)) {
+        closeCostTooltip(false);
+      }
+    });
+    document.addEventListener("keydown", function (event) {
+      if (event.key === "Escape" && activeCostTooltip) {
+        closeCostTooltip(true);
+      }
+    });
   }
 
   function renderEstimate() {
@@ -236,7 +320,9 @@
       return;
     }
     var printer = selectedItem(state.configs.printers, $("printer-select").value);
-    var material = selectedItem(state.configs.materials, $("filament-select").value);
+    var configuredMaterial = selectedItem(state.configs.materials, $("filament-select").value);
+    updateCustomFilamentPriceField(configuredMaterial);
+    var material = selectedMaterial();
     if (!printer || !material) {
       return;
     }
@@ -261,31 +347,41 @@
     updateFieldNotes(printer, material);
     $("result-total").textContent = formatCurrency(estimate.priceTotal);
     $("result-per-piece").textContent = formatCurrency(estimate.pricePerPiece);
-    $("cost-total").textContent = formatCurrency(estimate.costTotal);
-    $("service-value").textContent = formatCurrency(estimate.serviceValue);
     $("result-duration").textContent = formatDuration(job.hours, job.minutes);
 
     var breakdown = $("breakdown-list");
+    closeCostTooltip(false);
     breakdown.replaceChildren();
-    estimate.breakdown.forEach(function (line) {
+    estimate.breakdown.forEach(function (line, index) {
       var row = document.createElement("div");
       row.className = "breakdown-row";
       var label = document.createElement("dt");
-      label.textContent = line.label;
+      var labelText = document.createElement("span");
+      labelText.textContent = line.label;
+      var tooltipButton = document.createElement("button");
+      var tooltipId = "cost-tooltip-" + line.key + "-" + index;
+      tooltipButton.type = "button";
+      tooltipButton.className = "info-tooltip";
+      tooltipButton.textContent = "i";
+      tooltipButton.setAttribute("aria-label", "Mostrar explicação de " + line.label);
+      tooltipButton.setAttribute("aria-controls", tooltipId);
+      tooltipButton.setAttribute("aria-expanded", "false");
       var value = document.createElement("dd");
       value.textContent = formatCurrency(line.cost);
-      row.append(label, value);
+      var tooltipPanel = document.createElement("span");
+      tooltipPanel.id = tooltipId;
+      tooltipPanel.className = "cost-tooltip";
+      tooltipPanel.setAttribute("role", "tooltip");
+      tooltipPanel.textContent = line.description;
+      tooltipPanel.hidden = true;
+      tooltipButton.addEventListener("click", function (event) {
+        event.stopPropagation();
+        toggleCostTooltip(tooltipButton, tooltipPanel, row);
+      });
+      label.append(labelText, tooltipButton);
+      row.append(label, value, tooltipPanel);
       breakdown.appendChild(row);
     });
-    var totalRow = document.createElement("div");
-    totalRow.className = "breakdown-row total-row";
-    var totalLabel = document.createElement("dt");
-    totalLabel.textContent = "Custo total";
-    var totalValue = document.createElement("dd");
-    totalValue.textContent = formatCurrency(estimate.costTotal);
-    totalRow.append(totalLabel, totalValue);
-    breakdown.appendChild(totalRow);
-
     var assumptions = $("assumptions-text");
     assumptions.replaceChildren();
     [
@@ -350,8 +446,6 @@
       "Energia elétrica: " + formatCurrency(estimate.breakdown[2].cost),
       "Reserva de falhas: " + formatCurrency(estimate.breakdown[3].cost),
       "Consumíveis: " + formatCurrency(estimate.breakdown[4].cost),
-      "Tempo de serviço: " + formatCurrency(estimate.breakdown[5].cost),
-      "Custo total: " + formatCurrency(estimate.costTotal),
       "Valor do serviço: " + formatCurrency(estimate.serviceValue),
       "Margem do serviço: " + formatPercent(estimate.profitMargin),
       "",
@@ -529,6 +623,12 @@
       }
       if (payload.selection && state.configs.materials.some(function (item) { return item.id === payload.selection.materialId; })) {
         $("filament-select").value = payload.selection.materialId;
+        if (payload.selection.materialId === CUSTOM_MATERIAL_ID) {
+          $("custom-filament-price-input").value = numberOr(
+            payload.configSnapshot.material.spoolPriceBRL,
+            0
+          );
+        }
       }
       renderEstimate();
       renderVerification(payload);
@@ -563,8 +663,7 @@
       hours: defaults.hours,
       minutes: defaults.minutes,
       filamentGrams: defaults.filamentGrams,
-      quantity: defaults.quantity,
-      setupMinutes: state.configs.expenses.labor && state.configs.expenses.labor.defaultSetupMinutes
+      quantity: defaults.quantity
     });
     $("import-textarea").value = "";
     $("verification-panel").hidden = true;
@@ -603,9 +702,9 @@
       hours: defaults.hours,
       minutes: defaults.minutes,
       filamentGrams: defaults.filamentGrams,
-      quantity: defaults.quantity,
-      setupMinutes: configs.expenses.labor && configs.expenses.labor.defaultSetupMinutes
+      quantity: defaults.quantity
     });
+    initializeCostTooltipDismissal();
     $("simulator-form").querySelectorAll("input, select").forEach(function (element) {
       element.addEventListener("input", renderEstimate);
       element.addEventListener("change", renderEstimate);
@@ -621,7 +720,6 @@
       importSimulationText($("import-textarea").value);
     });
     $("paste-import-button").addEventListener("click", pasteAndImport);
-    updateLaborNote();
     renderEstimate();
   }
 

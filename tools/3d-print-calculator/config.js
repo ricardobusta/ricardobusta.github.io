@@ -33,6 +33,15 @@ window.COST_SIMULATOR_CONFIG = {
       spoolWeightKg: 1,
       notes: "Valor inicial da planilha fornecida.",
       source: "Planilha fornecida pelo usuário"
+    },
+    {
+      id: "custom",
+      name: "Custom",
+      material: "Custom",
+      spoolPriceBRL: 0,
+      spoolWeightKg: 1,
+      notes: "Informe o preço do rolo de 1 kg no formulário.",
+      source: "Valor informado no formulário"
     }
   ],
   expenses: {
@@ -44,17 +53,7 @@ window.COST_SIMULATOR_CONFIG = {
       source: "https://www.enel.com.br/pt-ceara/Tarifas_Enel/"
     },
     failureRate: 0.15,
-    consumablesPerJobBRL: 0,
-    labor: {
-      enabled: false,
-      baseHourlyRateBRL: 0,
-      defaultSetupMinutes: 0
-    },
-    fixedOverhead: {
-      enabled: false,
-      monthlyBRL: 0,
-      productiveHoursPerMonth: 149.6
-    }
+    consumablesPerJobBRL: 0
   },
   settings: {
     profitMargin: 0.2,

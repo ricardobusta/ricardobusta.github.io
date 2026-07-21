@@ -1,3 +1,6 @@
+---
+
+---
 <!doctype html>
 <html lang="pt-BR">
   <head>
@@ -27,7 +30,7 @@
           </div>
 
           <form id="simulator-form">
-            <div class="field-stack">
+            <div class="field-stack selection-fields">
               <div class="field">
                 <label for="printer-select">Impressora</label>
                 <select id="printer-select" name="printer" disabled required>
@@ -42,6 +45,20 @@
                   <option>Carregando...</option>
                 </select>
                 <p id="filament-note" class="field-help"></p>
+                <div id="custom-filament-price-field" class="custom-filament-price" hidden>
+                  <label for="custom-filament-price-input">Preço do rolo (R$)</label>
+                  <input
+                    id="custom-filament-price-input"
+                    name="customFilamentPrice"
+                    type="text"
+                    inputmode="decimal"
+                    placeholder="Ex.: 99,90"
+                    aria-describedby="custom-filament-price-note"
+                  />
+                  <p id="custom-filament-price-note" class="field-help">
+                    Informe o preço de um rolo de 1 kg.
+                  </p>
+                </div>
               </div>
             </div>
 
@@ -52,7 +69,7 @@
               <p class="section-caption">Use os valores do Bambu Studio.</p>
             </div>
 
-            <div class="field-stack">
+            <div class="field-stack object-fields">
               <div class="field">
                 <label for="hours-input">Horas</label>
                 <input id="hours-input" name="hours" type="number" min="0" max="999" step="1" inputmode="numeric" required />
@@ -70,17 +87,6 @@
                 <input id="quantity-input" name="quantity" type="number" min="1" step="1" inputmode="numeric" required />
               </div>
             </div>
-
-            <details class="optional-settings">
-              <summary>Tempo de serviço opcional</summary>
-              <div class="optional-content">
-                <div class="field compact-field">
-                  <label for="setup-minutes-input">Preparação e acabamento (min)</label>
-                  <input id="setup-minutes-input" name="setupMinutes" type="number" min="0" step="1" inputmode="numeric" />
-                </div>
-                <p id="labor-note" class="field-help"></p>
-              </div>
-            </details>
 
           </form>
         </section>
@@ -101,16 +107,8 @@
 
           <div class="result-meta">
             <div>
-              <span class="meta-label">Custo total</span>
-              <strong id="cost-total">R$ 0,00</strong>
-            </div>
-            <div>
               <span class="meta-label">Tempo de máquina</span>
               <strong id="result-duration">0h 00min</strong>
-            </div>
-            <div>
-              <span class="meta-label">Valor do serviço</span>
-              <strong id="service-value">R$ 0,00</strong>
             </div>
           </div>
 

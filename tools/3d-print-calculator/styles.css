@@ -81,11 +81,11 @@ code {
 .page-shell {
   width: min(760px, calc(100% - 32px));
   margin: 0 auto;
-  padding: 40px 0 48px;
+  padding: 32px 0 40px;
 }
 
 .site-header {
-  margin-bottom: 24px;
+  margin-bottom: 18px;
 }
 
 h1,
@@ -144,7 +144,7 @@ h3 {
 
 .calculator-panel,
 .result-panel {
-  padding: clamp(20px, 4vw, 30px);
+  padding: clamp(16px, 3vw, 24px);
 }
 
 .panel-heading,
@@ -157,7 +157,7 @@ h3 {
 }
 
 .panel-heading {
-  margin-bottom: 24px;
+  margin-bottom: 18px;
 }
 
 .result-heading {
@@ -166,7 +166,15 @@ h3 {
 
 .field-stack {
   display: grid;
-  gap: 16px;
+  gap: 12px;
+}
+
+.selection-fields {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.object-fields {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 
 .field {
@@ -175,7 +183,7 @@ h3 {
 
 .field label {
   display: block;
-  margin-bottom: 7px;
+  margin-bottom: 5px;
   color: var(--ink);
   font-size: 0.84rem;
   font-weight: 750;
@@ -193,7 +201,7 @@ textarea {
 
 .field input,
 .field select {
-  min-height: 45px;
+  min-height: 41px;
   padding: 0 12px;
 }
 
@@ -216,12 +224,12 @@ textarea:focus {
 
 .field-help {
   min-height: 1.1em;
-  margin: 7px 0 0;
+  margin: 5px 0 0;
 }
 
 .form-divider {
   height: 1px;
-  margin: 27px 0 23px;
+  margin: 18px 0 16px;
   background: var(--line);
 }
 
@@ -235,17 +243,15 @@ textarea:focus {
   text-align: right;
 }
 
-.optional-settings,
 .assumptions-details {
   border-top: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
 }
 
-.optional-settings {
-  margin-top: 21px;
+.custom-filament-price {
+  margin-top: 10px;
 }
 
-.optional-settings summary,
 .assumptions-details summary,
 .import-panel > summary {
   padding: 14px 0;
@@ -254,22 +260,6 @@ textarea:focus {
   font-size: 0.84rem;
   font-weight: 750;
   list-style-position: inside;
-}
-
-.optional-content {
-  display: flex;
-  align-items: flex-end;
-  gap: 16px;
-  padding: 0 0 16px 22px;
-}
-
-.compact-field {
-  max-width: 250px;
-}
-
-.optional-content .field-help {
-  max-width: 330px;
-  margin-bottom: 10px;
 }
 
 .action-row {
@@ -385,9 +375,9 @@ textarea:focus {
 
 .result-meta {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: 1fr;
   gap: 12px;
-  margin: 14px 0 26px;
+  margin: 14px 0 20px;
 }
 
 .result-meta > div {
@@ -420,6 +410,7 @@ textarea:focus {
 }
 
 .breakdown-row {
+  position: relative;
   display: flex;
   align-items: baseline;
   justify-content: space-between;
@@ -430,6 +421,9 @@ textarea:focus {
 }
 
 .breakdown-row dt {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   color: var(--muted);
 }
 
@@ -440,15 +434,46 @@ textarea:focus {
   white-space: nowrap;
 }
 
-.breakdown-row.total-row {
+.breakdown-row:last-child {
   border-bottom: 0;
-  color: var(--navy);
-  font-weight: 850;
 }
 
-.breakdown-row.total-row dt,
-.breakdown-row.total-row dd {
-  color: var(--navy);
+.info-tooltip {
+  display: inline-grid;
+  width: 17px;
+  height: 17px;
+  padding: 0;
+  place-items: center;
+  border: 1px solid var(--line-strong);
+  border-radius: 50%;
+  color: var(--blue);
+  background: #fff;
+  font-size: 0.68rem;
+  font-weight: 850;
+  line-height: 1;
+}
+
+.info-tooltip:hover {
+  border-color: var(--blue);
+  background: var(--blue-soft);
+  transform: none;
+}
+
+.cost-tooltip {
+  position: absolute;
+  z-index: 2;
+  top: calc(100% - 3px);
+  right: 0;
+  width: min(340px, calc(100vw - 48px));
+  padding: 10px 12px;
+  border: 1px solid var(--line-strong);
+  border-radius: 9px;
+  color: var(--ink);
+  background: #fff;
+  box-shadow: 0 8px 20px rgba(19, 45, 74, 0.14);
+  font-size: 0.78rem;
+  font-weight: 500;
+  line-height: 1.45;
 }
 
 .assumptions-details {
@@ -592,12 +617,9 @@ textarea {
     display: none;
   }
 
-  .optional-content {
-    display: block;
-  }
-
-  .optional-content .field-help {
-    margin-top: 12px;
+  .selection-fields,
+  .object-fields {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .result-hero {
