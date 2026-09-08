@@ -31,7 +31,9 @@ main_sections:
         location: "Remote, Contractor"
         period: "2025 - present"
         bullets:
-          - "Develop multiple game prototypes in a small team for Google Play and Apple Arcade."
+          - "Build and iterate mobile game prototypes for Google Play at a high cadence within a small team."
+          - "Drive adoption of GPT Codex to accelerate prototyping and the development of internal tools, including level editors."
+          - "Support pre-production for a major Apple Arcade title."
       - title: "Senior Software Engineer | Wooga"
         location: "Berlin, Germany"
         period: "2020 – 2025"
@@ -100,6 +102,7 @@ side_sections:
       - "SDK Integration"
       - "Jenkins"
       - "JIRA"
+      - "GPT Codex"
 
   - title: "Additional Tools"
     kind: "tags"
