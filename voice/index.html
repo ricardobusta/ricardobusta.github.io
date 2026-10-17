@@ -1,0 +1,326 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sintetizador de vogais — busta.dev</title>
+  <style>
+    :root { font-family: system-ui, sans-serif; color: #222; background: #faf9f6; }
+    * { box-sizing: border-box; }
+    body { margin: 0; line-height: 1.5; }
+    main { max-width: 760px; margin: auto; padding: 36px 20px 60px; }
+    h1 { font-size: 2rem; margin: 0 0 30px; }
+    label { display: block; font-weight: 600; margin-bottom: 6px; }
+    textarea, select, button { font: inherit; }
+    textarea, select { width: 100%; border: 1px solid #999; border-radius: 4px; background: #fff; color: #222; }
+    textarea { min-height: 150px; padding: 12px; resize: vertical; }
+    select { padding: 8px; }
+    button { border: 1px solid #555; border-radius: 4px; padding: 8px 14px; background: #fff; color: #222; cursor: pointer; }
+    button:hover:not(:disabled) { background: #eee; }
+    button:disabled { opacity: .45; cursor: default; }
+    button:focus-visible, textarea:focus-visible, select:focus-visible, input:focus-visible { outline: 2px solid #246e9b; outline-offset: 2px; }
+    #play { background: #222; color: #fff; }
+    #play:hover { background: #444; }
+    .status { color: #666; font-size: .85rem; }
+    .controls { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin: 18px 0; }
+    .output { min-height: 110px; padding: 12px; border: 1px solid #ccc; background: #fff; white-space: pre-wrap; overflow-wrap: anywhere; font-size: 1.25rem; }
+    .current { background: #dceaf2; }
+    .settings { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px 28px; margin: 24px 0 32px; }
+    .setting label { display: flex; justify-content: space-between; gap: 10px; }
+    output { color: #555; font-size: .85rem; font-weight: normal; font-variant-numeric: tabular-nums; white-space: nowrap; }
+    input[type="range"] { width: 100%; margin: 0; accent-color: #333; }
+    .phonemes { display: flex; flex-wrap: wrap; gap: 8px; margin: 8px 0; }
+    .phoneme { min-width: 54px; }
+    .output + label { margin-top: 28px; }
+    @media (max-width: 560px) { .settings { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Sintetizador de vogais</h1>
+    <label for="text">Texto</label>
+    <textarea id="text" spellcheck="true">Quem roubou a roupa do rei de roma? Enquanto o pinto pia, a pia pinga. Três pratos de trigo para três tigres tristes.</textarea>
+    <div class="controls">
+      <button id="play" type="button">Reproduzir</button>
+      <button id="stop" type="button" disabled>Parar</button>
+      <span id="status" class="status" role="status" aria-live="polite">Pronto para ouvir</span>
+    </div>
+    <div id="output" class="output" aria-label="Texto sendo reproduzido" aria-live="off"></div>
+
+    <label for="preset">Voz</label>
+    <select id="preset">
+      <option value="young-woman">Feminina · jovem</option>
+      <option value="older-woman">Feminina · madura</option>
+      <option value="young-man">Masculina · jovem</option>
+      <option value="older-man">Masculina · madura</option>
+      <option value="custom">Personalizada</option>
+    </select>
+    <div class="settings">
+      <div class="setting"><label for="character-delay">Tempo por letra <output id="character-delay-value" for="character-delay"></output></label><input id="character-delay" type="range" min="20" max="200" value="60" step="5"></div>
+      <div class="setting"><label for="pitch">Altura <output id="pitch-value" for="pitch"></output></label><input id="pitch" type="range" min="85" max="300" value="215" step="1"></div>
+      <div class="setting"><label for="mouth">Tamanho da boca <output id="mouth-value" for="mouth"></output></label><input id="mouth" type="range" min="75" max="135" value="88" step="1"></div>
+      <div class="setting"><label for="breath">Sopro <output id="breath-value" for="breath"></output></label><input id="breath" type="range" min="0" max="35" value="0" step="1"></div>
+      <div class="setting"><label for="nasality">Nasalidade extra <output id="nasality-value" for="nasality"></output></label><input id="nasality" type="range" min="0" max="40" value="8" step="1"></div>
+    </div>
+
+    <div id="oral-phonemes" class="phonemes" role="group" aria-label="Fonemas orais"></div>
+    <div id="nasal-phonemes" class="phonemes" role="group" aria-label="Fonemas nasais"></div>
+  </main>
+  <script>
+    (() => {
+      'use strict';
+      const $ = id => document.getElementById(id);
+      const formants = {
+        i: [290, 2250, 3000], e: [390, 2050, 2700], 'ɛ': [570, 1850, 2600],
+        a: [760, 1350, 2500], 'ɔ': [600, 1000, 2450], o: [450, 900, 2450], u: [310, 800, 2250],
+        'ĩ': [300, 2150, 2900], 'ẽ': [430, 1900, 2600], 'ɐ̃': [600, 1450, 2350],
+        'õ': [480, 950, 2350], 'ũ': [320, 800, 2200]
+      };
+      const oral = ['i', 'e', 'ɛ', 'a', 'ɔ', 'o', 'u'];
+      const nasal = ['ĩ', 'ẽ', 'ɐ̃', 'õ', 'ũ'];
+      const presets = {
+        'young-woman': { pitch: 215, mouth: 88, breath: 0, nasality: 8 },
+        'older-woman': { pitch: 178, mouth: 98, breath: 16, nasality: 12 },
+        'young-man': { pitch: 132, mouth: 114, breath: 5, nasality: 7 },
+        'older-man': { pitch: 104, mouth: 125, breath: 18, nasality: 13 }
+      };
+      const sliders = ['pitch', 'mouth', 'breath', 'nasality'];
+      const textInput = $('text');
+      const output = $('output');
+      const status = $('status');
+      let audioContext;
+      let activeSources = new Set();
+      let generation = 0;
+      let pendingTimer;
+      let pendingResolve;
+      let bufferCache = new Map();
+      let currentTone;
+
+      function values() {
+        return Object.fromEntries(sliders.map(id => [id, Number($(id).value)]));
+      }
+      function updateLabels() {
+        $('character-delay-value').value = `${$('character-delay').value} ms/letra`;
+        $('pitch-value').value = `${$('pitch').value} Hz`;
+        $('mouth-value').value = `${$('mouth').value}%`;
+        $('breath-value').value = `${$('breath').value}%`;
+        $('nasality-value').value = `${$('nasality').value}%`;
+      }
+      function applyPreset(name) {
+        const preset = presets[name];
+        if (!preset) return;
+        for (const id of sliders) $(id).value = preset[id];
+        bufferCache.clear();
+        updateLabels();
+      }
+      $('preset').addEventListener('change', event => applyPreset(event.target.value));
+      $('character-delay').addEventListener('input', updateLabels);
+      for (const id of sliders) $(id).addEventListener('input', () => {
+        $('preset').value = 'custom';
+        bufferCache.clear();
+        updateLabels();
+      });
+      updateLabels();
+
+      function graphemes(text) {
+        if (Intl.Segmenter) return [...new Intl.Segmenter('pt', { granularity: 'grapheme' }).segment(text)].map(item => item.segment);
+        return text.match(/\P{M}\p{M}*|\p{M}+/gu) || [];
+      }
+      function plain(character) {
+        return character.normalize('NFD').replace(/\p{M}/gu, '').toLowerCase();
+      }
+      function isLetter(character) { return /^\p{L}/u.test(character || ''); }
+      function phonemeAt(chars, index) {
+        const raw = chars[index].toLowerCase().normalize('NFC');
+        const next = plain(chars[index + 1] || '');
+        const after = plain(chars[index + 2] || '');
+        const base = plain(raw);
+        if (raw === 'ɛ' || raw === 'ɔ' || raw === 'ĩ' || raw === 'ẽ' || raw === 'ũ' || raw === 'ɐ̃') return raw;
+        if (raw === 'ã') return 'ɐ̃';
+        if (raw === 'õ') return 'õ';
+        if (raw === 'é') return 'ɛ';
+        if (raw === 'ó') return 'ɔ';
+        if (raw === 'ê') return 'e';
+        if (raw === 'ô') return 'o';
+        if (raw === 'í') return 'i';
+        if (raw === 'ú') return 'u';
+        if (raw === 'á' || raw === 'â' || raw === 'à') return 'a';
+        if (!'aeiou'.includes(base) || base.length !== 1) return null;
+        if (next && 'mn'.includes(next) && (!after || !'aeiou'.includes(after))) {
+          return { a: 'ɐ̃', e: 'ẽ', i: 'ĩ', o: 'õ', u: 'ũ' }[base];
+        }
+        const atWordEnd = !isLetter(chars[index + 1]);
+        if (atWordEnd && base === 'e') return 'i';
+        if (atWordEnd && base === 'o') return 'u';
+        return base;
+      }
+      function gaussian(x, center, width) {
+        const distance = (x - center) / width;
+        return Math.exp(-0.5 * distance * distance);
+      }
+      function makeBuffer(phoneme, voice) {
+        const sampleRate = audioContext.sampleRate;
+        const count = Math.round(sampleRate * 32 / voice.pitch);
+        const buffer = audioContext.createBuffer(1, count, sampleRate);
+        const data = buffer.getChannelData(0);
+        const isNasal = nasal.includes(phoneme);
+        const size = 100 / voice.mouth;
+        const peaks = formants[phoneme].map(f => f * size);
+        const fundamental = 32 * sampleRate / count;
+        const harmonics = Math.min(45, Math.floor(3800 / fundamental));
+        const amplitudes = [];
+        const phases = [];
+        const increments = [];
+        const nasalStrength = (isNasal ? 0.58 : 0) + voice.nasality / 100;
+        for (let h = 1; h <= harmonics; h++) {
+          const frequency = h * fundamental;
+          const resonance = 0.03 + 1.35 * gaussian(frequency, peaks[0], 125)
+            + 0.85 * gaussian(frequency, peaks[1], 180)
+            + 0.16 * gaussian(frequency, peaks[2], 240);
+          const nose = 1 + nasalStrength * (0.9 * gaussian(frequency, 260 * size, 125)
+            - 0.65 * gaussian(frequency, 1100 * size, 290));
+          const rollOff = 1 / (1 + Math.pow(frequency / 2600, 4));
+          amplitudes.push(Math.max(0, resonance * nose) * rollOff / Math.pow(h, 1.27));
+          phases.push(0);
+          increments.push(2 * Math.PI * frequency / sampleRate);
+        }
+        let peak = 0;
+        let noiseSeed = 173;
+        let softNoise = 0;
+        for (let i = 0; i < count; i++) {
+          let sample = 0;
+          for (let h = 0; h < harmonics; h++) {
+            sample += Math.sin(phases[h]) * amplitudes[h];
+            phases[h] += increments[h];
+          }
+          noiseSeed = (1664525 * noiseSeed + 1013904223) >>> 0;
+          const noise = (noiseSeed / 4294967296) * 2 - 1;
+          softNoise = 0.7 * softNoise + 0.3 * noise;
+          const noiseEdge = Math.min(1, i / 64, (count - 1 - i) / 64);
+          data[i] = sample + softNoise * voice.breath / 1800 * noiseEdge;
+          peak = Math.max(peak, Math.abs(data[i]));
+        }
+        const gain = 0.38 / Math.max(peak, 0.01);
+        for (let i = 0; i < count; i++) data[i] *= gain;
+        return buffer;
+      }
+      async function readyAudio() {
+        if (!window.AudioContext && !window.webkitAudioContext) throw new Error('Este navegador não oferece Web Audio.');
+        if (!audioContext) audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        if (audioContext.state === 'suspended') await audioContext.resume();
+        return audioContext;
+      }
+      function startTone(phoneme, voice, phaseEpoch = audioContext.currentTime) {
+        const key = `${phoneme}/${voice.pitch}/${voice.mouth}/${voice.breath}/${voice.nasality}`;
+        let buffer = bufferCache.get(key);
+        if (!buffer) {
+          buffer = makeBuffer(phoneme, voice);
+          bufferCache.set(key, buffer);
+        }
+        const source = audioContext.createBufferSource();
+        const gain = audioContext.createGain();
+        const now = audioContext.currentTime;
+        source.buffer = buffer;
+        source.loop = true;
+        gain.gain.setValueAtTime(0, now);
+        gain.gain.linearRampToValueAtTime(1, now + 0.024);
+        source.connect(gain);
+        gain.connect(audioContext.destination);
+        source.onended = () => { activeSources.delete(source); source.disconnect(); gain.disconnect(); };
+        activeSources.add(source);
+        source.start(now, (now - phaseEpoch) % buffer.duration);
+        return { source, gain };
+      }
+      function releaseTone(tone, when = audioContext.currentTime) {
+        if (!tone) return;
+        tone.gain.gain.cancelScheduledValues(when);
+        tone.gain.gain.setValueAtTime(1, when);
+        tone.gain.gain.linearRampToValueAtTime(0, when + 0.024);
+        tone.source.stop(when + 0.03);
+      }
+      function stop() {
+        generation++;
+        clearTimeout(pendingTimer);
+        if (pendingResolve) { pendingResolve(false); pendingResolve = undefined; }
+        for (const source of activeSources) { try { source.stop(); } catch (_) {} }
+        activeSources.clear();
+        currentTone = undefined;
+        $('stop').disabled = true;
+        status.textContent = 'Parado';
+      }
+      function wait(ms, token) {
+        return new Promise(resolve => {
+          pendingResolve = resolve;
+          pendingTimer = setTimeout(() => {
+            pendingResolve = undefined;
+            resolve(token === generation);
+          }, ms);
+        });
+      }
+      async function play() {
+        stop();
+        const token = generation;
+        const chars = graphemes(textInput.value);
+        output.replaceChildren();
+        if (!chars.length) { status.textContent = 'Digite algum texto primeiro'; textInput.focus(); return; }
+        try { await readyAudio(); }
+        catch (error) { status.textContent = error.message; return; }
+        if (token !== generation) return;
+        const voice = values();
+        const characterDelay = Number($('character-delay').value);
+        const phaseEpoch = audioContext.currentTime;
+        $('stop').disabled = false;
+        status.textContent = 'Reproduzindo…';
+        let previous;
+        for (let i = 0; i < chars.length && token === generation; i++) {
+          if (previous) previous.classList.remove('current');
+          const span = document.createElement('span');
+          span.textContent = chars[i];
+          span.className = 'current';
+          output.append(span);
+          previous = span;
+          const phoneme = phonemeAt(chars, i);
+          if (phoneme) {
+            const nextTone = startTone(phoneme, voice, phaseEpoch);
+            releaseTone(currentTone);
+            currentTone = nextTone;
+          } else if (/\s|[,!?;:.]/u.test(chars[i])) {
+            releaseTone(currentTone);
+            currentTone = undefined;
+          }
+          const delay = chars[i] === ',' ? characterDelay * 2
+            : /[.!?]/.test(chars[i]) ? characterDelay * 4 : characterDelay;
+          if (!(await wait(delay, token))) return;
+        }
+        if (token === generation) {
+          releaseTone(currentTone);
+          currentTone = undefined;
+          if (previous) previous.classList.remove('current');
+          $('stop').disabled = true;
+          status.textContent = 'Concluído';
+        }
+      }
+      $('play').addEventListener('click', play);
+      $('stop').addEventListener('click', stop);
+      for (const [container, sounds] of [['oral-phonemes', oral], ['nasal-phonemes', nasal]]) {
+        for (const phoneme of sounds) {
+          const button = document.createElement('button');
+          button.type = 'button';
+          button.className = 'phoneme';
+          button.textContent = `/${phoneme}/`;
+          button.setAttribute('aria-label', `Ouvir fonema ${phoneme}`);
+          button.addEventListener('click', async () => {
+            try {
+              await readyAudio();
+              const tone = startTone(phoneme, values());
+              releaseTone(tone, audioContext.currentTime + 0.35);
+            }
+            catch (error) { status.textContent = error.message; }
+          });
+          $(container).append(button);
+        }
+      }
+    })();
+  </script>
+</body>
+</html>
